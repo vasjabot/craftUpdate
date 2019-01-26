@@ -10,8 +10,11 @@
 */
 
 namespace SimpleXMLNS;
+use CurlNS\CurlRequestor as CurlRequestor;
+use CommonNS\AppConfig as AppConfig;
 
-require_once(__DIR__.'/../Common/Config.php');
+require_once(__DIR__.'/../Common/AppConfig.php');
+require_once(__DIR__.'/../Curl/CurlRequestor.php');
 require_once(__DIR__.'/SimpleXMLsaver.php');
 require_once(__DIR__.'/SimpleXMLloader.php');
 
@@ -20,18 +23,21 @@ require_once(__DIR__.'/SimpleXMLloader.php');
 interface SimpleXMLproviderInterface
 {
     ///return $result_xml///
-    public function loadFileXML($FileName);
+    public function getFileXML();
+    public function requestNewXML();
 }
 
 abstract class AbstractSimpleXMLprovider implements SimpleXMLproviderInterface
 {
     protected $file_name;
     protected $config;
+    protected $DEBUG;
 
-    public function __construct($FileName, $Config)
+    public function __construct($FileName, $Config, $DEBUG=FALSE)
     {
         $this->file_name = $FileName;
-        $this->config = $Config;       
+        $this->config = $Config;
+        $this->DEBUG = $DEBUG;      
     }
 }
 
@@ -39,13 +45,20 @@ class SimpleXMLprovider extends AbstractSimpleXMLprovider
 {
     public function getFileXML()
     {
-        if (file_exists($this->file_name))
+        if ($this->DEBUG == TRUE) 
         {
-            $xml_loaded = simplexml_load_file($this->file_name);
-            return $xml_loaded;
+            $simpleXMLloader = new SimpleXMLloader();
+            $xml_return = $simpleXMLloader->loadFileXML($this->file_name);
+            if ($xml_return == NULL)
+            {
+                $xml_return = $this->requestNewXML();    
+            }
+            return $xml_return;
         }
-        else 
-            return NULL;       
+        else
+        {
+            return $xml_return = $this->requestNewXML();
+        }      
     }
 
 
@@ -56,7 +69,8 @@ class SimpleXMLprovider extends AbstractSimpleXMLprovider
         $result_request = $curlRequestor->getData($url);
 
         $simpleXMLsaver = new SimpleXMLsaver();
-        $xml_prototypes = $simpleXMLsaver->saveFileXML($this->file_name, $result_request);
+        $xml_request = $simpleXMLsaver->saveFileXML($this->file_name, $result_request);
+        return $xml_request;
     }
 
 

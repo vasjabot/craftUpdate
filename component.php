@@ -5,48 +5,54 @@ require_once(__DIR__.'/include.php');
 
 $DEBUG = TRUE;
 
-$config = new Config();
+$config = new CommonNS\AppConfig();
 print_php($config->auth_path_file);
+//$url = $config->getURLbyFileName("prototypes_work.xml");
+$config->getFuckingThisName("prototypes_work.xml");
+//print_php($url);
+
+
+if ($FileName == 'prototypes_work.xml')
+{
+    print_php($config->auth_path_file);
+}
+elseif ($FileName == 'offers_work.xml')
+{
+    print_php($config->auth_path_file);
+}
+elseif ($FileName == 'prices_work.xml')
+{
+    print_php($config->auth_path_file);
+}
+elseif ($FileName == 'instock_work.xml')
+{
+    print_php($config->auth_path_file);
+}
+elseif ($FileName == 'compatibility_work.xml')
+{
+    print_php($config->auth_path_file);
+}
+else
+{
+    print_php($config->auth_path_file);
+}
+
+
+
 //print_php($config->LOGIN);
 //print_php($config->PWS);
 
 
 
 
-$simpleXMLprovider = new SimpleXMLprovider('prototypes_work.xml', $config);
+$simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('prototypes_work.xml', $config, $DEBUG);
 
-
-// if ($DEBUG == TRUE) 
-// {
-// 	$simpleXMLloader = new SimpleXMLloader();
-// 	$xml_prototypes = $simpleXMLloader->loadFileXML('prototypes_work.xml');
-// 	if ($xml_prototypes == NULL)
-// 	{
-// 		$curlRequestor = new CurlRequestor($config->LOGIN, $config->PWS);
-// 		//228seconds
-// 		$result_prototypes = $curlRequestor->getData($config->url_prototypes);
-
-// 		$simpleXMLsaver = new SimpleXMLsaver();
-// 		$xml_prototypes = $simpleXMLsaver->saveFileXML('prototypes_work.xml', $result_prototypes);
-
-// 	}
-// }
-// else
-// {
-// 	$curlRequestor = new CurlRequestor($config->LOGIN, $config->PWS);
-// 	//228seconds
-// 	$result_prototypes = $curlRequestor->getData($config->url_prototypes);
-
-// 	$simpleXMLsaver = new SimpleXMLsaver();
-// 	$xml_prototypes = $simpleXMLsaver->saveFileXML('prototypes_work.xml', $result_prototypes);
-// }
+$xml_prototypes = $simpleXMLprovider->getFileXML('prototypes_work.xml');
 
 
 
 
-
-
-//print_php($result_prototypes);
+print_php($xml_prototypes);
 
 try 
 {

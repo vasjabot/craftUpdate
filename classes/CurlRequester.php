@@ -1,4 +1,13 @@
-<?
+<?php 
+/**
+*-------------------------------------------------------------------------------
+* CurlRequestor Class
+*-------------------------------------------------------------------------------
+* This is a class for curl requests execution.
+* @package  CurlNS 
+* @author   mixxxxx 
+* @link     top-secret
+*/
 
 interface CurlRequestorInterface
 {

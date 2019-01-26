@@ -16,7 +16,7 @@ class Config
 
     public function __construct()
     {
-        $this->auth_path_file = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/crafrUpdateFull/AUTH.txt';
+        $this->auth_path_file = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/craftUpdateFull/AUTH.txt';
         $this->extract_credentials();
         
     }

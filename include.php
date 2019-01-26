@@ -1,8 +1,10 @@
 <?
-require_once(__DIR__.'/classes/Config.php');
-
 ini_set("display_errors",1);
 error_reporting(E_ALL);
+require_once(__DIR__.'/classes/Config.php');
+require_once(__DIR__.'/classes/CurlRequestor.php');
+
+
 
 
 set_time_limit(0);

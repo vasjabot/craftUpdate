@@ -47,7 +47,7 @@ class SimpleXMLprovider extends AbstractSimpleXMLprovider
     {
         if ($this->DEBUG == TRUE) 
         {
-            $simpleXMLloader = new SimpleXMLloader();
+            $simpleXMLloader = new SimpleXMLloader($this->config);
             $xml_return = $simpleXMLloader->loadFileXML($this->file_name);
             if ($xml_return == NULL)
             {
@@ -68,7 +68,7 @@ class SimpleXMLprovider extends AbstractSimpleXMLprovider
         $url = $this->config->getURLbyFileName($this->file_name);
         $result_request = $curlRequestor->getData($url);
 
-        $simpleXMLsaver = new SimpleXMLsaver();
+        $simpleXMLsaver = new SimpleXMLsaver($this->config);
         $xml_request = $simpleXMLsaver->saveFileXML($this->file_name, $result_request);
         return $xml_request;
     }

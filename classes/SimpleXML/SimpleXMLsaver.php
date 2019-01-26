@@ -21,10 +21,11 @@ abstract class AbstractSimpleXMLsaver implements SimpleXMLsaverInterface
 {
     protected $file_name;
     protected $result_to_write;
+    protected $config;
 
-    public function __construct()
+    public function __construct($Config)
     {
-        
+        $this->config = $Config;
     }
 }
 
@@ -32,6 +33,7 @@ class SimpleXMLsaver extends AbstractSimpleXMLsaver
 {
     public function saveFileXML($FileName, $ResultToWrite)
     {
+        chdir($this->config->componentDIR);
         $this->file_name = $FileName;
         $this->result_to_write = $ResultToWrite;
 

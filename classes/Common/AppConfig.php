@@ -24,8 +24,13 @@ abstract class AbstractConfig implements ConfigInterface
     public $auth_path_file;
     public $LOGIN;
     public $PWS;
+    public $componentDIR;
+
     public $url_prototypes;
     public $url_offers;
+    public $url_prices;
+    public $url_instock;
+    public $url_compatibility;
 
     public $TimeLastSync_prototypes;
     public $TimeLastSync_offers;
@@ -39,6 +44,7 @@ abstract class AbstractConfig implements ConfigInterface
         $this->TimeLastSync_prices =$TimeLastSync_prices;
         $this->TimeLastSync_instock =$TimeLastSync_instock;
 
+        $this->componentDIR = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/craftUpdateFull/';
         $this->auth_path_file = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/craftUpdateFull/AUTH.txt';
         $this->extractCredentials();
         $this->url_prototypes = "http://middle.craftmann.ru:8080/craftmiddle/ws/bitrixinfo/allDevices/" . $this->TimeLastSync_prototypes;
@@ -52,13 +58,6 @@ abstract class AbstractConfig implements ConfigInterface
 
 class AppConfig extends AbstractConfig
 {
-
-
-    public function getFuckingThisName($FileName)
-    {
-        return $FileName;
-    }
-
     public function extractCredentials()
     {   
         $file_auth = fopen($this->auth_path_file, 'r');
@@ -69,7 +68,7 @@ class AppConfig extends AbstractConfig
         $this->PWS = $pieces[1];
     }
 
-    public function getURLbyName($FileName)
+    public function getURLbyFileName($FileName)
     {
         if ($FileName == 'prototypes_work.xml')
         {

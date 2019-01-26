@@ -17,27 +17,14 @@ class Config
     public $LOGIN;
     public $PWS;
     public $url_prototypes;
-    public $url_offers;
+    public $TimeLastSync_prototypes=0;
 
-    public $TimeLastSync_prototypes;
-    public $TimeLastSync_offers;
-    public $TimeLastSync_prices;
-    public $TimeLastSync_instock;
-
-    public function __construct($TimeLastSync_prototypes=0, $TimeLastSync_offers=0, $TimeLastSync_prices=0, $TimeLastSync_instock=0)
+    public function __construct()
     {
-        $this->TimeLastSync_prototypes =$TimeLastSync_prototypes;
-        $this->TimeLastSync_offers =$TimeLastSync_offers;
-        $this->TimeLastSync_prices =$TimeLastSync_prices;
-        $this->TimeLastSync_instock =$TimeLastSync_instock;
-
         $this->auth_path_file = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/craftUpdateFull/AUTH.txt';
         $this->extractCredentials();
         $this->url_prototypes = "http://middle.craftmann.ru:8080/craftmiddle/ws/bitrixinfo/allDevices/" . $this->TimeLastSync_prototypes;
-        $this->url_offers = "http://middle.craftmann.ru:8080/craftmiddle/ws/bitrixinfo/allBatteries/" . $this->TimeLastSync_offers;
-        $this->url_prices = "http://middle.craftmann.ru:8080/craftmiddle/ws/bitrixinfo/allPrice/" . $this->TimeLastSync_prices;
-        $this->url_instock = "http://middle.craftmann.ru:8080/craftmiddle/ws/bitrixinfo/allInStockInfo/" . $this->TimeLastSync_instock;
-        $this->url_compatibility = "http://middle.craftmann.ru:8080/craftmiddle/ws/bitrixinfo/allCompatibilityByDevice/0";       
+        
     }
 
 
@@ -50,35 +37,6 @@ class Config
         $this->LOGIN = $pieces[0];
         $this->PWS = $pieces[1];
     }
-
-    public  function getURLbyFileName($FileName)
-    {
-        if ($FileName == 'prototypes_work.xml')
-        {
-            return $this->url_prototypes;
-        }
-        else if ($FileName == 'offers_work.xml')
-        {
-            return $this->url_offers;
-        }
-        else if ($FileName == 'prices_work.xml')
-        {
-            return $this->url_prices;
-        }
-        else if ($FileName == 'instock_work.xml')
-        {
-            return $this->url_instock;
-        }
-        else if ($FileName == 'compatibility_work.xml')
-        {
-            return $this->url_compatibility;
-        }
-        else
-            return NULL;
-
-    }
-
-
 
 
     /**

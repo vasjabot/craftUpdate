@@ -41,11 +41,16 @@ class ProtoComparator extends AbstractProtoComparator
         if ($this->xml_prototypes->xpath('//dataWs'))
         {
             $index_dataWs = 0;
-            foreach ($this->xml_prototypes->xpath('//dataWs') as $item_search_prototypes_temp)
+            foreach ($this->xml_prototypes->xpath('//dataWs') as $item_search_prototypes_in_xml)
             {
-                $item_search_prototypes_article_in_xml = $item_search_prototypes_temp->article;
-                $item_search_prototypes_article_in_xml = (array)$item_search_prototypes_temp_article;
+                $item_search_prototypes_article_in_xml = $item_search_prototypes_in_xml->article; 
+                //print_r($item_search_prototypes_article_in_xml);     
+                $item_search_prototypes_article_in_xml = (array)$item_search_prototypes_article_in_xml;
+                //print_r($item_search_prototypes_article_in_xml);
                 $item_search_prototypes_article_in_xml = $item_search_prototypes_article_in_xml[0];
+                //print_r($item_search_prototypes_article_in_xml);
+                //echo nl2br("\r\n");
+
 
                 $WasFound = FALSE;
 
@@ -53,26 +58,38 @@ class ProtoComparator extends AbstractProtoComparator
                 { 
                     $item_search_prototypes_article_in_array = $value["UF_ARTICLE"];
 
+                    //print_r($item_search_prototypes_article_in_array);
+                    //echo nl2br("\r\n");
+
                     if ($item_search_prototypes_article_in_array == $item_search_prototypes_article_in_xml)
                     {
-                        $batteryType_var = $item_search_prototypes_article_in_xml->batteryType;
+                        print_r("Equal articles");
+                        echo nl2br("\r\n");
+                        print_r($item_search_prototypes_article_in_xml);
+                        echo nl2br("\r\n");
+                        print_r($item_search_prototypes_article_in_array);
+                        echo nl2br("\r\n");
+
+                        $batteryType_var = $item_search_prototypes_in_xml->batteryType;
                         $batteryType_var = (array)$batteryType_var;
                         $uf_batteryType = $batteryType_var[0];
                         if($uf_batteryType !== $value["UF_BATTERYTYPE"])
                         {
                             continue;
                         }
+                        print_r("Equal batteryType");
 
-                        $devType_var = $item_search_prototypes_article_in_xml->devType;
+                        $devType_var = $item_search_prototypes_in_xml->devType;
                         $devType_var = (array)$devType_var;
                         $uf_devType = $devType_var[0];
                         if($uf_devType !== $value["UF_DEVTYPE"])
                         {
                             continue;
                         }
+                        print_r("Equal devType");
                        
                         // "Аккумулятор для NOKIA 3310" on site now, but NOKIA 3310 from CrafrMiddle
-                        // $model_var = $item_search_prototypes_article_in_xml->model;
+                        // $model_var = $item_search_prototypes_in_xml->model;
                         // $model_var = (array)$model_var;
                         // $model_var[0] = trim($model_var[0]);
                         // $model_var[0] = str_replace('+', 'plus', $model_var[0]);
@@ -83,16 +100,17 @@ class ProtoComparator extends AbstractProtoComparator
                         // }
 
 
-                        $prdDate_var = $item_search_prototypes_article_in_xml->prdDate;
+                        $prdDate_var = $item_search_prototypes_in_xml->prdDate;
                         $prdDate_var = (array)$prdDate_var;
                         $uf_prdDate = $prdDate_var[0];
                         if($uf_prdDate !== $value["UF_PRDDATE"])
                         {
                             continue;
                         }
+                        print_r("Equal prdDate");
 
 
-                        $producer_var = $itemObj->producer;
+                        $producer_var = $item_search_prototypes_in_xml->producer;
                         $producer_var = (array)$producer_var;
                         $producer_var[0] = trim($producer_var[0]);
                         $producer_var[0] = str_replace('+', 'plus', $producer_var[0]);
@@ -101,9 +119,10 @@ class ProtoComparator extends AbstractProtoComparator
                         {
                             continue;
                         }
+                        print_r("Equal producer");
 
                         $str_len_producer = strlen($uf_producer);
-                        $model_var = $item_search_prototypes_article_in_xml->model;
+                        $model_var = $item_search_prototypes_in_xml->model;
                         $model_var = (array)$model_var;
                         $model_var[0] = trim($model_var[0]);
                         $model_var[0] = str_replace('+', 'plus', $model_var[0]);
@@ -116,8 +135,10 @@ class ProtoComparator extends AbstractProtoComparator
                         {
                             continue;
                         }
+                        print_r("Equal name");
 
                         $WasFound = TRUE;
+                        print_r("WasFound is TRUE");
                     }                     
                 }
 
@@ -125,6 +146,12 @@ class ProtoComparator extends AbstractProtoComparator
                 {
                     $DiffArrayOfArticles[] = $item_search_prototypes_article_in_xml;
                 }
+                $index_dataWs++;
+                if ($index_dataWs> 6000)
+                {
+                  break;  
+                }
+                
             }
         }
         return $DiffArrayOfArticles;

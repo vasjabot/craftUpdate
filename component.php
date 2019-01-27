@@ -16,13 +16,36 @@ print_php($config->auth_path_file);
 
 
 $simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('prototypes_work.xml', $config, $DEBUG);
-
 $xml_prototypes = $simpleXMLprovider->getFileXML('prototypes_work.xml');
 
 
+$simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('offers_work.xml', $config, $DEBUG);
+$xml_offers = $simpleXMLprovider->getFileXML('offers_work.xml');
+
+
+$simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('prices_work.xml', $config, $DEBUG);
+$xml_prices = $simpleXMLprovider->getFileXML('prices_work.xml');
+
+
+$simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('instock_work.xml', $config, $DEBUG);
+$xml_instock = $simpleXMLprovider->getFileXML('instock_work.xml');
+
+
+$simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('compatibility_work.xml', $config, $DEBUG);
+$xml_compatibility = $simpleXMLprovider->getFileXML('compatibility_work.xml');
 
 
 print_php($xml_prototypes);
+print_php($xml_offers);
+print_php($xml_prices);
+print_php($xml_instock);
+print_php($xml_compatibility);
+
+
+
+
+
+
 
 // try 
 // {

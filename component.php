@@ -25,39 +25,53 @@ $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 //printAllXML($XML_arr);
 
 
+$allProtoArFields_result_array = getArraySection($config);
+
+$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
+
+$protoDiff = $protoComparator->getDiffArray();
+
+print_php($protoDiff);
 
 
-$arSelect = Array("ID", "NAME");
-$arFilter = Array("IBLOCK_ID"=>IntVal(12));//1671 batteries
-
-$resElement = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
- $i = 0;
-while($ob = $resElement->GetNextElement())
-{
-	 $arFields = $ob->GetFields();
-	 print_php($arFields);
-	 $i++;
-}
-
-print_php($res);
-print_php($i);
 
 
-$arSelect = Array("ID", "NAME");
-$arFilter = Array("IBLOCK_ID"=>IntVal(12));//5031 prototypes
+// $arSelect = Array("ID", "UF_ARTICLE");
+// $arFilter = Array("IBLOCK_ID"=>IntVal(12));//5031 prototypes
 
-$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
-$i = 0;
-while($ob = $resSection->GetNextElement())
-{
-	 $arFields = $ob->GetFields();
-	 print_php($arFields);
-	 $i++;
-}
-print_php($res);
-print_php($i);
+// $resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+// $i = 0;
+// while($ob = $resSection->GetNextElement())
+// {
+// 	 $arFields = $ob->GetFields();
+// 	 print_php($arFields);
+// 	 $i++;
+// }
+// print_php($res);
+// print_php($i);
 
 
+
+
+
+
+
+
+
+// $arSelect = Array("ID", "NAME");
+// $arFilter = Array("IBLOCK_ID"=>IntVal(12));//1671 batteries
+
+// $resElement = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+//  $i = 0;
+// while($ob = $resElement->GetNextElement())
+// {
+// 	 $arFields = $ob->GetFields();
+// 	 print_php($arFields);
+// 	 $i++;
+// }
+
+// print_php($res);
+// print_php($i);
 // try 
 // {
 //     throw new Exception("Error Processing Request", 1);    

@@ -23,13 +23,12 @@ interface SimpleXMLvalidatorInterface
 
 abstract class AbstractSimpleXMLvalidator implements SimpleXMLvalidatorInterface
 {
-    // protected $file_name;
-    // protected $config;
-    // protected $CRAFTMIDDLE_IS_DEAD;
+    protected $file_name;
+    protected $config;
+    protected $CRAFTMIDDLE_IS_DEAD;
 
     public function __construct($Config)
     {
-        //throw new Exception("Error Processing Request", 1);
          $this->config = $Config;
          $this->CRAFTMIDDLE_IS_DEAD = FALSE;
     }

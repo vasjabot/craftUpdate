@@ -25,6 +25,7 @@ abstract class AbstractConfig implements ConfigInterface
     public $LOGIN;
     public $PWS;
     public $componentDIR;
+    public $IBLOCK_ID;
 
     public $url_prototypes;
     public $url_offers;
@@ -44,6 +45,8 @@ abstract class AbstractConfig implements ConfigInterface
         $this->TimeLastSync_prices =$TimeLastSync_prices;
         $this->TimeLastSync_instock =$TimeLastSync_instock;
 
+
+        $this->IBLOCK_ID = 12;
         $this->componentDIR = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/craftUpdateFull/';
         $this->auth_path_file = $_SERVER["DOCUMENT_ROOT"] . '/bitrix/components/esfull/craftUpdateFull/AUTH.txt';
         $this->extractCredentials();

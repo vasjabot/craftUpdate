@@ -2,16 +2,15 @@
 ini_set("display_errors",1);
 error_reporting(E_ALL);
 
-//namespace AppMain;
 
-//require __DIR__.'/classes/Common/AppConfig.php';
 require_once(__DIR__.'/classes/Common/AppConfig.php');
 require_once(__DIR__.'/classes/SimpleXML/SimpleXMLloader.php');
 require_once(__DIR__.'/classes/Curl/CurlRequestor.php');
 require_once(__DIR__.'/classes/SimpleXML/SimpleXMLsaver.php');
 require_once(__DIR__.'/classes/SimpleXML/SimpleXMLprovider.php');
+require_once(__DIR__.'/classes/SimpleXML/SimpleXMLvalidator.php');
 
-//use CommonNS\AppConfig as AppConfig;
+
 
 
 

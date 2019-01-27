@@ -35,26 +35,22 @@ $xml_compatibility = $simpleXMLprovider->getFileXML('compatibility_work.xml');
 
 
 $XML_arr_names = array  (	"prototypes" => 'prototypes_work.xml',
-               		"offers" => 'offers_work.xml',
-               		"prices" => 'prices_work.xml',
-               		"instock" => 'instock_work.xml',
-               		"compatibility" => 'compatibility_work.xml');
+		               		"offers" => 'offers_work.xml',
+		               		"prices" => 'prices_work.xml',
+		               		"instock" => 'instock_work.xml',
+		               		"compatibility" => 'compatibility_work.xml');
 
-try
-{
-	$simpleXMLvalidator new SimpleXMLNS\SimpleXMLvalidator($config);
-}
-catch (Exception $e) 
-{
-	echo 'throw new Exception: ',  $e->getMessage(), "\n";
-    echo nl2br("\r\n");
-}
-//$Is_All_Good = $simpleXMLvalidator->checkAllXML($XML_arr_names);
 
- //if ($Is_All_Good == FALSE)
- //{
- //   return;
-// }
+$simpleXMLvalidator = new SimpleXMLNS\SimpleXMLvalidator($config);
+
+
+
+$Is_All_Good = $simpleXMLvalidator->checkAllXML($XML_arr_names);
+
+if ($Is_All_Good == FALSE)
+{
+   return;
+}
 
 
 

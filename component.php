@@ -18,7 +18,6 @@ print_php($config->auth_path_file);
 $simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('prototypes_work.xml', $config, $DEBUG);
 $xml_prototypes = $simpleXMLprovider->getFileXML('prototypes_work.xml');
 
-
 $simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('offers_work.xml', $config, $DEBUG);
 $xml_offers = $simpleXMLprovider->getFileXML('offers_work.xml');
 
@@ -33,6 +32,34 @@ $xml_instock = $simpleXMLprovider->getFileXML('instock_work.xml');
 
 $simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider('compatibility_work.xml', $config, $DEBUG);
 $xml_compatibility = $simpleXMLprovider->getFileXML('compatibility_work.xml');
+
+
+$XML_arr_names = array  (	"prototypes" => 'prototypes_work.xml',
+               		"offers" => 'offers_work.xml',
+               		"prices" => 'prices_work.xml',
+               		"instock" => 'instock_work.xml',
+               		"compatibility" => 'compatibility_work.xml');
+
+try
+{
+	$simpleXMLvalidator new SimpleXMLNS\SimpleXMLvalidator($config);
+}
+catch (Exception $e) 
+{
+	echo 'throw new Exception: ',  $e->getMessage(), "\n";
+    echo nl2br("\r\n");
+}
+//$Is_All_Good = $simpleXMLvalidator->checkAllXML($XML_arr_names);
+
+ //if ($Is_All_Good == FALSE)
+ //{
+ //   return;
+// }
+
+
+
+
+
 
 
 print_php($xml_prototypes);

@@ -14,6 +14,46 @@ require_once(__DIR__.'/classes/SimpleXML/SimpleXMLvalidator.php');
 
 
 
+function getAllXML($XML_arr_names, $config, $DEBUG) 
+{
+	$XML_arr = array  (	"prototypes" => $xml_prototypes,
+		               	"offers" => $xml_offers,
+		               	"prices" => $xml_prices,
+		               	"instock" => $xml_instock,
+		               	"compatibility" => $xml_compatibility);
+
+
+	foreach($XML_arr_names as $key => $value)
+    {
+       	$simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider($value, $config, $DEBUG);
+		$xml_temp_result = $simpleXMLprovider->getFileXML($value);
+		$XML_arr[$key] = $xml_temp_result;
+    } 
+    
+    $simpleXMLvalidator = new SimpleXMLNS\SimpleXMLvalidator($config);
+
+	$Is_All_Good = $simpleXMLvalidator->checkAllXML($XML_arr_names);
+
+	if ($Is_All_Good == FALSE)
+	{
+	   return NULL;
+	}
+	else
+	{
+		return $XML_arr;
+	}
+}
+
+function printAllXML($XML_arr) 
+{	
+	foreach($XML_arr as $key => $value)
+	{
+		print_php($value);
+	}
+
+}
+
+
 
 set_time_limit(0);
 $t0 = microtime(true);

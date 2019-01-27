@@ -22,15 +22,40 @@ $XML_arr_names = array(	"prototypes" => 'prototypes_work.xml',
 	               		"compatibility" => 'compatibility_work.xml');
 
 $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
-
-printAllXML($XML_arr);
-
+//printAllXML($XML_arr);
 
 
 
 
+$arSelect = Array("ID", "NAME");
+$arFilter = Array("IBLOCK_ID"=>IntVal(12));//1671 batteries
+
+$resElement = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+ $i = 0;
+while($ob = $resElement->GetNextElement())
+{
+	 $arFields = $ob->GetFields();
+	 print_php($arFields);
+	 $i++;
+}
+
+print_php($res);
+print_php($i);
 
 
+$arSelect = Array("ID", "NAME");
+$arFilter = Array("IBLOCK_ID"=>IntVal(12));//5031 prototypes
+
+$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+$i = 0;
+while($ob = $resSection->GetNextElement())
+{
+	 $arFields = $ob->GetFields();
+	 print_php($arFields);
+	 $i++;
+}
+print_php($res);
+print_php($i);
 
 
 // try 

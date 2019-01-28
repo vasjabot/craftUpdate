@@ -64,12 +64,12 @@ class ProtoComparatorProducers extends AbstractProtoComparatorProducers
 
                     if ($item_search_prototypes_name_in_array == $producer)
                     {
-                        print_r("Equal producer");
-                        echo nl2br("\r\n");
-                        print_r($producer);
-                        echo nl2br("\r\n");
-                        print_r($item_search_prototypes_name_in_array);
-                        echo nl2br("\r\n");
+                        // print_r("Equal producer");
+                        // echo nl2br("\r\n");
+                        // print_r($producer);
+                        // echo nl2br("\r\n");
+                        // print_r($item_search_prototypes_name_in_array);
+                        // echo nl2br("\r\n");
 
                         
                         $bitrix_code = $producer;
@@ -80,11 +80,11 @@ class ProtoComparatorProducers extends AbstractProtoComparatorProducers
                         {
                             continue;
                         }
-                        print_r("Equal bitrix_code");
+                        //print_r("Equal bitrix_code");
                         
 
                         $WasFound = TRUE;
-                        print_r("WasFound is TRUE");
+                        //print_r("WasFound is TRUE");
                     }                     
                 }
 

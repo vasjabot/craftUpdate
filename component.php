@@ -67,9 +67,8 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 if(1)
 {
-	$testProtoName = "A1";
-	$bs = new CIBlockSection;
-	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config, $bs);
+	$testProtoName = "ACER";
+	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);
 	$seachedProto = $protoGetterSite->getProtoByName($testProtoName);
 	print_php("seachedProto is:");
 	print_php($seachedProto);

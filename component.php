@@ -26,23 +26,22 @@ $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 
 
 /////////////////////////////////////////////////////////////////////////////
-$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID), "DEPTH_LEVEL"=>1);//razdel prototypes 98 with CRAFTMANN
-$allProtoArFields_result_array = getArraySection($arFilter);
-//$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
-//$protoDiff = $protoComparator->getDiffArray();
+$allFirstDepthLevelSection = getArrayFirstDepthLevelSection($config);
 
-//print_php($allProtoArFields_result_array);
-foreach($allProtoArFields_result_array as $key => $value)
+foreach($allFirstDepthLevelSection as $key => $value)
 {
-	//if ($key == "NAME")
-	//{
 	print_php($key);
 	print_php($value);
-	//}
-	
 }
 
+//$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
+//$protoDiffFirstDepthLevel = $protoComparatorProducers->getDiffArray();
+//print_php($protoDiffFirstDepthLevel);
+
 /////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
 
@@ -51,8 +50,7 @@ foreach($allProtoArFields_result_array as $key => $value)
 /////////////////////////////////////////////////////////////////////////////
 if(0)
 {
-	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
-	$allProtoArFields_result_array = getArraySection($arFilter);
+	$allProtoArFields_result_array = getArrayAllSection($config);
 	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
 	$protoDiff = $protoComparator->getDiffArray();
 	print_php($protoDiff);
@@ -62,11 +60,12 @@ if(0)
 
 
 
+
+
 /////////////////////////////////////////////////////////////////////////////
 if (0)
 {
-	$arFilter = array('IBLOCK_ID' => IntVal($config->IBLOCK_ID), "UF_ARTICLE"=>$protoDiff);//5031 prototypes
-	$temp_result_array = getArraySection($arFilter);
+	$temp_result_array = getArrayAllSection($config);
 
 	foreach($temp_result_array as $key => $value)
 	{

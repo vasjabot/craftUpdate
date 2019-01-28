@@ -18,14 +18,47 @@ require_once(__DIR__.'/classes/Prototypes/ProtoGetter.php');
 
 
 
+function getArrayFirstDepthLevelSection($config)
+{
+	//$arr[] = "PHP";
+	$ArraySection = array();
+	$arSelect = Array("ID", "NAME", "ACTIVE", "SORT", "CODE");
+	//$arSelect = Array();
+
+	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID), "DEPTH_LEVEL"=>1);//razdel prototypes 98 with CRAFTMANN
+
+	$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+	$i = 0;
+	$allProtoArFields_result_array = array();
+	while($ob = $resSection->GetNextElement())
+	{
+		 $arFields = $ob->GetFields();
+		 $arFields_res = array();
+		 $arFields_res["ID"] = $arFields["ID"]; 
+		 $arFields_res["NAME"] = $arFields["NAME"];
+		 $arFields_res["ACTIVE"] = $arFields["ACTIVE"];
+		 $arFields_res["SORT"] = $arFields["SORT"];
+		 $arFields_res["CODE"] = $arFields["CODE"];
+		 //print_php($arFields_res);
+		 //print_php($arFields);
+		 $i++;
+		 //$allProtoArFields_result_array[] = $arFields;
+		 $allProtoArFields_result_array[] = $arFields_res;
+	}
+	//print_php($allProtoArFields_result_array);
+	//print_php($res);
+	//print_php($i);
+	return $allProtoArFields_result_array;
+}
 
 
-function getArraySection($arFilter)
+
+function getArrayAllSection($config)
 {
 	//$arr[] = "PHP";
 	$ArraySection = array();
 	$arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER");
-	//$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
+	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
 
 	$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
 	$i = 0;

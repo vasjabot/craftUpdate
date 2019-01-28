@@ -42,27 +42,27 @@ class ProtoComparatorProducers extends AbstractProtoComparatorProducers
         if ($this->xml_prototypes->xpath('//dataWs'))
         {
             $index_dataWs = 0;
-            foreach ($this->xml_prototypes->xpath('//dataWs') as $item_search_prototypes_in_xml)
+            foreach ($this->xml_prototypes->xpath('//dataWs') as $itemXMLObj)
             {
-                $item_search_prototypes_article_in_xml = $item_search_prototypes_in_xml->article; 
-                //print_r($item_search_prototypes_article_in_xml);     
-                $item_search_prototypes_article_in_xml = (array)$item_search_prototypes_article_in_xml;
-                //print_r($item_search_prototypes_article_in_xml);
-                $item_search_prototypes_article_in_xml = $item_search_prototypes_article_in_xml[0];
-                //print_r($item_search_prototypes_article_in_xml);
-                //echo nl2br("\r\n");
+                $producer_var = $itemXMLObj->producer;
+                $producer_var = (array)$producer_var;
+                $producer_var[0] = trim($producer_var[0]);
+                $producer_var[0] = str_replace('+', 'plus', $producer_var[0]);
+                $producer = $producer_var[0];
+                print_r($producer);
+                echo nl2br("\r\n");
 
 
                 $WasFound = FALSE;
 
                 foreach ($this->array_prototypes as $value )
                 { 
-                    $item_search_prototypes_article_in_array = $value["UF_ARTICLE"];
+                    $item_search_prototypes_name_in_array = $value["NAME"];
 
-                    //print_r($item_search_prototypes_article_in_array);
-                    //echo nl2br("\r\n");
+                    print_r($item_search_prototypes_name_in_array);
+                    echo nl2br("\r\n");
 
-                    if ($item_search_prototypes_article_in_array == $item_search_prototypes_article_in_xml)
+                    if ($item_search_prototypes_name_in_array == $producer)
                     {
                         // print_r("Equal articles");
                         // echo nl2br("\r\n");

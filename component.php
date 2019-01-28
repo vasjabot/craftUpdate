@@ -68,8 +68,9 @@ if(0)
 if(1)
 {
 	$testProtoName = "ACER";
+	$DEPTH_LEVEL = 1;
 	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);
-	$seachedProto = $protoGetterSite->getProtoByName($testProtoName);
+	$seachedProto = $protoGetterSite->getProtoByName($testProtoName, $DEPTH_LEVEL);
 	print_php("seachedProto is:");
 	print_php($seachedProto);
 }

@@ -15,7 +15,7 @@ require_once(__DIR__.'/../Common/AppConfig.php');
 
 interface ProtoGetterInterface
 {
-    public function getProtoByArticle();
+    public function getProtoByArticle($Article);
 }
 
 abstract class AbstractProtoGetter implements ProtoGetterInterface

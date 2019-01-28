@@ -51,11 +51,15 @@ foreach($temp_result_array as $key => $value)
 	{
 		if ($key_in == "UF_ARTICLE")
 		{
-			print_php($key_in);
-			print_php($value_in);
+			//print_php($key_in);
+			//print_php($value_in);
 			$protoGetter = new PrototypesNS\ProtoGetter($config, $XML_arr["prototypes"]);
 			$OneProtoArray = $protoGetter->getProtoByArticle($value_in);
+			print_php("mass from xml:");
 			print_php($OneProtoArray);
+			print_php("mass from site:");
+			print_php($value);
+
 
 		}
 

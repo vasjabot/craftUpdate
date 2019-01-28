@@ -1,7 +1,7 @@
 <?php 
 /**
 *-------------------------------------------------------------------------------
-* ProtoSetterProducers Class
+* ProtoSetterProducersSite Class
 *-------------------------------------------------------------------------------
 * This is a class for curl requests execution.
 * @package  PrototypesNS 
@@ -12,28 +12,28 @@
 namespace PrototypesNS;
 
 
-interface ProtoSetterProducersInterface
+interface ProtoSetterProducersSiteInterface
 {
     public function setAllDiffArray();
     public function setNewFirstDepthLevelSection();
     public function updateOldFirstDepthLevelSection();
 }
 
-abstract class AbstractProtoSetterProducers implements ProtoSetterProducersInterface
+abstract class AbstractProtoSetterProducersSite implements ProtoSetterProducersSiteInterface
 {
     protected $config;
-    protected $protoGetter;
+    protected $protoGetterXML;
     protected $diff_array_prototypes;
 
-    public function __construct($Config, $ProtoGetter, $diff_array_prototypes)
+    public function __construct($Config, $ProtoGetterXML, $diff_array_prototypes)
     {
          $this->config = $Config;
-         $this->protoGetter = $ProtoGetter;
+         $this->protoGetterXML = $ProtoGetterXML;
          $this->diff_array_prototypes = $diff_array_prototypes;
     }
 }
 
-class ProtoComparatorProducers extends AbstractProtoComparatorProducers
+class ProtoSettersProducersSite extends AbstractProtoSetterProducersSite
 {
 
     public function setAllDiffArray()
@@ -49,7 +49,7 @@ class ProtoComparatorProducers extends AbstractProtoComparatorProducers
                 {
                     //print_php($key_in);
                     //print_php($value_in);
-                    $OneProtoArrayFromXml = $this->protoGetter->getProtoByArticle($value_in);
+                    $OneProtoArrayFromXml = $this->protoGetterXML->getProtoByArticle($value_in);
                     print_php("mass from xml:");
                     print_php($OneProtoArrayFromXml);
                     print_php("mass from site:");
@@ -60,7 +60,7 @@ class ProtoComparatorProducers extends AbstractProtoComparatorProducers
                     }
                     else
                     {
-                        throw new Exception("ProtoGetter Error", 1); 
+                        throw new Exception("ProtoGetterXML Error", 1); 
                         //$this->setNewFirstDepthLevelSection();   
                     }
                 }

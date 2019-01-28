@@ -22,11 +22,8 @@ require_once(__DIR__.'/classes/Prototypes/ProtoSetterProducers.php');
 
 function getArrayFirstDepthLevelSection($config)
 {
-	//$arr[] = "PHP";
 	$ArraySection = array();
 	$arSelect = Array("ID", "NAME", "ACTIVE", "SORT", "CODE");
-	//$arSelect = Array();
-
 	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID), "DEPTH_LEVEL"=>1);//razdel prototypes 98 with CRAFTMANN
 
 	$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);

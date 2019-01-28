@@ -9,16 +9,15 @@
 * @link     top-secret
 */
 
-namespace PrototypesNS;
-use CommonNS\AppConfig as AppConfig;
-require_once(__DIR__.'/../Common/AppConfig.php');
+namespace SimpleXMLNS;
 
-interface ProtoGetterInterface
+
+interface ProtoGetterXMLInterface
 {
     public function getProtoByArticle($Article);
 }
 
-abstract class AbstractProtoGetter implements ProtoGetterInterface
+abstract class AbstractProtoGetterXML implements ProtoGetterXMLInterface
 {
     protected $xml_prototypes;
     protected $config;
@@ -31,7 +30,7 @@ abstract class AbstractProtoGetter implements ProtoGetterInterface
     }
 }
 
-class ProtoGetter extends AbstractProtoGetter
+class ProtoGetterXML extends AbstractProtoGetterXML
 {
 
     public function getProtoByArticle($Article)

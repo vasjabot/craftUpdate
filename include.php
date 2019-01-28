@@ -14,6 +14,12 @@ require_once(__DIR__.'/classes/Prototypes/ProtoGetter.php');
 
 
 
+
+
+
+
+
+
 function getArraySection($arFilter)
 {
 	//$arr[] = "PHP";

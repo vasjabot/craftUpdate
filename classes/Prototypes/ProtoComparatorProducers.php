@@ -1,7 +1,7 @@
 <?php 
 /**
 *-------------------------------------------------------------------------------
-* ProtoComparator Class
+* ProtoComparatorProducers Class
 *-------------------------------------------------------------------------------
 * This is a class for curl requests execution.
 * @package  PrototypesNS 
@@ -10,15 +10,15 @@
 */
 
 namespace PrototypesNS;
-use CommonNS\AppConfig as AppConfig;
-require_once(__DIR__.'/../Common/AppConfig.php');
+//use CommonNS\AppConfig as AppConfig;
+//require_once(__DIR__.'/../Common/AppConfig.php');
 
-interface ProtoComparatorInterface
+interface ProtoComparatorProducersInterface
 {
     public function getDiffArray();
 }
 
-abstract class AbstractProtoComparator implements ProtoComparatorInterface
+abstract class AbstractProtoComparatorProducers implements ProtoComparatorProducersInterface
 {
     protected $xml_prototypes;
     protected $config;
@@ -32,7 +32,7 @@ abstract class AbstractProtoComparator implements ProtoComparatorInterface
     }
 }
 
-class ProtoComparator extends AbstractProtoComparator
+class ProtoComparatorProducers extends AbstractProtoComparatorProducers
 {
 
     public function getDiffArray()

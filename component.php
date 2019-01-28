@@ -28,15 +28,20 @@ $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 /////////////////////////////////////////////////////////////////////////////
 $allFirstDepthLevelSection = getArrayFirstDepthLevelSection($config);
 
-foreach($allFirstDepthLevelSection as $key => $value)
+// foreach($allFirstDepthLevelSection as $key => $value)
+// {
+// 	//print_php($key);
+// 	//print_php($value);
+// }
+
+$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
+$protoDiffFirstDepthLevel_array_of_names = $protoComparatorProducers->getDiffArray();
+print_php("result diff array: " . $protoDiffFirstDepthLevel_array_of_names);
+foreach($protoDiffFirstDepthLevel_array_of_names as $value) 
 {
-	print_php($key);
 	print_php($value);
 }
-
-//$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
-//$protoDiffFirstDepthLevel = $protoComparatorProducers->getDiffArray();
-//print_php($protoDiffFirstDepthLevel);
+//print_php("result diff array: " . $protoDiffFirstDepthLevel[0]);
 
 /////////////////////////////////////////////////////////////////////////////
 

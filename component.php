@@ -37,9 +37,9 @@ $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 /////////////////////////////////////////////////////////////////////////////
 if(0)
 {
-	$allFirstDepthLevelSection = getArrayFirstDepthLevelSection($config);
-	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
-	$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
+	//$allFirstDepthLevelSection = getArrayFirstDepthLevelSection($config);
+	//$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
+	//$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<firstDepthLevelSectionByNamesDiff>>////////////////////////
@@ -52,9 +52,9 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 if(0)
 {
-	$allProtoArFields_result_array = getArrayAllSection($config);
-	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
-	$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
+	//$allProtoArFields_result_array = getArrayAllSection($config);
+	//$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
+	//$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<allPrototypesByArticlesDiff>>//////////////////////////////
@@ -65,12 +65,12 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<protoGetterSite>>//////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(1)
+if(0)
 {
-	$testProtoName = "A1"
-	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config, $CIBlockSection);
-	$seachedProto = $protoGetterSite->getProtoByName($testProtoName);
-	print_php($seachedProto);
+	//$testProtoName = "A1"
+	//$protoGetterSite = new PrototypesNS\ProtoGetterSite($config, $CIBlockSection);
+	//$seachedProto = $protoGetterSite->getProtoByName($testProtoName);
+	//print_php($seachedProto);
 }
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<protoGetterSite>>//////////////////////////////////////////
@@ -85,10 +85,10 @@ if(1)
 /////////////////////////////////////////////////////////////////////////////
 if(0)
 {
-	$firstDepthLevelSectionByNamesDiff = array('ABER'); 
-	$protoGetterXML = new SimpleXMLNS\ProtoGetterXML($config, $XML_arr["prototypes"]);
-	$protoSettersProducersSite = new PrototypesNS\ProtoSettersProducersSite($config, $protoGetterXML, $firstDepthLevelSectionByNamesDiff);
-	$protoSettersProducersSite->setAllDiffArray();
+	//$firstDepthLevelSectionByNamesDiff = array('ABER'); 
+	//$protoGetterXML = new SimpleXMLNS\ProtoGetterXML($config, $XML_arr["prototypes"]);
+	//$protoSettersProducersSite = new PrototypesNS\ProtoSettersProducersSite($config, $protoGetterXML, $firstDepthLevelSectionByNamesDiff);
+	//$protoSettersProducersSite->setAllDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
 //////////////<<protoSetterProducersFielsFromXml>>///////////////////////////
@@ -99,7 +99,7 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 //////////////////<<protoSetterFielsFromXml>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-$allPrototypesByArticlesDiff = array('A0.00.000');
+//$allPrototypesByArticlesDiff = array('A0.00.000');
 
 
 

@@ -10,15 +10,16 @@ require_once(__DIR__.'/classes/SimpleXML/SimpleXMLsaver.php');
 require_once(__DIR__.'/classes/SimpleXML/SimpleXMLprovider.php');
 require_once(__DIR__.'/classes/SimpleXML/SimpleXMLvalidator.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoComparator.php');
+require_once(__DIR__.'/classes/Prototypes/ProtoGetter.php');
 
 
 
-function getArraySection($config)
+function getArraySection($arFilter)
 {
 	//$arr[] = "PHP";
 	$ArraySection = array();
 	$arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER");
-	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
+	//$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
 
 	$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
 	$i = 0;

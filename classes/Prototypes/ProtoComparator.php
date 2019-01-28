@@ -4,7 +4,7 @@
 * ProtoComparator Class
 *-------------------------------------------------------------------------------
 * This is a class for curl requests execution.
-* @package  SimpleXMLNS 
+* @package  PrototypesNS 
 * @author   mixxxxx 
 * @link     top-secret
 */

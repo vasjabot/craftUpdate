@@ -24,63 +24,48 @@ $XML_arr_names = array(	"prototypes" => 'prototypes_work.xml',
 $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 //printAllXML($XML_arr);
 
-
-$allProtoArFields_result_array = getArraySection($config);
+/////////////////////////////////////////////////////////////////////////////
+$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
+$allProtoArFields_result_array = getArraySection($arFilter);
 
 $protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
 
 $protoDiff = $protoComparator->getDiffArray();
 
 print_php($protoDiff);
+/////////////////////////////////////////////////////////////////////////////
 
 
 
 
-// $arSelect = Array("ID", "UF_ARTICLE");
-// $arFilter = Array("IBLOCK_ID"=>IntVal(12));//5031 prototypes
+/////////////////////////////////////////////////////////////////////////////
+//$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID), );//5031 prototypes
+$arFilter = array('IBLOCK_ID' => IntVal($config->IBLOCK_ID), "UF_ARTICLE"=>$protoDiff);
+$temp_result_array = getArraySection($arFilter);
 
-// $resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
-// $i = 0;
-// while($ob = $resSection->GetNextElement())
-// {
-// 	 $arFields = $ob->GetFields();
-// 	 print_php($arFields);
-// 	 $i++;
-// }
-// print_php($res);
-// print_php($i);
+foreach($temp_result_array as $key => $value)
+{
+	//print_php($key);
+	//print_php($value);
+	foreach($value as $key_in => $value_in)
+	{
+		if ($key_in == "UF_ARTICLE")
+		{
+			print_php($key_in);
+			print_php($value_in);
+			$protoGetter = new PrototypesNS\ProtoGetter($config, $XML_arr["prototypes"]);
+			$OneProtoArray = $protoGetter->getProtoByArticle($value_in);
+			print_php($OneProtoArray);
+
+		}
+
+	}
+}
 
 
 
 
 
-
-
-
-
-// $arSelect = Array("ID", "NAME");
-// $arFilter = Array("IBLOCK_ID"=>IntVal(12));//1671 batteries
-
-// $resElement = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-//  $i = 0;
-// while($ob = $resElement->GetNextElement())
-// {
-// 	 $arFields = $ob->GetFields();
-// 	 print_php($arFields);
-// 	 $i++;
-// }
-
-// print_php($res);
-// print_php($i);
-// try 
-// {
-//     throw new Exception("Error Processing Request", 1);    
-// } 
-// catch (Exception $e) 
-// {
-//     echo 'throw new Exception: ',  $e->getMessage(), "\n";
-//     echo nl2br("\r\n");
-// }
 
 
 

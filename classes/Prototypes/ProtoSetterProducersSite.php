@@ -15,8 +15,8 @@ namespace PrototypesNS;
 interface ProtoSetterProducersSiteInterface
 {
     public function setAllDiffArray();
-    public function setNewFirstDepthLevelSection();
-    public function updateOldFirstDepthLevelSection();
+    //public function setNewFirstDepthLevelSection();
+    //public function updateOldFirstDepthLevelSection();
 }
 
 abstract class AbstractProtoSetterProducersSite implements ProtoSetterProducersSiteInterface

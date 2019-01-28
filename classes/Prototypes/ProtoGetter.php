@@ -88,6 +88,7 @@ class ProtoGetter extends AbstractProtoGetter
                     $str_len_model = strlen($uf_model);
                     $modified_model_var = substr($uf_model, $str_len_producer, $str_len_model);
                     $modified_model_var = trim($modified_model_var);
+                    $modified_model_var = str_replace('plus', '+', $modified_model_var);//very important features from old update.php
                     $uf_name = $modified_model_var;
                     $OneProtoArray["NAME"] = $uf_name;
 

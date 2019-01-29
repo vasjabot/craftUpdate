@@ -34,10 +34,10 @@ abstract class AbstractProtoUpdater implements ProtoUpdaterInterface
     protected $config;
     protected $diff_array_prototypes;
 
-    public function __construct($Config, $diff_array_prototypes)
+    public function __construct($Config, $allPrototypesByArticlesDiff)
     {
          $this->config = $Config;
-         $this->diff_array_prototypes = $diff_array_prototypes;
+         $this->diff_array_of_articles = $allPrototypesByArticlesDiff;
     }
 }
 
@@ -45,11 +45,11 @@ class ProtoUpdater extends AbstractProtoUpdater
 {
 
     public function updateAllPrototypesByArticlesDiff()
-    {           
-        foreach($this->diff_array_prototypes as $diff_article)
-        {
-            $protoGetterSite = new ProtoGetterSite($this->config);
-            $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($diff_article);
+    {   
+        $protoGetterSite = new ProtoGetterSite($this->config);        
+        foreach($this->diff_array_of_names_prototypes as $curProtoArticle)
+        {        
+            $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($curProtoArticle);
             // print_r("OneProtoArrayFromSite is: ");
             // echo nl2br("\r\n");
             // print_r($OneProtoArrayFromSite);
@@ -62,13 +62,12 @@ class ProtoUpdater extends AbstractProtoUpdater
             if ($OneProtoArrayFromSite!==NULL)
             {
                 //res is TRUE or FALSE
-                $res = $this->updateOldPrototype($OneProtoArrayFromSite, $this->diff_array_prototypes);
+                $res = $this->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle);
             }
             else
             {           
-                $res = $this->setNewFirstDepthLevelSection($this->diff_array_prototypes);   
+                $res = $this->setNewFirstDepthLevelSection($curProtoArticle);   
             }
-
             
         }
     }

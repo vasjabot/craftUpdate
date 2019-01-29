@@ -67,11 +67,11 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 //////////////////////<<protoUpdaterProducers>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(1)
+if(0)
 {	
 
 	//$firstDepthLevelSectionByNamesDiff = array("ABER");
-	$firstDepthLevelSectionByNamesDiff = array("ACER");  
+	//$firstDepthLevelSectionByNamesDiff = array("ACER");  
 
 	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $XML_arr["prototypes"], $firstDepthLevelSectionByNamesDiff);
 	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();
@@ -85,7 +85,7 @@ if(1)
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////<<allProtoUpdater>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(0)
+if(1)
 {
 	//$allPrototypesByArticlesDiff = array('A0.00.000');
 	$allPrototypesByArticlesDiff = array('A1.13.010');

@@ -50,14 +50,14 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         
         foreach($this->diff_array_prototypes as $key => $value)
         {
-            //print_php($key);
-            //print_php($value);
+            print_php($key);
+            print_php($value);
             foreach($value as $key_in => $value_in)
             {
                 if ($key_in == "NAME")
                 {
-                    //print_php($key_in);
-                    //print_php($value_in);
+                    print_php($key_in);
+                    print_php($value_in);
 
                     $protoGetterSite = new ProtoGetterSite($this->config);
                     $DEPTH_LEVEL = 1;
@@ -76,7 +76,7 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
                     else
                     {
                         
-                        $this->setNewFirstDepthLevelSection($OneProtoArrayFromDiffMass);   
+                        $res = $this->setNewFirstDepthLevelSection($OneProtoArrayFromDiffMass);   
                     }
                 }
             }
@@ -130,28 +130,21 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
 
         $arFields = Array(
           "ACTIVE" => "Y",
-          "IBLOCK_SECTION_ID" => $IBLOCK_SECTION_ID,
+          //First DEPTH_LEVEL is empty
+          "IBLOCK_SECTION_ID" => "",
           "IBLOCK_ID" => $this->config->IBLOCK_ID,
           "NAME" => $OneProtoArrayFromDiffMass["NAME"],
-          "SORT" => $OneProtoArrayFromDiffMass["SORT"],
+          "SORT" => 500,
           "CODE" => $OneProtoArrayFromDiffMass["CODE"]
           );
 
        
         $ID = $bs->Add($arFields);
         $res = ($ID>0);
-        
-        
+        //NEED add this string to Message
+        print_r("new FirstDepthLevelSection " .$OneProtoArrayFromDiffMass["NAME"]. " was added with $ID = " . $ID);          
         return $res;
-
-
-
     }
-
-
-
-
-
 
 
 

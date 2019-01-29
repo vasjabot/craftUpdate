@@ -13,7 +13,7 @@ require_once(__DIR__.'/classes/Prototypes/ProtoComparator.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoComparatorProducers.php');
 require_once(__DIR__.'/classes/SimpleXML/ProtoGetterXML.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoGetterSite.php');
-require_once(__DIR__.'/classes/Prototypes/ProtoSetterProducersSite.php');
+require_once(__DIR__.'/classes/Prototypes/ProtoUpdaterProducers.php');
 
 
 

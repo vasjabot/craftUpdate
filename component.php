@@ -50,19 +50,11 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<allPrototypesByArticlesDiff>>//////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(1)
+if(0)
 {
 	$allProtoArFields_result_array = getArrayAllSection($config);
-	foreach($allProtoArFields_result_array as $key => $value)
-    {
-        foreach($value as $key_in => $value_in)
-        {
-        	print_php("FirstDepthLevelSection " . $value["NAME"] . " with property: " . $key_in  . " with value " . $value_in);
-        }   
-        
-    }
-	//$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
-	//$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
+	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
+	$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<allPrototypesByArticlesDiff>>//////////////////////////////
@@ -91,17 +83,16 @@ if(0)
 
 
 /////////////////////////////////////////////////////////////////////////////
-//////////////<<protoSetterProducersFielsFromXml>>///////////////////////////
+//////////////////////<<protoUpdateProducers>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(0)
+if(1)
 {
-	//$firstDepthLevelSectionByNamesDiff = array('ABER'); 
-	//$protoGetterXML = new SimpleXMLNS\ProtoGetterXML($config, $XML_arr["prototypes"]);
-	//$protoSettersProducersSite = new PrototypesNS\ProtoSettersProducersSite($config, $protoGetterXML, $firstDepthLevelSectionByNamesDiff);
-	//$protoSettersProducersSite->setAllDiffArray();
+	$firstDepthLevelSectionByNamesDiff = array("NAME" => "ABER" , "CODE" => "aber"); 
+	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $firstDepthLevelSectionByNamesDiff);
+	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
-//////////////<<protoSetterProducersFielsFromXml>>///////////////////////////
+//////////////////////<<protoUpdateProducers>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
 

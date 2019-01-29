@@ -39,6 +39,7 @@ function getArrayFirstDepthLevelSection($config)
 		 $arFields_res["ACTIVE"] = $arFields["ACTIVE"];
 		 $arFields_res["SORT"] = $arFields["SORT"];
 		 $arFields_res["CODE"] = $arFields["CODE"];
+		 $arFields_res["IBLOCK_SECTION_ID"] = $arFields["IBLOCK_SECTION_ID"];
 		 //print_php($arFields_res);
 		 //print_php($arFields);
 		 $i++;
@@ -57,7 +58,7 @@ function getArrayAllSection($config)
 {
 	//$arr[] = "PHP";
 	$ArraySection = array();
-	$arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER");
+	$arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID");
 	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes
 
 	$resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
@@ -74,6 +75,7 @@ function getArrayAllSection($config)
 		 $arFields_res["NAME"] = $arFields["NAME"];
 		 $arFields_res["UF_PRDDATE"] = $arFields["UF_PRDDATE"];
 		 $arFields_res["UF_PRODUCER"] = $arFields["UF_PRODUCER"];
+		 $arFields_res["IBLOCK_SECTION_ID"] = $arFields["IBLOCK_SECTION_ID"];
 		 //print_php($arFields_res);
 		 //print_php($arFields);
 		 $i++;

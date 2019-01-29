@@ -35,14 +35,9 @@ $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<firstDepthLevelSectionByNamesDiff>>////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(1)
+if(0)
 {
 	$allFirstDepthLevelSection = getArrayFirstDepthLevelSection($config);
-	foreach($allFirstDepthLevelSection as $key => $value)
-    {
-        //Need add this string to Message!!!
-        print_php("FirstDepthLevelSection " . $allFirstDepthLevelSection["NAME"] . " with property: " . $key  . " with value " . $value);
-    }
 	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
 	$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
 }
@@ -55,11 +50,19 @@ if(1)
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<allPrototypesByArticlesDiff>>//////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(0)
+if(1)
 {
 	$allProtoArFields_result_array = getArrayAllSection($config);
-	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
-	$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
+	foreach($allProtoArFields_result_array as $key => $value)
+    {
+        foreach($value as $key_in => $value_in)
+        {
+        	print_php("FirstDepthLevelSection " . $value["NAME"] . " with property: " . $key_in  . " with value " . $value_in);
+        }   
+        
+    }
+	//$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
+	//$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<allPrototypesByArticlesDiff>>//////////////////////////////

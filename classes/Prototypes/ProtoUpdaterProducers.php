@@ -50,36 +50,38 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         
         foreach($this->diff_array_prototypes as $key => $value)
         {
-            print_php($key);
-            print_php($value);
-            foreach($value as $key_in => $value_in)
+            print_r($key);
+            print_r($value);
+           
+            if ($key == "NAME")
             {
-                if ($key_in == "NAME")
+                print_r($key);
+                echo nl2br("\r\n");
+                print_r($value);
+                echo nl2br("\r\n");
+
+                $protoGetterSite = new ProtoGetterSite($this->config);
+                $DEPTH_LEVEL = 1;
+                $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($value, $DEPTH_LEVEL);
+
+                print_r("mass from site:");
+                echo nl2br("\r\n");
+                print_r($OneProtoArrayFromSite);
+                echo nl2br("\r\n");
+                //print_php("mass from diff:");
+                //print_php($value);
+                
+                if ($OneProtoArrayFromSite!==NULL)
                 {
-                    print_php($key_in);
-                    print_php($value_in);
-
-                    $protoGetterSite = new ProtoGetterSite($this->config);
-                    $DEPTH_LEVEL = 1;
-                    $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($value_in, $DEPTH_LEVEL);
-
-                    print_php("mass from site:");
-                    print_php($OneProtoArrayFromSite);
-                    //print_php("mass from diff:");
-                    //print_php($value);
-                    $OneProtoArrayFromDiffMass = $value;
-                    if ($OneProtoArrayFromSite!==NULL)
-                    {
-                        //res is TRUE or FALSE
-                        $res = $this->updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $OneProtoArrayFromDiffMass);
-                    }
-                    else
-                    {
-                        
-                        $res = $this->setNewFirstDepthLevelSection($OneProtoArrayFromDiffMass);   
-                    }
+                    //res is TRUE or FALSE
+                    $res = $this->updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $this->diff_array_prototypes);
+                }
+                else
+                {           
+                    $res = $this->setNewFirstDepthLevelSection($this->diff_array_prototypes);   
                 }
             }
+            
             //break;
         }
     }
@@ -142,7 +144,7 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         $ID = $bs->Add($arFields);
         $res = ($ID>0);
         //NEED add this string to Message
-        print_r("new FirstDepthLevelSection " .$OneProtoArrayFromDiffMass["NAME"]. " was added with $ID = " . $ID);          
+        print_r("new FirstDepthLevelSection " .$OneProtoArrayFromDiffMass["NAME"]. " was added with ID = " . $ID);          
         return $res;
     }
 

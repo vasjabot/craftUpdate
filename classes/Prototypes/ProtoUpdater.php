@@ -46,7 +46,16 @@ class ProtoUpdater extends AbstractProtoUpdater
 
     public function updateAllPrototypesByArticlesDiff()
     {           
-        
+        foreach($this->diff_array_prototypes as $diff_article)
+        {
+            $protoGetterSite = new ProtoGetterSite($this->config);
+            $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($diff_article);
+            foreach($OneProtoArrayFromSite as $key => $value)
+            {
+                print_r("$key: " . $value);
+                echo nl2br("\r\n");
+            }
+        }
     }
 
     public function updateOldPrototype($OneProtoArrayFromSite, $OneProtoArrayFromDiffMass)

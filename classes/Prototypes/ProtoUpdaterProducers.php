@@ -46,23 +46,23 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         
         foreach($this->diff_array_prototypes as $key => $value)
         {
-            print_r($key);
-            print_r($value);
+            //print_r($key);
+            //print_r($value);
            
             if ($key == "NAME")
             {
-                print_r($key);
-                echo nl2br("\r\n");
-                print_r($value);
-                echo nl2br("\r\n");
+                //print_r($key);
+                //echo nl2br("\r\n");
+                //print_r($value);
+                //echo nl2br("\r\n");
 
                 $protoGetterSite = new ProtoGetterSite($this->config);
                 $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($value);
 
-                print_r("mass from site:");
-                echo nl2br("\r\n");
-                print_r($OneProtoArrayFromSite);
-                echo nl2br("\r\n");
+                //print_r("mass from site:");
+                //echo nl2br("\r\n");
+                //print_r($OneProtoArrayFromSite);
+                //echo nl2br("\r\n");
                 //print_php("mass from diff:");
                 //print_php($value);
                 

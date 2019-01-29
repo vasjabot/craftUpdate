@@ -52,7 +52,6 @@ function getArrayFirstDepthLevelSection($config)
 
 function getArrayAllSection($config)
 {
-	//$arr[] = "PHP";
 	$ArraySection = array();
 	$arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID");
 	$arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID));//5031 prototypes

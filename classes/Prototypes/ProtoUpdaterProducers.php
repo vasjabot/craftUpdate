@@ -85,6 +85,12 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         $bitrix_code = str_replace(' ', '_', $bitrix_code);
         $bitrix_code = str_replace('.', '_', $bitrix_code); 
 
+        $protoGetterSite = new ProtoGetterSite($this->config);
+        $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($curProtoName);
+
+        //print_r($OneProtoArrayFromSite);
+        //echo nl2br("\r\n");
+
         $bs = new \CIBlockSection;
 
         $arFields = Array(
@@ -97,10 +103,10 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
           "CODE" => $bitrix_code
           );
 
-        if($diff_arr["ID"] > 0)
+        if($OneProtoArrayFromSite[0]["ID"] > 0)
         {
             //this method return TRUE or FALSE if Error
-            $res = $bs->Update($diff_arr["ID"], $arFields);
+            $res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
             //NEED add this string to Message
             print_r("old FirstDepthLevelSection with Name = " . $curProtoName. " was modifyed with SORT = "  . "500". " CODE = " . $bitrix_code . " ACTIVE = " . "Y");
         }

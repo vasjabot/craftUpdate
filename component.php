@@ -69,13 +69,9 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 if(1)
 {	
-	//wrong tests
-	//to test new_add
-	//$firstDepthLevelSectionByNamesDiff = array("NAME" => "ABER", "CODE" => "aber"); 
-	//to test old_update
-	//$firstDepthLevelSectionByNamesDiff = array("ID" => "66973", "NAME" => "ACER", "CODE" => "acer", "SORT" => "500");
-	//fixed tests
-	$firstDepthLevelSectionByNamesDiff = array("ABER"); 
+
+	//$firstDepthLevelSectionByNamesDiff = array("ABER");
+	$firstDepthLevelSectionByNamesDiff = array("ACER");  
 
 	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $XML_arr["prototypes"], $firstDepthLevelSectionByNamesDiff);
 	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();

@@ -87,7 +87,8 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 if(1)
 {
-	$firstDepthLevelSectionByNamesDiff = array("NAME" => "ABER", "CODE" => "aber"); 
+	//$firstDepthLevelSectionByNamesDiff = array("NAME" => "ABER", "CODE" => "aber"); 
+	$firstDepthLevelSectionByNamesDiff = array("ID" => "66973", "NAME" => "ACER", "CODE" => "acer", "SORT" => "500");
 	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $firstDepthLevelSectionByNamesDiff);
 	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();
 }

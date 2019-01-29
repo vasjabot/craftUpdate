@@ -100,7 +100,9 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         $bs = new \CIBlockSection;
 
         $arFields = Array(
-          "ACTIVE" => $diff_arr["ACTIVE"],
+          "ACTIVE" => "Y",
+          "IBLOCK_SECTION_ID" => "",
+          "IBLOCK_ID" => $this->config->IBLOCK_ID,
           "NAME" => $diff_arr["NAME"],
           "SORT" => $diff_arr["SORT"],
           "CODE" => $diff_arr["CODE"]
@@ -110,6 +112,8 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         {
             //this method return TRUE or FALSE if Error
             $res = $bs->Update($diff_arr["ID"], $arFields);
+            //NEED add this string to Message
+            print_r("old FirstDepthLevelSection with ID = " . $diff_arr["ID"]. " was modifyed with NAME = " . $diff_arr["NAME"]  . " SORT = " . $diff_arr["SORT"] . " CODE = " . $diff_arr["CODE"] . " ACTIVE = " . "Y");
         }
         else
         {

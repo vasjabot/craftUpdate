@@ -67,13 +67,17 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 //////////////////////<<protoUpdaterProducers>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(0)
+if(1)
 {	
+	//wrong tests
 	//to test new_add
 	//$firstDepthLevelSectionByNamesDiff = array("NAME" => "ABER", "CODE" => "aber"); 
 	//to test old_update
 	//$firstDepthLevelSectionByNamesDiff = array("ID" => "66973", "NAME" => "ACER", "CODE" => "acer", "SORT" => "500");
-	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $firstDepthLevelSectionByNamesDiff);
+	//fixed tests
+	$firstDepthLevelSectionByNamesDiff = array("ABER"); 
+
+	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $XML_arr["prototypes"], $firstDepthLevelSectionByNamesDiff);
 	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -85,7 +89,7 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////<<allProtoUpdater>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(1)
+if(0)
 {
 	//$allPrototypesByArticlesDiff = array('A0.00.000');
 	$allPrototypesByArticlesDiff = array('A1.13.010');

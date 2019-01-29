@@ -13,6 +13,8 @@ namespace PrototypesNS;
 
 $_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+require_once(__DIR__.'/../SimpleXML/ProtoGetterXML.php');
+use SimpleXMLNS\ProtoGetterXML as ProtoGetterXML;
 require_once(__DIR__.'/ProtoGetterSite.php');
 use Bitrix;
 use Bitrix\Main\Loader;
@@ -22,19 +24,20 @@ Loader::includeModule("iblock");
 interface ProtoUpdaterProducersInterface
 {
     public function updateAllFirstDepthLevelSectionDiffArray();
-    public function setNewFirstDepthLevelSection($OneProtoArrayFromDiffMass);
-    public function updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $OneProtoArrayFromDiffMass);
+    public function setNewFirstDepthLevelSection($curProtoName);
+    public function updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $curProtoName);
 }
 
 abstract class AbstractProtoUpdaterProducers implements ProtoUpdaterProducersInterface
 {
     protected $config;
-    protected $diff_array_prototypes;
+    protected $diff_array_of_names_prototypes;
 
-    public function __construct($Config, $diff_array_prototypes)
+    public function __construct($Config, $xml_prototypes, $diff_array_of_names_prototypes)
     {
          $this->config = $Config;
-         $this->diff_array_prototypes = $diff_array_prototypes;
+         $this->xml_prototypes = $xml_prototypes;
+         $this->diff_array_of_names_prototypes = $diff_array_of_names_prototypes;
     }
 }
 
@@ -44,63 +47,54 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
     public function updateAllFirstDepthLevelSectionDiffArray()
     {   
         
-        foreach($this->diff_array_prototypes as $key => $value)
+        $protoGetterSite = new ProtoGetterSite($this->config);
+        foreach($this->diff_array_of_names_prototypes as $curProtoName)
         {
-            //print_r($key);
-            //print_r($value);
-           
-            if ($key == "NAME")
+            //print_r($curProtoName);         
+            $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($curProtoName);
+
+            //print_r("mass from site:");
+            //echo nl2br("\r\n");
+            //print_r($OneProtoArrayFromSite);
+            //echo nl2br("\r\n");
+            
+            if ($OneProtoArrayFromSite!==NULL)
             {
-                //print_r($key);
-                //echo nl2br("\r\n");
-                //print_r($value);
-                //echo nl2br("\r\n");
-
-                $protoGetterSite = new ProtoGetterSite($this->config);
-                $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($value);
-
-                //print_r("mass from site:");
-                //echo nl2br("\r\n");
-                //print_r($OneProtoArrayFromSite);
-                //echo nl2br("\r\n");
-                //print_php("mass from diff:");
-                //print_php($value);
                 
-                if ($OneProtoArrayFromSite!==NULL)
-                {
-                    //res is TRUE or FALSE
-                    $res = $this->updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $this->diff_array_prototypes);
-                }
-                else
-                {           
-                    $res = $this->setNewFirstDepthLevelSection($this->diff_array_prototypes);   
-                }
+                //$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
+                //No needed this func because no data in prototypes_work.xml
+                //$OneProtoArrayFromDiffMass = $protoGetterXML->getProtoByName();
+                //res is TRUE or FALSE
+                $res = $this->updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $curProtoName);
             }
+            else
+            {           
+                $res = $this->setNewFirstDepthLevelSection($curProtoName);   
+            }
+            
             
             //break;
         }
     }
 
-    public function updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $OneProtoArrayFromDiffMass)
+    public function updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $curProtoName)
     {
-        //$OneProtoArrayFromDiffMass mast be first arg in this func array_diff(arr1, arr2)
-        $diff_arr= array_diff ($OneProtoArrayFromDiffMass, $OneProtoArrayFromSite);
-        foreach($diff_arr as $key => $value)
-        {
-            //Need add this string to Message!!!
-            print_r("In FirstDepthLevelSection " . $OneProtoArrayFromSite["NAME"] . " was changed property: " . $key . " from " . $OneProtoArrayFromSite[$key] ." to " . $value);
 
-        }
+        $bitrix_code =  $curProtoName;
+        $bitrix_code = mb_strtolower($bitrix_code);
+        $bitrix_code = str_replace(' ', '_', $bitrix_code);
+        $bitrix_code = str_replace('.', '_', $bitrix_code); 
 
         $bs = new \CIBlockSection;
 
         $arFields = Array(
           "ACTIVE" => "Y",
+          //First DEPTH_LEVEL is empty
           "IBLOCK_SECTION_ID" => "",
           "IBLOCK_ID" => $this->config->IBLOCK_ID,
-          "NAME" => $diff_arr["NAME"],
-          "SORT" => $diff_arr["SORT"],
-          "CODE" => $diff_arr["CODE"]
+          "NAME" => $curProtoName,
+          "SORT" => 500,
+          "CODE" => $bitrix_code
           );
 
         if($diff_arr["ID"] > 0)
@@ -108,7 +102,7 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
             //this method return TRUE or FALSE if Error
             $res = $bs->Update($diff_arr["ID"], $arFields);
             //NEED add this string to Message
-            print_r("old FirstDepthLevelSection with ID = " . $diff_arr["ID"]. " was modifyed with NAME = " . $diff_arr["NAME"]  . " SORT = " . $diff_arr["SORT"] . " CODE = " . $diff_arr["CODE"] . " ACTIVE = " . "Y");
+            print_r("old FirstDepthLevelSection with Name = " . $curProtoName. " was modifyed with SORT = "  . "500". " CODE = " . $bitrix_code . " ACTIVE = " . "Y");
         }
         else
         {
@@ -118,15 +112,13 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
         return $res;
     }
 
-    public function setNewFirstDepthLevelSection($OneProtoArrayFromDiffMass)
+    public function setNewFirstDepthLevelSection($curProtoName)
     {
-        foreach($OneProtoArrayFromDiffMass as $key => $value)
-        {
-            //Need add this string to Message!!!
-            print_r("FirstDepthLevelSection " . $OneProtoArrayFromDiffMass["NAME"] . " was added  with property: " . $key  . " with value " . $value);
-
-        }
-
+        $bitrix_code =  $curProtoName;
+        $bitrix_code = mb_strtolower($bitrix_code);
+        $bitrix_code = str_replace(' ', '_', $bitrix_code);
+        $bitrix_code = str_replace('.', '_', $bitrix_code);
+     
         $bs = new \CIBlockSection;
 
         $arFields = Array(
@@ -134,16 +126,16 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
           //First DEPTH_LEVEL is empty
           "IBLOCK_SECTION_ID" => "",
           "IBLOCK_ID" => $this->config->IBLOCK_ID,
-          "NAME" => $OneProtoArrayFromDiffMass["NAME"],
+          "NAME" => $curProtoName,
           "SORT" => 500,
-          "CODE" => $OneProtoArrayFromDiffMass["CODE"]
+          "CODE" => $bitrix_code
           );
 
        
         $ID = $bs->Add($arFields);
         $res = ($ID>0);
         //NEED add this string to Message
-        print_r("new FirstDepthLevelSection " .$OneProtoArrayFromDiffMass["NAME"]. " was added with ID = " . $ID);          
+        print_r("new FirstDepthLevelSection " .$curProtoName. " was added with ID = " . $ID);          
         return $res;
     }
 

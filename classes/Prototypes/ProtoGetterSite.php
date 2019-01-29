@@ -43,7 +43,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
         $OneProtoArray = array();
 
         $arSelect = Array("ID", "NAME", "ACTIVE", "SORT", "CODE");
-        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "DEPTH_LEVEL"=>IntVal("1"));
+        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "DEPTH_LEVEL"=>IntVal("1"), "NAME"=>$Name);
         $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
 
         $i = 0;

@@ -35,9 +35,14 @@ $XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<firstDepthLevelSectionByNamesDiff>>////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(0)
+if(1)
 {
 	$allFirstDepthLevelSection = getArrayFirstDepthLevelSection($config);
+	foreach($allFirstDepthLevelSection as $key => $value)
+    {
+        //Need add this string to Message!!!
+        print_php("FirstDepthLevelSection " . $allFirstDepthLevelSection["NAME"] . " with property: " . $key  . " with value " . $value);
+    }
 	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
 	$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
 }
@@ -65,12 +70,12 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 ////////////////<<protoGetterSite>>//////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-if(1)
+if(0)
 {
 	$testProtoName = "ACER";
 	$DEPTH_LEVEL = 1;
 	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);
-	$seachedProto = $protoGetterSite->getProtoByName($testProtoName, $DEPTH_LEVEL);
+	$seachedProto = $protoGetterSite->getProtoFirstDepthLevelByName($testProtoName, $DEPTH_LEVEL);
 	print_php("seachedProto is:");
 	print_php($seachedProto);
 }

@@ -20,7 +20,7 @@ Loader::includeModule("iblock");
 
 interface ProtoGetterSiteInterface
 {
-    public function getProtoByName($Name, $DEPTH_LEVEL);
+    public function getProtoFirstDepthLevelByName($Name, $DEPTH_LEVEL);
     //public function getProtoByArticle($Article);  
 }
 
@@ -38,7 +38,7 @@ abstract class AbstractProtoGetterSite implements ProtoGetterSiteInterface
 
 class ProtoGetterSite extends AbstractProtoGetterSite
 {
-    public function getProtoByName($Name, $DEPTH_LEVEL)
+    public function getProtoFirstDepthLevelByName($Name, $DEPTH_LEVEL)
     {   
         $OneProtoArray = array();
 
@@ -47,6 +47,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
         $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
 
         $i = 0;
+        $WasFound = FALSE;
         while($ob = $resSection->GetNextElement())
         {        
             $arFields = $ob->GetFields();
@@ -60,10 +61,18 @@ class ProtoGetterSite extends AbstractProtoGetterSite
                 $arFields_res["CODE"] = $arFields["CODE"];
                 $i++;
                 $OneProtoArray[] = $arFields_res;
+                $WasFound = TRUE;
             }
         }
+        if($WasFound)
+        {
+            return $OneProtoArray;
+        }
+        else
+        {
+            return NULL;
+        }
 
-        return $OneProtoArray;
     }
 
 }

@@ -11,12 +11,9 @@
 
 namespace PrototypesNS;
 
-require_once(__DIR__.'/ProtoGetterSite.php');
-require_once(__DIR__.'/../SimpleXML/ProtoGetterXML.php');
-use SimpleXMLNS\ProtoGetterXML as ProtoGetterXML;
-
 $_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+require_once(__DIR__.'/ProtoGetterSite.php');
 use Bitrix;
 use Bitrix\Main\Loader;
 Loader::includeModule("iblock");
@@ -32,7 +29,6 @@ interface ProtoUpdaterProducersInterface
 abstract class AbstractProtoUpdaterProducers implements ProtoUpdaterProducersInterface
 {
     protected $config;
-    protected $protoGetterXML;
     protected $diff_array_prototypes;
 
     public function __construct($Config, $diff_array_prototypes)
@@ -61,8 +57,7 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
                 echo nl2br("\r\n");
 
                 $protoGetterSite = new ProtoGetterSite($this->config);
-                $DEPTH_LEVEL = 1;
-                $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($value, $DEPTH_LEVEL);
+                $OneProtoArrayFromSite = $protoGetterSite->getProtoFirstDepthLevelByName($value);
 
                 print_r("mass from site:");
                 echo nl2br("\r\n");

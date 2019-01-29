@@ -90,7 +90,7 @@ if(1)
 	//$allPrototypesByArticlesDiff = array('A0.00.000');
 	$allPrototypesByArticlesDiff = array('A1.13.010');
 	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allPrototypesByArticlesDiff);
-	$protoUpdaterProducers->updateAllPrototypesByArticlesDiff();
+	$protoUpdater->updateAllPrototypesByArticlesDiff();
 
 
 }

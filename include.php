@@ -14,6 +14,7 @@ require_once(__DIR__.'/classes/Prototypes/ProtoComparatorProducers.php');
 require_once(__DIR__.'/classes/SimpleXML/ProtoGetterXML.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoGetterSite.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoUpdaterProducers.php');
+require_once(__DIR__.'/classes/Prototypes/ProtoUpdater.php');
 
 
 

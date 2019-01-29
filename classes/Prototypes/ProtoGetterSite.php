@@ -80,7 +80,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
     {
         $OneProtoArray = array();
         $arSelect = Array("ID",  "NAME", "UF_ARTICLE", "ACTIVE", "SORT", "CODE", "PICTURE", "UF_DEVTYPE", "UF_PRDDATE", "UF_DESCRIPTION", "UF_BATTERYTYPE", "UF_MODEL", "UF_PRODUCER", "UF_COMPATIBILITYLIST", "IBLOCK_SECTION_ID");
-        $arFilter = Array("IBLOCK_ID"=>IntVal($config->IBLOCK_ID), "UF_ARTICLE"=>$Article);
+        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "UF_ARTICLE"=>$Article);
         $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
 
         $i = 0;

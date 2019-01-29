@@ -48,13 +48,19 @@ class ProtoUpdater extends AbstractProtoUpdater
     {           
         foreach($this->diff_array_prototypes as $diff_article)
         {
+            print_r($diff_article);
+            echo nl2br("\r\n");
             $protoGetterSite = new ProtoGetterSite($this->config);
             $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($diff_article);
-            foreach($OneProtoArrayFromSite as $key => $value)
-            {
-                print_r("$key: " . $value);
-                echo nl2br("\r\n");
-            }
+            print_r("OneProtoArrayFromSite is: ");
+            echo nl2br("\r\n");
+            print_r($OneProtoArrayFromSite);
+            echo nl2br("\r\n");
+            // foreach($OneProtoArrayFromSite as $key => $value)
+            // {
+            //     print_r("$key: " . $value);
+            //     echo nl2br("\r\n");
+            // }
         }
     }
 

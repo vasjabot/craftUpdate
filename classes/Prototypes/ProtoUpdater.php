@@ -90,6 +90,11 @@ class ProtoUpdater extends AbstractProtoUpdater
         $bitrix_code = str_replace(' ', '_', $bitrix_code);
         $bitrix_code = str_replace('.', '_', $bitrix_code); 
 
+        $model = 'Аккумулятор для '.$OneProtoArrayFromXML["UF_MODEL"].'';
+        //$model_win1251 = mb_convert_encoding($model, "utf-8", "windows-1251");
+        $model_win1251 = iconv("utf-8", "windows-1251", $model);
+
+
 
         $compatibilityGetterXML = new CompatibilityGetterXML($this->config, $this->xml_compatibility);
         $CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curProtoArticle);
@@ -107,17 +112,6 @@ class ProtoUpdater extends AbstractProtoUpdater
             $ACTIVE = "Y";
         }
 
-
-        // print_r("OneProtoArrayFromSite = ");
-        // echo nl2br("\r\n");
-        // //foreach($OneProtoArrayFromSite as $item)
-        // //{
-        //     //if()
-        //     print_r($OneProtoArrayFromSite[0]["UF_ARTICLE"]);
-        //     echo nl2br("\r\n");
-
-        // //}
-        // return FALSE;
 
 
         $bs = new \CIBlockSection;
@@ -147,9 +141,8 @@ class ProtoUpdater extends AbstractProtoUpdater
           "UF_PRDDATE" => $OneProtoArrayFromXML["UF_PRDDATE"],
           //XML
           "UF_BATTERYTYPE" => $OneProtoArrayFromXML["UF_BATTERYTYPE"],
-          //XML
-          //"UF_MODEL" => 'Аккумулятор для '.$OneProtoArrayFromXML["UF_MODEL"].'',
-          "UF_MODEL" => $OneProtoArrayFromXML["UF_MODEL"],
+          //Define in this method         
+          "UF_MODEL" => $model_win1251,     
           //XML
           "UF_PRODUCER" => $OneProtoArrayFromXML["UF_PRODUCER"],
           //XML
@@ -161,13 +154,13 @@ class ProtoUpdater extends AbstractProtoUpdater
             //this method return TRUE or FALSE if Error
             $res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
             //NEED add this string to Message
-            print_r("old ProtoSection with Name = " . $OneProtoArrayFromXML["NAME"] . " was modifyed with arFields = "  .  $arFields);
-            foreach($arFields as $arFieldsItem)
-            {
-                print_r($arFieldsItem);
-                echo nl2br("\r\n");
+            // print_r("old ProtoSection with Name = " . $OneProtoArrayFromXML["NAME"] . " was modifyed with arFields = "  .  $arFields);
+            // foreach($arFields as $arFieldsItem)
+            // {
+            //     print_r($arFieldsItem);
+            //     echo nl2br("\r\n");
 
-            }
+            // }
         }
         else
         {

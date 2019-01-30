@@ -45,7 +45,27 @@ class ProtoSorter extends AbstractProtoSorter
 
         if ($xlsx = SimpleXLSX::parse($PathToXlsx)) 
         {
-            print_r($xlsx->rows());
+            //$xlsx = mb_convert_encoding($xlsx, "utf-8", "windows-1251");
+            $rows = $xlsx->rows();
+            foreach ($rows as $key => $value)
+            {
+                //$rows[$key] = iconv("UTF-8", "CP1251",$value);
+                //$rows[$key] = iconv("windows-1251", "utf-8",$value);
+                // print_r($key);
+                // echo nl2br("\r\n");
+                // print_r($value);
+                // echo nl2br("\r\n");
+                foreach ($value as $key_in => $value_in)
+                {
+                    $value_in = iconv("utf-8", "windows-1251",$value_in);
+                    print_r($key_in);
+                    echo nl2br("\r\n");
+                    print_r($value_in);
+                    echo nl2br("\r\n");
+                }
+            }
+
+            //print_r($rows);
         } else
         {
             echo SimpleXLSX::parseError();

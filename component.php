@@ -24,7 +24,6 @@ $XML_arr_names = array(	"prototypes" => 'prototypes_work.xml',
 	               		"instock" => 'instock_work.xml',
 	               		"compatibility" => 'compatibility_work.xml');
 
-//$XML_arr = getAllXML($XML_arr_names, $config, $DEBUG);
 $simpleXMLprovider = new SimpleXMLNS\SimpleXMLprovider($config, $DEBUG);
 $XML_arr = $simpleXMLprovider->getAllXML($XML_arr_names);
 //printAllXML($XML_arr);

@@ -25,7 +25,7 @@ interface SimpleXMLproviderInterface
     ///return $result_xml///
     public function getFileXML($XML_name);
     public function requestNewXML($XML_name);
-    public function getAllXML($XML_arr_names)
+    public function getAllXML($XML_arr_names);
 }
 
 abstract class AbstractSimpleXMLprovider implements SimpleXMLproviderInterface
@@ -90,7 +90,7 @@ class SimpleXMLprovider extends AbstractSimpleXMLprovider
             $XML_arr[$key] = $xml_temp_result;
         } 
         
-        $simpleXMLvalidator = new SimpleXMLNS\SimpleXMLvalidator($config);
+        $simpleXMLvalidator = new SimpleXMLvalidator($this->config);
 
         $Is_All_Good = $simpleXMLvalidator->checkAllXML($XML_arr_names);
 

@@ -72,8 +72,10 @@ class ProtoUpdater extends AbstractProtoUpdater
                 $res = $this->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle);
             }
             else
-            {           
-                $res = $this->setNewFirstDepthLevelSection($curProtoArticle);   
+            {  
+                print_r("setNewPrototype");
+                echo nl2br("\r\n");         
+                $res = $this->setNewPrototype($curProtoArticle);   
             }
             
         }
@@ -207,9 +209,58 @@ class ProtoUpdater extends AbstractProtoUpdater
         //In this case NAME in FirstDepthLevel == UF_PRODUCER from OneProtoArrayFromXML
         $OneProtoArrayFirstDepthLevel = $protoGetterSite->getProtoFirstDepthLevelByName($OneProtoArrayFromXML["UF_PRODUCER"]);
 
-        if ()
+        if ($OneProtoArrayFirstDepthLevel[0]["ID"] > 0 )
         {
-            
+            // print_r("ID = " . $OneProtoArrayFirstDepthLevel[0]["ID"]);
+            // echo nl2br("\r\n");
+            // $arSelect = Array("IBLOCK_SECTION_ID");
+            // $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "ID"=>$OneProtoArrayFirstDepthLevel[0]["ID"]);
+            // $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+
+            // $WasFound = FALSE;
+            // while($ob = $resSection->GetNextElement())
+            // {                  
+            //     $arFields = $ob->GetFields();
+
+            //     foreach($arFields as $key => $value) 
+            //     {
+            //         print_r($key);
+            //         echo nl2br("\r\n");
+            //         print_r($value);
+            //         echo nl2br("\r\n");
+
+            //     }
+
+
+                
+            //     if($arFields["ID"] == $OneProtoArrayFirstDepthLevel[0]["ID"])
+            //     {             
+            //         $IBLOCK_SECTION_ID = $arFields["IBLOCK_SECTION_ID"]; 
+            //         $WasFound = TRUE;
+            //     }
+            // }
+            // if($WasFound)
+            // {
+            //     print_r("IBLOCK_SECTION_ID was found" . $IBLOCK_SECTION_ID);
+            //     echo nl2br("\r\n");
+            //     return NULL;
+            // }
+            // else
+            // {
+            //     print_r("IBLOCK_SECTION_ID was NOT found" . $IBLOCK_SECTION_ID);
+            //     echo nl2br("\r\n");
+            //     return NULL;
+            // }
+
+        }
+        else
+        {
+            //There are not existed FirstDepthLevelProto, which equal with OneProtoArrayFromXML["UF_PRODUCER"]
+            //In this case we just go away this func and return NULL
+            print_r("In this case we just go away this func and return NULL" . $IBLOCK_SECTION_ID);
+            echo nl2br("\r\n");
+            $IBLOCK_SECTION_ID = NULL;
+            return NULL;
         }
 
      
@@ -220,8 +271,8 @@ class ProtoUpdater extends AbstractProtoUpdater
           "UF_ARTICLE" => $OneProtoArrayFromXML["UF_ARTICLE"],
           //Define in this method 
           "ACTIVE" => $ACTIVE,
-          //Site
-          "IBLOCK_SECTION_ID" => $OneProtoArrayFromSite[0]["IBLOCK_SECTION_ID"],////////!!!!!!!!!!!!!
+          //In this place we set OneProtoArrayFirstDepthLevel[0]["ID"]
+          "IBLOCK_SECTION_ID" => $OneProtoArrayFirstDepthLevel[0]["ID"],////////!!!!!!!!!!!!!
           //Config
           "IBLOCK_ID" => $this->config->IBLOCK_ID,
           //XML
@@ -232,8 +283,8 @@ class ProtoUpdater extends AbstractProtoUpdater
           "SORT" => 500,
           //Define in this method
           "CODE" => $bitrix_code,
-          //Site In this field store id of PICTURE
-          "PICTURE" => $OneProtoArrayFromSite[0]["PICTURE"],
+          //EMPTY FIELD when new
+          "PICTURE" => "",
           //XML
           "UF_DEVTYPE" => $OneProtoArrayFromXML["UF_DEVTYPE"],
           //XML
@@ -251,9 +302,14 @@ class ProtoUpdater extends AbstractProtoUpdater
        
         $ID = $bs->Add($arFields);
         $res = ($ID>0);
-        //NEED add this string to Message
-        print_r("new ProtoSection " .$OneProtoArrayFromXML["NAME"]. " was added with ID = " . $ID);  
-        //return TRUE or FALSE        
+        if($res)
+        {
+            //NEED add this string to Message
+            print_r("new ProtoSection " .$OneProtoArrayFromXML["NAME"]. " was added with ID = " . $ID);  
+            //return TRUE or FALSE  
+
+        }
+              
         return $res;
 
 

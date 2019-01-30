@@ -22,6 +22,8 @@ interface ProtoGetterSiteInterface
 {
     public function getProtoFirstDepthLevelByName($Name);
     public function getProtoByArticle($Article);  
+    public function getArrayAllFirstDepthLevelSection();
+    public function getArrayAllSection();
 }
 
 abstract class AbstractProtoGetterSite implements ProtoGetterSiteInterface
@@ -124,6 +126,70 @@ class ProtoGetterSite extends AbstractProtoGetterSite
 
 
     }
+
+
+    public function getArrayAllFirstDepthLevelSection()
+    {
+        $arSelect = Array("ID", "NAME", "ACTIVE", "SORT", "CODE");
+        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "DEPTH_LEVEL"=>1);//razdel prototypes 98 with CRAFTMANN
+
+        $resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+        $i = 0;
+        $allProtoArFields_result_array = array();
+        while($ob = $resSection->GetNextElement())
+        {
+             $arFields = $ob->GetFields();
+             $arFields_res = array();
+             $arFields_res["ID"] = $arFields["ID"]; 
+             $arFields_res["NAME"] = $arFields["NAME"];
+             $arFields_res["ACTIVE"] = $arFields["ACTIVE"];
+             $arFields_res["SORT"] = $arFields["SORT"];
+             $arFields_res["CODE"] = $arFields["CODE"];
+             //print_php($arFields_res);
+             //print_php($arFields);
+             $i++;
+             //$allProtoArFields_result_array[] = $arFields;
+             $allProtoArFields_result_array[] = $arFields_res;
+        }
+        //print_php($allProtoArFields_result_array);
+        //print_php($res);
+        //print_php($i);
+        return $allProtoArFields_result_array;
+
+    }
+
+    public function getArrayAllSection()
+    {
+        $arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID");
+        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//5031 prototypes
+
+        $resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+        $i = 0;
+        $allProtoArFields_result_array = array();
+        while($ob = $resSection->GetNextElement())
+        {
+             $arFields = $ob->GetFields();
+             $arFields_res = array();
+             $arFields_res["ID"] = $arFields["ID"]; 
+             $arFields_res["UF_ARTICLE"] = $arFields["UF_ARTICLE"];
+             $arFields_res["UF_BATTERYTYPE"] = $arFields["UF_BATTERYTYPE"];
+             $arFields_res["UF_DEVTYPE"] = $arFields["UF_DEVTYPE"];
+             $arFields_res["NAME"] = $arFields["NAME"];
+             $arFields_res["UF_PRDDATE"] = $arFields["UF_PRDDATE"];
+             $arFields_res["UF_PRODUCER"] = $arFields["UF_PRODUCER"];
+             $arFields_res["IBLOCK_SECTION_ID"] = $arFields["IBLOCK_SECTION_ID"];
+             //print_php($arFields_res);
+             //print_php($arFields);
+             $i++;
+             $allProtoArFields_result_array[] = $arFields_res;
+        }
+        //print_php($allProtoArFields_result_array);
+        //print_php($res);
+        //print_php($i);
+        return $allProtoArFields_result_array;
+    }
+
+
 
 
 }

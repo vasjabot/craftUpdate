@@ -39,7 +39,7 @@ $XML_arr = $simpleXMLprovider->getAllXML($XML_arr_names);
 //firstDepthLevelSectionByNamesDiff
 if(0)
 {
-	$protoGetterSite = new ProtoGetterSite($config);    
+	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);    
 	$allFirstDepthLevelSection = $protoGetterSite->getArrayAllFirstDepthLevelSection();
 
 	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
@@ -65,7 +65,7 @@ if(0)
 //allPrototypesByArticlesDiff
 if(0)
 {
-	$protoGetterSite = new ProtoGetterSite($config);    
+	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);    
 	$allSection = $protoGetterSite->getArrayAllSection();
 
 	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allSection);
@@ -89,9 +89,9 @@ if(0)
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 //allBatteriesByArticlesDiff
-if (1)
+if (0)
 {
-	$batGetterSite = new BatGetterSite($config);    
+	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
 	$OneBatArrayFromSite = $protoGetterSite->getArrayAllSection();
 
 
@@ -105,6 +105,18 @@ if (1)
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
+
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////<<ProtoSorter>>///////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+if (1)
+{
+	$protoSorter = new ThirdPartyXMLNS\ProtoSorter();    
+	$SortedString = $protoSorter->getProtoSortedString(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
+}
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////<<ProtoSorter>>///////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 
 show_result_profiler($t0, $mem0);

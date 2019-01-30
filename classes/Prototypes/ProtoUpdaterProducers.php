@@ -33,10 +33,9 @@ abstract class AbstractProtoUpdaterProducers implements ProtoUpdaterProducersInt
     protected $config;
     protected $diff_array_of_names_prototypes;
 
-    public function __construct($Config, $xml_prototypes, $diff_array_of_names_prototypes)
+    public function __construct($Config, $diff_array_of_names_prototypes)
     {
          $this->config = $Config;
-         $this->xml_prototypes = $xml_prototypes;
          $this->diff_array_of_names_prototypes = $diff_array_of_names_prototypes;
     }
 }

@@ -84,6 +84,7 @@ class ProtoGetterXML extends AbstractProtoGetterXML
                     $model_var[0] = trim($model_var[0]);
                     $model_var[0] = str_replace('+', 'plus', $model_var[0]);
                     $uf_model = $model_var[0];
+                    $OneProtoArray["UF_MODEL"] = $uf_model;
                     $str_len_model = strlen($uf_model);
                     $modified_model_var = substr($uf_model, $str_len_producer, $str_len_model);
                     $modified_model_var = trim($modified_model_var);
@@ -92,6 +93,7 @@ class ProtoGetterXML extends AbstractProtoGetterXML
                     $OneProtoArray["NAME"] = $uf_name;
 
                     $WasFound = TRUE;
+                    break;
 
                 }
 

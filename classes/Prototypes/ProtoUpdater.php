@@ -211,54 +211,15 @@ class ProtoUpdater extends AbstractProtoUpdater
 
         if ($OneProtoArrayFirstDepthLevel[0]["ID"] > 0 )
         {
-            // print_r("ID = " . $OneProtoArrayFirstDepthLevel[0]["ID"]);
-            // echo nl2br("\r\n");
-            // $arSelect = Array("IBLOCK_SECTION_ID");
-            // $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "ID"=>$OneProtoArrayFirstDepthLevel[0]["ID"]);
-            // $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
-
-            // $WasFound = FALSE;
-            // while($ob = $resSection->GetNextElement())
-            // {                  
-            //     $arFields = $ob->GetFields();
-
-            //     foreach($arFields as $key => $value) 
-            //     {
-            //         print_r($key);
-            //         echo nl2br("\r\n");
-            //         print_r($value);
-            //         echo nl2br("\r\n");
-
-            //     }
-
-
-                
-            //     if($arFields["ID"] == $OneProtoArrayFirstDepthLevel[0]["ID"])
-            //     {             
-            //         $IBLOCK_SECTION_ID = $arFields["IBLOCK_SECTION_ID"]; 
-            //         $WasFound = TRUE;
-            //     }
-            // }
-            // if($WasFound)
-            // {
-            //     print_r("IBLOCK_SECTION_ID was found" . $IBLOCK_SECTION_ID);
-            //     echo nl2br("\r\n");
-            //     return NULL;
-            // }
-            // else
-            // {
-            //     print_r("IBLOCK_SECTION_ID was NOT found" . $IBLOCK_SECTION_ID);
-            //     echo nl2br("\r\n");
-            //     return NULL;
-            // }
-
+ 
+            $IBLOCK_SECTION_ID = $OneProtoArrayFirstDepthLevel[0]["ID"];
         }
         else
         {
             //There are not existed FirstDepthLevelProto, which equal with OneProtoArrayFromXML["UF_PRODUCER"]
             //In this case we just go away this func and return NULL
-            print_r("In this case we just go away this func and return NULL" . $IBLOCK_SECTION_ID);
-            echo nl2br("\r\n");
+            //print_r("In this case we just go away from this func and return NULL" . $IBLOCK_SECTION_ID);
+            //echo nl2br("\r\n");
             $IBLOCK_SECTION_ID = NULL;
             return NULL;
         }

@@ -25,8 +25,7 @@ abstract class AbstractCompatibilityGetterXML implements CompatibilityGetterXMLI
     public function __construct($Config, $xml_compatibility)
     {
          $this->config = $Config;
-         $this->xml_compatibility = $xml_compatibility;
-         
+         $this->xml_compatibility = $xml_compatibility;        
     }
 }
 

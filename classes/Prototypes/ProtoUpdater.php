@@ -16,6 +16,8 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.
 require_once(__DIR__.'/ProtoGetterSite.php');
 require_once(__DIR__.'/../SimpleXML/ProtoGetterXML.php');
 use SimpleXMLNS\ProtoGetterXML as ProtoGetterXML;
+require_once(__DIR__.'/../SimpleXML/CompatibilityGetterXML.php');
+use SimpleXMLNS\ProtoGetterXML as CompatibilityGetterXML;
 use Bitrix;
 use Bitrix\Main\Loader;
 Loader::includeModule("iblock");
@@ -39,12 +41,14 @@ abstract class AbstractProtoUpdater implements ProtoUpdaterInterface
     protected $config;
     protected $diff_array_prototypes;
     protected $xml_prototypes;
+    protected $xml_compatibility;
 
-    public function __construct($Config, $allPrototypesByArticlesDiff, $xml_prototypes)
+    public function __construct($Config, $allPrototypesByArticlesDiff, $xml_prototypes, $xml_compatibility)
     {
          $this->config = $Config;
          $this->diff_array_of_articles = $allPrototypesByArticlesDiff;
          $this->xml_prototypes = $xml_prototypes;
+         $this->xml_compatibility = $xml_compatibility;
     }
 }
 
@@ -82,9 +86,6 @@ class ProtoUpdater extends AbstractProtoUpdater
     public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle)
     {
 
-        $protoGetterSite = new ProtoGetterSite($this->config);
-        $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($curProtoArticle);
-
         $protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
         $OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curProtoArticle);
 
@@ -93,11 +94,20 @@ class ProtoUpdater extends AbstractProtoUpdater
         $bitrix_code = str_replace(' ', '_', $bitrix_code);
         $bitrix_code = str_replace('.', '_', $bitrix_code); 
 
-        if (empty($OneProtoArrayFromXML["UF_COMPATIBILITYLIST"])) 
+
+        $compatibilityGetterXML = new CompatibilityGetterXML($this->config, $this->xml_compatibility);
+        $CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curProtoArticle);
+
+        if (empty($CompatibilityStringFromXML) || $CompatibilityStringFromXML==NULL) 
         {
             $ACTIVE = "N";
+            print_r("CompatibilityStringFromXML is empty" . $CompatibilityStringFromXML);
+            echo nl2br("\r\n");
+            
         }else
         {
+            print_r("CompatibilityStringFromXML is NOT empty" . $CompatibilityStringFromXML);
+            echo nl2br("\r\n");
             $ACTIVE = "Y";
         }
 
@@ -129,7 +139,7 @@ class ProtoUpdater extends AbstractProtoUpdater
           //XML
           "UF_PRODUCER" => $OneProtoArrayFromXML["UF_PRODUCER"],
           //XML
-          "UF_COMPATIBILITYLIST" => $OneProtoArrayFromXML["UF_PRODUCER"]
+          "UF_COMPATIBILITYLIST" => $CompatibilityStringFromXML
           );
 
         if($OneProtoArrayFromSite[0]["ID"] > 0)
@@ -137,7 +147,7 @@ class ProtoUpdater extends AbstractProtoUpdater
             //this method return TRUE or FALSE if Error
             $res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
             //NEED add this string to Message
-            print_r("old FirstDepthLevelSection with Name = " . $curProtoName. " was modifyed with SORT = "  . "500". " CODE = " . $bitrix_code . " ACTIVE = " . "Y");
+            print_r("old ProtoSection with Name = " . $OneProtoArrayFromXML["NAME"] . " was modifyed with arFields = "  .  $arFields);
         }
         else
         {

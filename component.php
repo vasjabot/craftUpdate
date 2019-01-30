@@ -39,8 +39,8 @@ $XML_arr = $simpleXMLprovider->getAllXML($XML_arr_names);
 //firstDepthLevelSectionByNamesDiff
 if(0)
 {
-	$protoGetterSite = new ProtoGetterSite($this->config);    
-	$OneProtoArrayFromSite = $protoGetterSite->getArrayAllFirstDepthLevelSection();
+	$protoGetterSite = new ProtoGetterSite($config);    
+	$allFirstDepthLevelSection = $protoGetterSite->getArrayAllFirstDepthLevelSection();
 
 	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
 	$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
@@ -65,10 +65,10 @@ if(0)
 //allPrototypesByArticlesDiff
 if(0)
 {
-	$protoGetterSite = new ProtoGetterSite($this->config);    
-	$OneProtoArrayFromSite = $protoGetterSite->getArrayAllSection();
+	$protoGetterSite = new ProtoGetterSite($config);    
+	$allSection = $protoGetterSite->getArrayAllSection();
 
-	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
+	$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allSection);
 	$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();
 }
 //ProtoUpdater
@@ -88,9 +88,13 @@ if(0)
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-
+//allBatteriesByArticlesDiff
 if (1)
 {
+	$batGetterSite = new BatGetterSite($config);    
+	$OneBatArrayFromSite = $protoGetterSite->getArrayAllSection();
+
+
 	//$allProtoArFields_result_array = getArrayAllSection($config);
 	//$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
 	//$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();

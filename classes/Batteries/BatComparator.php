@@ -40,22 +40,21 @@ class BatComparator extends AbstractBatComparator
         if ($this->xml_offers->xpath('//dataWs'))
         {
             $index_dataWs = 0;
-            foreach ($this->xml_prototypes->xpath('//dataWs') as $item_search_prototypes_in_xml)
+            foreach ($this->xml_offers->xpath('//dataWs') as $item_offers_xml)
             {
-                $item_search_prototypes_article_in_xml = $item_search_prototypes_in_xml->article; 
-                //print_r($item_search_prototypes_article_in_xml);     
-                $item_search_prototypes_article_in_xml = (array)$item_search_prototypes_article_in_xml;
-                //print_r($item_search_prototypes_article_in_xml);
-                $item_search_prototypes_article_in_xml = $item_search_prototypes_article_in_xml[0];
-                //print_r($item_search_prototypes_article_in_xml);
+                $item_article = $item_offers_xml->article; 
+                //print_r($item_article);     
+                $item_article = (array)$item_article;
+                //print_r($item_article);
+                $item_article = $item_article[0];
+                //print_r($item_article);
                 //echo nl2br("\r\n");
-
 
                 $WasFound = FALSE;
 
-                foreach ($this->array_prototypes as $value )
+                foreach ($this->array_batteries as $value )
                 { 
-                    $item_search_prototypes_article_in_array = $value["UF_ARTICLE"];
+                    $item_article_array = $value["UF_ARTICLE"];
 
                     //print_r($item_search_prototypes_article_in_array);
                     //echo nl2br("\r\n");

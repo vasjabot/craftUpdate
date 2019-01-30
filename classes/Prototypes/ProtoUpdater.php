@@ -17,16 +17,12 @@ require_once(__DIR__.'/ProtoGetterSite.php');
 require_once(__DIR__.'/../SimpleXML/ProtoGetterXML.php');
 use SimpleXMLNS\ProtoGetterXML as ProtoGetterXML;
 require_once(__DIR__.'/../SimpleXML/CompatibilityGetterXML.php');
-use SimpleXMLNS\ProtoGetterXML as CompatibilityGetterXML;
+use SimpleXMLNS\CompatibilityGetterXML as CompatibilityGetterXML;
 use Bitrix;
 use Bitrix\Main\Loader;
 Loader::includeModule("iblock");
 
-$_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
-require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
-use Bitrix;
-use Bitrix\Main\Loader;
-Loader::includeModule("iblock");
+
 
 
 interface ProtoUpdaterInterface
@@ -39,7 +35,7 @@ interface ProtoUpdaterInterface
 abstract class AbstractProtoUpdater implements ProtoUpdaterInterface
 {
     protected $config;
-    protected $diff_array_prototypes;
+    protected $diff_array_of_articles;
     protected $xml_prototypes;
     protected $xml_compatibility;
 
@@ -58,7 +54,7 @@ class ProtoUpdater extends AbstractProtoUpdater
     public function updateAllPrototypesByArticlesDiff()
     {   
         $protoGetterSite = new ProtoGetterSite($this->config);        
-        foreach($this->diff_array_of_names_prototypes as $curProtoArticle)
+        foreach($this->diff_array_of_articles as $curProtoArticle)
         {        
             $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($curProtoArticle);
             // print_r("OneProtoArrayFromSite is: ");
@@ -112,22 +108,39 @@ class ProtoUpdater extends AbstractProtoUpdater
         }
 
 
+        // print_r("OneProtoArrayFromSite = ");
+        // echo nl2br("\r\n");
+        // //foreach($OneProtoArrayFromSite as $item)
+        // //{
+        //     //if()
+        //     print_r($OneProtoArrayFromSite[0]["UF_ARTICLE"]);
+        //     echo nl2br("\r\n");
+
+        // //}
+        // return FALSE;
+
+
         $bs = new \CIBlockSection;
 
         $arFields = Array(
+          //not XML, let't get it from Site
+          "UF_ARTICLE" => $OneProtoArrayFromSite[0]["UF_ARTICLE"],
+          //Define in this method 
           "ACTIVE" => $ACTIVE,
           //Site
           "IBLOCK_SECTION_ID" => $OneProtoArrayFromSite[0]["IBLOCK_SECTION_ID"],
+          //Config
           "IBLOCK_ID" => $this->config->IBLOCK_ID,
           //XML
           "NAME" => $OneProtoArrayFromXML["NAME"],
-          "UF_DESCRIPTION" => "",
+          //Just temp phrase
+          "UF_DESCRIPTION" => "test description",
+          //Defaul 500
           "SORT" => 500,
+          //Define in this method
           "CODE" => $bitrix_code,
           //Site In this field store id of PICTURE
-          "PICTURE" => $OneProtoArrayFromSite["PICTURE"],
-          //not XML, let't get it from Site
-          "UF_ARTICLE" => $OneProtoArrayFromSite["UF_ARTICLE"],
+          "PICTURE" => $OneProtoArrayFromSite[0]["PICTURE"],
           //XML
           "UF_DEVTYPE" => $OneProtoArrayFromXML["UF_DEVTYPE"],
           //XML
@@ -135,7 +148,8 @@ class ProtoUpdater extends AbstractProtoUpdater
           //XML
           "UF_BATTERYTYPE" => $OneProtoArrayFromXML["UF_BATTERYTYPE"],
           //XML
-          "UF_MODEL" => 'Аккумулятор для '.$OneProtoArrayFromXML["UF_MODEL"].'',
+          //"UF_MODEL" => 'Аккумулятор для '.$OneProtoArrayFromXML["UF_MODEL"].'',
+          "UF_MODEL" => $OneProtoArrayFromXML["UF_MODEL"],
           //XML
           "UF_PRODUCER" => $OneProtoArrayFromXML["UF_PRODUCER"],
           //XML
@@ -148,6 +162,12 @@ class ProtoUpdater extends AbstractProtoUpdater
             $res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
             //NEED add this string to Message
             print_r("old ProtoSection with Name = " . $OneProtoArrayFromXML["NAME"] . " was modifyed with arFields = "  .  $arFields);
+            foreach($arFields as $arFieldsItem)
+            {
+                print_r($arFieldsItem);
+                echo nl2br("\r\n");
+
+            }
         }
         else
         {

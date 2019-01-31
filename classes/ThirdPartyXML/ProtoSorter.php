@@ -48,94 +48,177 @@ class ProtoSorter extends AbstractProtoSorter
             $allSection = $protoGetterSite->getArrayAllSection();
 
 
-            // foreach ($allSection as $secItem)
-            // {
-            //     //print_r($secItem);
-            //     print_r($secItem["NAME"]);
-            //     echo nl2br("\r\n");
-            //     break;
 
+            $result_allSection = array();
 
-            // }   
-
-            $i=0;
-            foreach ($rows as $key => $value)
+            foreach ($allSection as $key => $value)
             {
-                //// $rows[$key] = iconv("UTF-8", "CP1251",$value);
-                //// $rows[$key] = iconv("windows-1251", "utf-8",$value);
-
-
-
-
                 // print_r($key);
                 // echo nl2br("\r\n");
                 // print_r($value);
                 // echo nl2br("\r\n");
 
-                foreach ($allSection as $secItem)
+                foreach ($value as $key_in => $value_in)
                 {
-                    ////print_r($secItem);
-                    // print_r($secItem["NAME"]);
-                    // echo nl2br("\r\n");
-
-                    //$secItem["NAME"];
-
-                    //$secItemName = mb_strtolower($secItem["NAME"]);
-
-
-                    //$secItemName = mb_strtolower($secItem["NAME"]);
-                    $secItemCode = mb_strtolower($secItem["CODE"]);
-                    $secItemCode = str_replace('_', ' ', $secItemCode);
-                    $secItemCode = str_replace('_', '.', $secItemCode);
-
-
-                    //$secItemCode = iconv("utf-8", "windows-1251", $secItemCode);
-
-                    $pos = strpos($secItemCode, $value[0]);
-
-                    if ($pos === false) 
-                    {
-                        echo "String NOT found";
-                        echo nl2br("\r\n");
-                        print_r($secItemCode);
-                        echo nl2br("\r\n");
-                        print_r($value[0]);
-                        echo nl2br("\r\n");
-                    } else 
-                    {
-                        echo "String WAS found";
-                    }
-
-                } 
-
-                $i++;
-                if ($i>100)
-                {
-                    break;
-                }
-
-
-                //foreach ($value as $key_in => $value_in)
-                //{
-                    //$value_in = iconv("utf-8", "windows-1251",$value_in);
                     // print_r($key_in);
                     // echo nl2br("\r\n");
                     // print_r($value_in);
                     // echo nl2br("\r\n");
-
-                    // foreach ($allSection as $secItem)
-                    // {
-                    //     print_r($secItem);
-                    //     echo nl2br("\r\n");
-                    //     break;
+                    //break;
 
 
-                    // }   
+                    if($key_in == "CODE") 
+                    {
+                        $value_in = str_replace('_', ' ', $value_in);
+                        $value_in = str_replace('_', '.', $value_in);
+                        $result_allSection[] = $value_in;
+                        // print_r($key);
+                        // echo nl2br("\r\n");
+                        // print_r($value);
+                        // echo nl2br("\r\n");
+                    }
+
+                }
+
+                
+
+            }
+
+
+            foreach ($result_allSection as $item)
+            {
+                print_r($item);
+                echo nl2br("\r\n");
+            }
+
+
+
+
+
+            //$i=0;
+            //foreach ($allSection as $secItem)
+            // foreach ($allSection as $key => $value)
+            // {
+            //     //$i++;
+            //     //$secItemCode = mb_strtolower($secItem["CODE"]);
+            //     //$secItemCode = str_replace('_', ' ', $secItemCode);
+            //     //$secItemCode = str_replace('_', '.', $secItemCode);
+
+            //     //$allSection[$i-1] = $secItemCode;
+
+            //     if ($key == "CODE")
+            //     {
+            //         //$value = str_replace('_', ' ', $value);
+            //         //$value = str_replace('_', '.', $value);
 
 
                     
+            //         //unset($allSection[$i-1]);
+            //         //continue;
 
-                //}
+            //     }
+
+            // }
+
+            // foreach ($allSection as $secItem)
+            // {
+            //     //print_r($secItem);
+            //     //print_r($secItem["NAME"]);
+            //     print_r($secItem["CODE"]);
+            //     echo nl2br("\r\n");
+            //     //break;
+
+            // }   
+
+
+
+
+            $i=0;
+            if(0)
+            {    
+                foreach ($rows as $key => $value)
+                {
+                    //break;
+                    //// $rows[$key] = iconv("UTF-8", "CP1251",$value);
+                    //// $rows[$key] = iconv("windows-1251", "utf-8",$value);
+
+
+
+
+                    // print_r($key);
+                    // echo nl2br("\r\n");
+                    // print_r($value);
+                    // echo nl2br("\r\n");
+
+                    foreach ($allSection as $secItem)
+                    {
+                        ////print_r($secItem);
+                        // print_r($secItem["NAME"]);
+                        // echo nl2br("\r\n");
+
+                        //$secItem["NAME"];
+
+                        //$secItemName = mb_strtolower($secItem["NAME"]);
+
+                        //if ($secItem["CODE"] == "")
+                        //{
+                        //    continue;
+
+                        //}
+                        //$secItemName = mb_strtolower($secItem["NAME"]);
+                        //$secItemCode = mb_strtolower($secItem["CODE"]);
+                        //$secItemCode = str_replace('_', ' ', $secItemCode);
+                        //$secItemCode = str_replace('_', '.', $secItemCode);
+
+
+                        //$secItemCode = iconv("utf-8", "windows-1251", $secItemCode);
+
+                        $pos = strpos($secItemCode, $value[0]);
+
+                        if ($pos === false) 
+                        {
+                            echo "String NOT found";
+                            echo nl2br("\r\n");
+                            print_r($secItemCode);
+                            echo nl2br("\r\n");
+                            print_r($value[0]);
+                            echo nl2br("\r\n");
+                        } else 
+                        {
+                            echo "String WAS found";
+                        }
+
+                    } 
+
+                    $i++;
+                    if ($i>1)
+                    {
+                        //break;
+                    }
+
+
+                    //foreach ($value as $key_in => $value_in)
+                    //{
+                        //$value_in = iconv("utf-8", "windows-1251",$value_in);
+                        // print_r($key_in);
+                        // echo nl2br("\r\n");
+                        // print_r($value_in);
+                        // echo nl2br("\r\n");
+
+                        // foreach ($allSection as $secItem)
+                        // {
+                        //     print_r($secItem);
+                        //     echo nl2br("\r\n");
+                        //     break;
+
+
+                        // }   
+
+
+                        
+
+                    //}
+                }
             }
 
             //print_r($rows);

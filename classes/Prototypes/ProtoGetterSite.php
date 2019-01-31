@@ -178,6 +178,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
              $arFields_res["UF_PRDDATE"] = $arFields["UF_PRDDATE"];
              $arFields_res["UF_PRODUCER"] = $arFields["UF_PRODUCER"];
              $arFields_res["IBLOCK_SECTION_ID"] = $arFields["IBLOCK_SECTION_ID"];
+             $arFields_res["CODE"] = $arFields["CODE"];
              //print_php($arFields_res);
              //print_php($arFields);
              $i++;

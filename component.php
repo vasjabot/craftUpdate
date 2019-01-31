@@ -92,7 +92,7 @@ if(0)
 if (0)
 {
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
-	$OneBatArrayFromSite = $protoGetterSite->getArrayAllSection();
+	$allBatteriesFromSite = $protoGetterSite->getArrayAllSection();
 
 
 	//$allProtoArFields_result_array = getArrayAllSection($config);
@@ -111,7 +111,7 @@ if (0)
 /////////////////////////////////////////////////////////////////////////////
 if (1)
 {
-	$protoSorter = new ThirdPartyXMLNS\ProtoSorter();    
+	$protoSorter = new ThirdPartyXMLNS\ProtoSorter($config);    
 	$SortedString = $protoSorter->getProtoSortedString(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
 }
 /////////////////////////////////////////////////////////////////////////////

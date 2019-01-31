@@ -163,7 +163,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
         $arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID");
         $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//5031 prototypes
 
-        $resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+        $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
         $i = 0;
         $allProtoArFields_result_array = array();
         while($ob = $resSection->GetNextElement())

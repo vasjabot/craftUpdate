@@ -81,15 +81,23 @@ class ProtoSorter extends AbstractProtoSorter
                     //$secItem["NAME"];
 
                     //$secItemName = mb_strtolower($secItem["NAME"]);
-                    $secItemName = mb_strtolower($secItem["NAME"]);
 
-                    $pos = strpos($secItem["NAME"], $value[0]);
+
+                    //$secItemName = mb_strtolower($secItem["NAME"]);
+                    $secItemCode = mb_strtolower($secItem["CODE"]);
+                    $secItemCode = str_replace('_', ' ', $secItemCode);
+                    $secItemCode = str_replace('_', '.', $secItemCode);
+
+
+                    //$secItemCode = iconv("utf-8", "windows-1251", $secItemCode);
+
+                    $pos = strpos($secItemCode, $value[0]);
 
                     if ($pos === false) 
                     {
                         echo "String NOT found";
                         echo nl2br("\r\n");
-                        print_r($secItemName);
+                        print_r($secItemCode);
                         echo nl2br("\r\n");
                         print_r($value[0]);
                         echo nl2br("\r\n");
@@ -101,7 +109,7 @@ class ProtoSorter extends AbstractProtoSorter
                 } 
 
                 $i++;
-                if ($i>10)
+                if ($i>100)
                 {
                     break;
                 }

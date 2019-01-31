@@ -160,7 +160,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
 
     public function getArrayAllSection()
     {
-        $arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID");
+        $arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID", "CODE");
         $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//5031 prototypes
 
         $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);

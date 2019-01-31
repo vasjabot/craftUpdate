@@ -80,6 +80,7 @@ class ProtoSorter extends AbstractProtoSorter
 
                     //$secItem["NAME"];
 
+                    //$secItemName = mb_strtolower($secItem["NAME"]);
                     $secItemName = mb_strtolower($secItem["NAME"]);
 
                     $pos = strpos($secItem["NAME"], $value[0]);
@@ -96,11 +97,6 @@ class ProtoSorter extends AbstractProtoSorter
                     {
                         echo "String WAS found";
                     }
-
-
-                    
-                    
-
 
                 } 
 

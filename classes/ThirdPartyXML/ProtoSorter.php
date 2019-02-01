@@ -71,15 +71,18 @@ class ProtoSorter extends AbstractProtoSorter
                     {
                         $value_in = str_replace('_', ' ', $value_in);
                         $value_in = str_replace('_', '.', $value_in);
+                        $value_in = str_replace('_', '/', $value_in);
+
+    
                         $result_allSection[] = $value_in;
                         // print_r($key);
                         // echo nl2br("\r\n");
                         // print_r($value);
                         // echo nl2br("\r\n");
-                        if ($value_in == "acer liquid z530s")
-                        {
+                        //if ($value_in == "acer liquid z530s")
+                        //{
                             //print_r("acer liquid z530s WAS FOUND!!!!!!!!!");
-                        }
+                        //}
                     }
 
                 }
@@ -102,13 +105,13 @@ class ProtoSorter extends AbstractProtoSorter
             $i=0;
             if(1)
             {    
+                $return_array = array();
+
                 foreach ($rows as $key => $value)
                 {
                     //break;
                     //// $rows[$key] = iconv("UTF-8", "CP1251",$value);
                     //// $rows[$key] = iconv("windows-1251", "utf-8",$value);
-
-
 
 
                     // print_r($key);
@@ -118,12 +121,8 @@ class ProtoSorter extends AbstractProtoSorter
 
                     foreach ($result_allSection as $secItemCode)
                     {
-                        // print_r($value[0]);
-                        // echo nl2br("\r\n");
-
-
-                  
-
+                         // print_r($secItemCode);
+                         // echo nl2br("\r\n");
                      
                         $pos = strpos($value[0], $secItemCode);
 
@@ -131,7 +130,6 @@ class ProtoSorter extends AbstractProtoSorter
                         {
                             continue;
                            
-
                         } else 
                         {
                             if ($prev_value_1 == $value[1])
@@ -140,6 +138,7 @@ class ProtoSorter extends AbstractProtoSorter
                             }
                             else
                             {
+                                $return_array[$secItemCode] += $value[1];
                                 echo "String WAS found";
                                 print_r($value[0]);
                                 echo nl2br("\r\n");
@@ -150,14 +149,8 @@ class ProtoSorter extends AbstractProtoSorter
 
                                 break;
 
-                            }
-                            
-
-
-
-                          
+                            }                                                  
                         }
-
                     } 
 
                     $i++;
@@ -173,6 +166,16 @@ class ProtoSorter extends AbstractProtoSorter
                         
 
                     
+                }
+
+                //foreach ($return_array as $return_item)
+                foreach ($return_array as $key => $value)
+                {
+                    print_r($key);
+                    echo nl2br("\r\n");
+                    print_r($value);
+                    echo nl2br("\r\n");
+
                 }
 
 

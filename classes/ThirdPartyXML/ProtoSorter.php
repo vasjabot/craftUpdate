@@ -76,6 +76,10 @@ class ProtoSorter extends AbstractProtoSorter
                         // echo nl2br("\r\n");
                         // print_r($value);
                         // echo nl2br("\r\n");
+                        if ($value_in == "acer liquid z530s")
+                        {
+                            //print_r("acer liquid z530s WAS FOUND!!!!!!!!!");
+                        }
                     }
 
                 }
@@ -177,7 +181,7 @@ class ProtoSorter extends AbstractProtoSorter
 
                         if ($pos === false) 
                         {
-                            // echo "String NOT found";
+                            //echo "String NOT found";
                             // echo nl2br("\r\n");
                             // print_r($secItemCode);
                             // echo nl2br("\r\n");
@@ -185,11 +189,30 @@ class ProtoSorter extends AbstractProtoSorter
                             // echo nl2br("\r\n");
                         } else 
                         {
-                            echo "String WAS found";
-                            print_r($value[0]);
-                            echo nl2br("\r\n");
-                            print_r($value[1]);
-                            echo nl2br("\r\n");
+                            if ($prev_value_1== $value[1])
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                echo "String WAS found";
+                                print_r($value[0]);
+                                echo nl2br("\r\n");
+                                print_r($value[1]);
+                                echo nl2br("\r\n");
+
+                                $prev_value_1 = $value[1];
+
+                            }
+                            
+
+
+
+                            // $new_value = array();
+                            // $new_value[0] = "WAS found";
+                            // $new_value[1] = 0;
+
+                            // $rows[$key] = $new_value;
 
                             //break;
 
@@ -226,6 +249,19 @@ class ProtoSorter extends AbstractProtoSorter
 
                     //}
                 }
+
+
+                foreach ($rows as $key => $value)
+                {
+                    print_r($key);
+                    echo nl2br("\r\n");
+                    print_r($value);
+                    echo nl2br("\r\n");
+
+
+                }
+
+
             }
 
             //print_r($rows);

@@ -97,13 +97,34 @@ class ProtoSorter extends AbstractProtoSorter
                 }               
             }
 
-            // foreach ($return_array as $key => $value)
-            // {
-            //     print_r($key);
-            //     echo nl2br("\r\n");
-            //     print_r($value);
-            //     echo nl2br("\r\n");
-            // }
+            if(1)
+            {
+                $return_array_m = array();
+                foreach ($return_array as $key => $value)
+                {
+                    $key = str_replace(' ', '_', $key);
+                    $key = str_replace('.', '_', $key);
+                    $key = str_replace('/', '_', $key);
+
+                    $return_array_m[$key] = $value;
+
+                    // print_r($key);
+                    // echo nl2br("\r\n");
+                    // print_r($value);
+                    // echo nl2br("\r\n");
+                }
+
+                foreach ($return_array_m as $key => $value)
+                {                
+
+                    print_r($key);
+                    echo nl2br("\r\n");
+                    print_r($value);
+                    echo nl2br("\r\n");
+                }
+
+            }    
+            
 
             
 
@@ -114,7 +135,7 @@ class ProtoSorter extends AbstractProtoSorter
 
         if (0)
         {
-            $results = print_r($return_array, true);
+            $results = print_r($return_array_m, true);
             $date  = date('Y-m-d H:i:s');
             $fileName = 'ProtoSort';
             $fileName = $fileName.'_'.$date;

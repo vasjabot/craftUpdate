@@ -81,7 +81,7 @@ class ProtoUpdater extends AbstractProtoUpdater
         }
     }
 
-    public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle)
+    public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=500)
     {
 
         $protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
@@ -129,7 +129,7 @@ class ProtoUpdater extends AbstractProtoUpdater
           //Just temp phrase
           "UF_DESCRIPTION" => "test description",
           //Defaul 500
-          "SORT" => 500,
+          "SORT" => $curProtoSort,
           //Define in this method
           "CODE" => $bitrix_code,
           //Site In this field store id of PICTURE

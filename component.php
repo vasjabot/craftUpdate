@@ -112,7 +112,36 @@ if (0)
 if (1)
 {
 	$protoSorter = new ThirdPartyXMLNS\ProtoSorter($config);    
-	$SortedString = $protoSorter->getProtoSortedString(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
+	$SortedArray = $protoSorter->getProtoSortedString(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
+
+	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);
+	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allPrototypesByArticlesDiff, $XML_arr["prototypes"], $XML_arr["compatibility"]);
+
+	foreach ($SortedArrayyyyyyy as $key => $value)
+	{
+	    $key = str_replace(' ', '_', $key);
+        $key = str_replace('.', '_', $key);
+        $key = str_replace('/', '_', $key);
+
+        print_r($key);
+	    echo nl2br("\r\n");
+
+	    print_r($value);
+	    echo nl2br("\r\n");
+
+	    if($key === "acer_a1")
+	    {
+	    	$OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
+        	$res = $protoUpdater->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);
+        	print_r("Was updated" . $res);
+	    	echo nl2br("\r\n");
+	    }
+
+        
+
+        
+	}
+
 }
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////<<ProtoSorter>>///////////////////////////////////

@@ -21,7 +21,8 @@ Loader::includeModule("iblock");
 interface ProtoGetterSiteInterface
 {
     public function getProtoFirstDepthLevelByName($Name);
-    public function getProtoByArticle($Article);  
+    public function getProtoByArticle($Article); 
+    public function getProtoByBitrixCode($BitrixCode); 
     public function getArrayAllFirstDepthLevelSection();
     public function getArrayAllSection();
 }
@@ -124,8 +125,62 @@ class ProtoGetterSite extends AbstractProtoGetterSite
             return NULL;
         }
 
+    }
+
+
+
+    public function getProtoByBitrixCode($BitrixCode)
+    {
+        $OneProtoArray = array();
+        $arSelect = Array("ID",  "NAME", "UF_ARTICLE", "ACTIVE", "SORT", "CODE", "PICTURE", "UF_DEVTYPE", "UF_PRDDATE", "UF_DESCRIPTION", "UF_BATTERYTYPE", "UF_MODEL", "UF_PRODUCER", "UF_COMPATIBILITYLIST", "IBLOCK_SECTION_ID");
+        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "CODE"=>$BitrixCode);
+        $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+
+        $i = 0;
+        $WasFound = FALSE;
+        while($ob = $resSection->GetNextElement())
+        {
+            $arFields = $ob->GetFields();
+            if($arFields["UF_ARTICLE"] == $Article)
+            {
+                $arFields = $ob->GetFields();
+                $arFields_res = array();
+                $arFields_res["ID"] = $arFields["ID"]; 
+                $arFields_res["NAME"] = $arFields["NAME"];
+                $arFields_res["UF_ARTICLE"] = $arFields["UF_ARTICLE"];
+                $arFields_res["ACTIVE"] = $arFields["ACTIVE"];
+                $arFields_res["SORT"] = $arFields["SORT"];
+                $arFields_res["CODE"] = $arFields["CODE"];
+                $arFields_res["PICTURE"] = $arFields["PICTURE"];
+                $arFields_res["UF_DEVTYPE"] = $arFields["UF_DEVTYPE"];
+                $arFields_res["UF_PRDDATE"] = $arFields["UF_PRDDATE"];
+                $arFields_res["UF_DESCRIPTION"] = $arFields["UF_DESCRIPTION"];
+                $arFields_res["UF_BATTERYTYPE"] = $arFields["UF_BATTERYTYPE"];
+                $arFields_res["UF_MODEL"] = $arFields["UF_MODEL"];
+                $arFields_res["UF_PRODUCER"] = $arFields["UF_PRODUCER"];
+                $arFields_res["UF_COMPATIBILITYLIST"] = $arFields["UF_COMPATIBILITYLIST"];
+                $arFields_res["IBLOCK_SECTION_ID"] = $arFields["IBLOCK_SECTION_ID"];
+                $i++;
+                $OneProtoArray[] = $arFields_res;
+                $WasFound = TRUE;
+            }
+
+        }
+        if($WasFound)
+        {
+            return $OneProtoArray;
+        }
+        else
+        {
+            return NULL;
+        }
 
     }
+
+
+
+
+
 
 
     public function getArrayAllFirstDepthLevelSection()

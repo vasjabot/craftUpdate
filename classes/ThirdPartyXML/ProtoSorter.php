@@ -99,44 +99,6 @@ class ProtoSorter extends AbstractProtoSorter
 
 
 
-            //$i=0;
-            //foreach ($allSection as $secItem)
-            // foreach ($allSection as $key => $value)
-            // {
-            //     //$i++;
-            //     //$secItemCode = mb_strtolower($secItem["CODE"]);
-            //     //$secItemCode = str_replace('_', ' ', $secItemCode);
-            //     //$secItemCode = str_replace('_', '.', $secItemCode);
-
-            //     //$allSection[$i-1] = $secItemCode;
-
-            //     if ($key == "CODE")
-            //     {
-            //         //$value = str_replace('_', ' ', $value);
-            //         //$value = str_replace('_', '.', $value);
-
-
-                    
-            //         //unset($allSection[$i-1]);
-            //         //continue;
-
-            //     }
-
-            // }
-
-            // foreach ($allSection as $secItem)
-            // {
-            //     //print_r($secItem);
-            //     //print_r($secItem["NAME"]);
-            //     print_r($secItem["CODE"]);
-            //     echo nl2br("\r\n");
-            //     //break;
-
-            // }   
-
-
-
-
             $i=0;
             if(1)
             {    
@@ -156,45 +118,75 @@ class ProtoSorter extends AbstractProtoSorter
 
                     foreach ($result_allSection as $secItemCode)
                     {
-                        print_r($value[1]);
-                        echo nl2br("\r\n");
-                        //break;
-
-
-                        ////print_r($secItem);
-                        // print_r($secItem["NAME"]);
+                        // print_r($value[0]);
                         // echo nl2br("\r\n");
 
-                        //$secItem["NAME"];
 
-                        //$secItemName = mb_strtolower($secItem["NAME"]);
+                        if ($value[0] == "acer betouch e130 цена")
+                        {
+                            // print_r("WAS  FOUND!!!!");
+                            // echo nl2br("\r\n");
 
-                        //if ($secItem["CODE"] == "")
-                        //{
-                        //    continue;
+                            //print_r($secItemCode);
+                            //echo nl2br("\r\n");
 
-                        //}
-                        //$secItemName = mb_strtolower($secItem["NAME"]);
-                        //$secItemCode = mb_strtolower($secItem["CODE"]);
-                        //$secItemCode = str_replace('_', ' ', $secItemCode);
-                        //$secItemCode = str_replace('_', '.', $secItemCode);
+                            ///////!!!!!!!!!!!$pos = strpos($secItemCode, $value[0]);
+
+                            //$pos = strpos("acer betouch e130", "acer betouch e130 цена");
+
+                            $pos = strpos("acer betouch e130 цена", "acer betouch e130");
 
 
-                        //$secItemCode = iconv("utf-8", "windows-1251", $secItemCode);
+                            //$pos = stristr("acer betouch e130 цена", "acer betouch e130");
 
-                        //print_r($value[1]);
+        
+
+                            //if(stristr("acer betouch e130 цена", "acer betouch e130") === FALSE) 
+                            if($pos === FALSE) 
+                            {
+                                //echo '"acer betouch e130" не найдена в строке';
+                            }
+                            else
+                            {
+                                echo '"acer betouch e130" WAS FOUNDED IN';
+                            }
+
+
+                            // print_r("FUCKING pos =");
+                            // echo nl2br("\r\n");
+
+                            // print_r($pos);
+                            // echo nl2br("\r\n");
+
+                            if ($pos === false)
+                            {
+                                
+
+                            }
+                            else
+                            {
+                                // print_r("FOUNDED pos =");
+                                // echo nl2br("\r\n");
+
+                                // print_r($pos);
+                                // echo nl2br("\r\n");
+
+                            }
+
+                        }
+
+                       // break;
+
+
+                       
 
                         $pos = strpos($secItemCode, $value[0]);
 
                         if ($pos === false) 
                         {
                             //continue;
-                            //echo "String NOT found";
-                            // echo nl2br("\r\n");
-                            // print_r($secItemCode);
-                            // echo nl2br("\r\n");
-                            // print_r($value[0]);
-                            // echo nl2br("\r\n");
+                           
+
                         } else 
                         {
                             if ($prev_value_1 == $value[1])
@@ -203,29 +195,22 @@ class ProtoSorter extends AbstractProtoSorter
                             }
                             else
                             {
-                                echo "String WAS found";
-                                print_r($value[0]);
-                                echo nl2br("\r\n");
-                                print_r($value[1]);
-                                echo nl2br("\r\n");
+                                // echo "String WAS found";
+                                // print_r($value[0]);
+                                // echo nl2br("\r\n");
+                                // print_r($value[1]);
+                                // echo nl2br("\r\n");
 
-                                $prev_value_1 = $value[1];
+                                // $prev_value_1 = $value[1];
 
-                                break;
+                                //break;
 
                             }
                             
 
 
 
-                            // $new_value = array();
-                            // $new_value[0] = "WAS found";
-                            // $new_value[1] = 0;
-
-                            // $rows[$key] = $new_value;
-
-                            //break;
-
+                          
                         }
 
                     } 
@@ -237,27 +222,12 @@ class ProtoSorter extends AbstractProtoSorter
                     }
 
 
-                    //foreach ($value as $key_in => $value_in)
-                    //{
-                        //$value_in = iconv("utf-8", "windows-1251",$value_in);
-                        // print_r($key_in);
-                        // echo nl2br("\r\n");
-                        // print_r($value_in);
-                        // echo nl2br("\r\n");
-
-                        // foreach ($allSection as $secItem)
-                        // {
-                        //     print_r($secItem);
-                        //     echo nl2br("\r\n");
-                        //     break;
-
-
-                        // }   
+                   
 
 
                         
 
-                    //}
+                    
                 }
 
 
@@ -282,26 +252,6 @@ class ProtoSorter extends AbstractProtoSorter
 
 
 
-        // $out = array();
-        // $xml = simplexml_load_file($PathToXlsx);
-        // $row = 0;
-        // foreach ($xml->sheetData->row as $item) 
-        // {
-        //     $out[$file][$row] = array();
-        //     $cell = 0;
-        //     foreach ($item as $child) 
-        //     {
-        //         $attr = $child->attributes();
-        //         $value = isset($child->v)? (string)$child->v:false;
-        //         $out[$file][$row][$cell] = isset($attr['t']) ? $sharedStringsArr[$value] : $value;
-        //         $cell++;
-        //     }
-        //     $row++;
-        // }
-     
-        // var_dump($out);
-        // $ProtoArray = $out; 
-        // return $ProtoArray;     
     }
 }
 

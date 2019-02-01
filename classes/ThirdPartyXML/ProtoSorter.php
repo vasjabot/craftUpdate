@@ -139,11 +139,11 @@ class ProtoSorter extends AbstractProtoSorter
                             else
                             {
                                 $return_array[$secItemCode] += $value[1];
-                                echo "String WAS found";
-                                print_r($value[0]);
-                                echo nl2br("\r\n");
-                                print_r($value[1]);
-                                echo nl2br("\r\n");
+                                // echo "String WAS found";
+                                // print_r($value[0]);
+                                // echo nl2br("\r\n");
+                                // print_r($value[1]);
+                                // echo nl2br("\r\n");
 
                                 $prev_value_1 = $value[1];
 
@@ -154,7 +154,7 @@ class ProtoSorter extends AbstractProtoSorter
                     } 
 
                     $i++;
-                    if ($i>100)
+                    if ($i>4000)
                     {
                         break;
                     }
@@ -168,26 +168,38 @@ class ProtoSorter extends AbstractProtoSorter
                     
                 }
 
-                //foreach ($return_array as $return_item)
+                //$number_array = array();
+
                 foreach ($return_array as $key => $value)
                 {
                     print_r($key);
                     echo nl2br("\r\n");
                     print_r($value);
                     echo nl2br("\r\n");
+                    // if ($value > 10000)
+                    // {
+                    //     $return_array[$key] = 10000;
+                    // }
+                    //$number_array[] = $value;
 
                 }
 
+                //sort($number_array);
 
-                foreach ($rows as $key => $value)
-                {
-                    // print_r($key);
-                    // echo nl2br("\r\n");
-                    // print_r($value);
-                    // echo nl2br("\r\n");
+                // $i = 0;
+                // foreach ($number_array as $number)
+                // {
+                //     $i++;
+                //     print_r($number);
+                //     echo nl2br("\r\n");
+
+                // }
+
+                // print_r("i " . $i);
+                // echo nl2br("\r\n");
 
 
-                }
+    
 
 
             }

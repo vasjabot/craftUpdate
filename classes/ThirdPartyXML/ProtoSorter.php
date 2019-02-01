@@ -87,8 +87,8 @@ class ProtoSorter extends AbstractProtoSorter
 
             foreach ($result_allSection as $item)
             {
-                print_r($item);
-                echo nl2br("\r\n");
+                //print_r($item);
+                //echo nl2br("\r\n");
             }
 
 
@@ -134,7 +134,7 @@ class ProtoSorter extends AbstractProtoSorter
 
 
             $i=0;
-            if(0)
+            if(1)
             {    
                 foreach ($rows as $key => $value)
                 {
@@ -150,7 +150,7 @@ class ProtoSorter extends AbstractProtoSorter
                     // print_r($value);
                     // echo nl2br("\r\n");
 
-                    foreach ($allSection as $secItem)
+                    foreach ($result_allSection as $secItemCode)
                     {
                         ////print_r($secItem);
                         // print_r($secItem["NAME"]);
@@ -177,23 +177,30 @@ class ProtoSorter extends AbstractProtoSorter
 
                         if ($pos === false) 
                         {
-                            echo "String NOT found";
-                            echo nl2br("\r\n");
-                            print_r($secItemCode);
-                            echo nl2br("\r\n");
-                            print_r($value[0]);
-                            echo nl2br("\r\n");
+                            // echo "String NOT found";
+                            // echo nl2br("\r\n");
+                            // print_r($secItemCode);
+                            // echo nl2br("\r\n");
+                            // print_r($value[0]);
+                            // echo nl2br("\r\n");
                         } else 
                         {
                             echo "String WAS found";
+                            print_r($value[0]);
+                            echo nl2br("\r\n");
+                            print_r($value[1]);
+                            echo nl2br("\r\n");
+
+                            //break;
+
                         }
 
                     } 
 
                     $i++;
-                    if ($i>1)
+                    if ($i>100)
                     {
-                        //break;
+                        break;
                     }
 
 

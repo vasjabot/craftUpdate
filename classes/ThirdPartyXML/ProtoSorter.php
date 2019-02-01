@@ -122,88 +122,33 @@ class ProtoSorter extends AbstractProtoSorter
                         // echo nl2br("\r\n");
 
 
-                        if ($value[0] == "acer betouch e130 цена")
-                        {
-                            // print_r("WAS  FOUND!!!!");
-                            // echo nl2br("\r\n");
+                  
 
-                            //print_r($secItemCode);
-                            //echo nl2br("\r\n");
-
-                            ///////!!!!!!!!!!!$pos = strpos($secItemCode, $value[0]);
-
-                            //$pos = strpos("acer betouch e130", "acer betouch e130 цена");
-
-                            $pos = strpos("acer betouch e130 цена", "acer betouch e130");
-
-
-                            //$pos = stristr("acer betouch e130 цена", "acer betouch e130");
-
-        
-
-                            //if(stristr("acer betouch e130 цена", "acer betouch e130") === FALSE) 
-                            if($pos === FALSE) 
-                            {
-                                //echo '"acer betouch e130" не найдена в строке';
-                            }
-                            else
-                            {
-                                echo '"acer betouch e130" WAS FOUNDED IN';
-                            }
-
-
-                            // print_r("FUCKING pos =");
-                            // echo nl2br("\r\n");
-
-                            // print_r($pos);
-                            // echo nl2br("\r\n");
-
-                            if ($pos === false)
-                            {
-                                
-
-                            }
-                            else
-                            {
-                                // print_r("FOUNDED pos =");
-                                // echo nl2br("\r\n");
-
-                                // print_r($pos);
-                                // echo nl2br("\r\n");
-
-                            }
-
-                        }
-
-                       // break;
-
-
-                       
-
-                        $pos = strpos($secItemCode, $value[0]);
+                     
+                        $pos = strpos($value[0], $secItemCode);
 
                         if ($pos === false) 
                         {
-                            //continue;
+                            continue;
                            
 
                         } else 
                         {
                             if ($prev_value_1 == $value[1])
                             {
-                                //continue;
+                                continue;
                             }
                             else
                             {
-                                // echo "String WAS found";
-                                // print_r($value[0]);
-                                // echo nl2br("\r\n");
-                                // print_r($value[1]);
-                                // echo nl2br("\r\n");
+                                echo "String WAS found";
+                                print_r($value[0]);
+                                echo nl2br("\r\n");
+                                print_r($value[1]);
+                                echo nl2br("\r\n");
 
-                                // $prev_value_1 = $value[1];
+                                $prev_value_1 = $value[1];
 
-                                //break;
+                                break;
 
                             }
                             

@@ -151,11 +151,16 @@ class ProtoSorter extends AbstractProtoSorter
 
                     // print_r($key);
                     // echo nl2br("\r\n");
-                    // print_r($value);
-                    // echo nl2br("\r\n");
+                    //print_r($value[1]);
+                    //echo nl2br("\r\n");
 
                     foreach ($result_allSection as $secItemCode)
                     {
+                        print_r($value[1]);
+                        echo nl2br("\r\n");
+                        //break;
+
+
                         ////print_r($secItem);
                         // print_r($secItem["NAME"]);
                         // echo nl2br("\r\n");
@@ -177,10 +182,13 @@ class ProtoSorter extends AbstractProtoSorter
 
                         //$secItemCode = iconv("utf-8", "windows-1251", $secItemCode);
 
+                        //print_r($value[1]);
+
                         $pos = strpos($secItemCode, $value[0]);
 
                         if ($pos === false) 
                         {
+                            //continue;
                             //echo "String NOT found";
                             // echo nl2br("\r\n");
                             // print_r($secItemCode);
@@ -189,9 +197,9 @@ class ProtoSorter extends AbstractProtoSorter
                             // echo nl2br("\r\n");
                         } else 
                         {
-                            if ($prev_value_1== $value[1])
+                            if ($prev_value_1 == $value[1])
                             {
-                                continue;
+                                //continue;
                             }
                             else
                             {
@@ -202,6 +210,8 @@ class ProtoSorter extends AbstractProtoSorter
                                 echo nl2br("\r\n");
 
                                 $prev_value_1 = $value[1];
+
+                                break;
 
                             }
                             
@@ -253,10 +263,10 @@ class ProtoSorter extends AbstractProtoSorter
 
                 foreach ($rows as $key => $value)
                 {
-                    print_r($key);
-                    echo nl2br("\r\n");
-                    print_r($value);
-                    echo nl2br("\r\n");
+                    // print_r($key);
+                    // echo nl2br("\r\n");
+                    // print_r($value);
+                    // echo nl2br("\r\n");
 
 
                 }

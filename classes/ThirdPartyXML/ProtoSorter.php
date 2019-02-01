@@ -97,13 +97,13 @@ class ProtoSorter extends AbstractProtoSorter
                 }               
             }
 
-            foreach ($return_array as $key => $value)
-            {
-                print_r($key);
-                echo nl2br("\r\n");
-                print_r($value);
-                echo nl2br("\r\n");
-            }
+            // foreach ($return_array as $key => $value)
+            // {
+            //     print_r($key);
+            //     echo nl2br("\r\n");
+            //     print_r($value);
+            //     echo nl2br("\r\n");
+            // }
 
             
 
@@ -112,7 +112,17 @@ class ProtoSorter extends AbstractProtoSorter
             echo SimpleXLSX::parseError();
         }
 
-
+        if (0)
+        {
+            $results = print_r($return_array, true);
+            $date  = date('Y-m-d H:i:s');
+            $fileName = 'ProtoSort';
+            $fileName = $fileName.'_'.$date;
+            $path = $fileName.'.txt';
+            $ret = file_put_contents($path, $results);
+        }
+       
+        return $return_array;
 
     }
 }

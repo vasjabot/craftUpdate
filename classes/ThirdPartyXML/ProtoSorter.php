@@ -18,25 +18,24 @@ use PrototypesNS\ProtoGetterSite as ProtoGetterSite;
 
 interface ProtoSorterInterface
 {
-    public function getProtoSortedString($PathToXlsx);
+    public function getProtoSortedArray($PathToXlsx);
 }
 
 abstract class AbstractProtoSorter implements ProtoSorterInterface
 {
-    protected $xml_prototypes;
     protected $config;
+    protected $protoUpdater;
 
-    public function __construct($Config)
+    public function __construct($Config, $ProtoUpdater)
     {
-         $this->config = $Config;
-         //$this->xml_prototypes = $xml_prototypes;
-         
+        $this->config = $Config;
+        $this->protoUpdater = $ProtoUpdater;
     }
 }
 
 class ProtoSorter extends AbstractProtoSorter
 {
-    public function getProtoSortedString($PathToXlsx)
+    public function getProtoSortedArray($PathToXlsx)
     {   
         $ProtoArray = array(); 
 
@@ -146,6 +145,28 @@ class ProtoSorter extends AbstractProtoSorter
         return $return_array;
 
     }
+
+
+    public function setAllSectionSorting($PathToXlsx)
+    {   
+        $SortedArray = $protoSorter->getProtoSortedArray($PathToXlsx);
+
+        $protoGetterSite = new ProtoGetterSite($this->config);
+
+        foreach ($SortedArray as $key => $value)
+        {       
+            $key = str_replace(' ', '_', $key);
+            $key = str_replace('.', '_', $key);
+            $key = str_replace('/', '_', $key);
+
+            $OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
+            $curProtoArticle = $OneProtoArrayFromSite[0]["UF_ARTICLE"];
+            $res = $this->protoUpdate->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);          
+        }
+
+
+    }
+
 }
 
 

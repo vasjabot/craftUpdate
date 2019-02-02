@@ -331,7 +331,7 @@ class ProtoUpdater extends AbstractProtoUpdater
           if ($Item !== '')
           {
               $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($Item);
-              if ($OneProtoArrayFromSite[0]["SORT"] == 550)
+              if (($OneProtoArrayFromSite[0]["SORT"] == 500) || ($OneProtoArrayFromSite[0]["SORT"] == 550))
               {
                 $this->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $Item, 1);
               }

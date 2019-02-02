@@ -111,62 +111,65 @@ if (0)
 /////////////////////////////////////////////////////////////////////////////
 if(1)
 {
-	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);    
-	$allSection = $protoGetterSite->getArrayAllSection();
-
-
-	$allSectionArticles = array();
-	foreach ($allSection as $Item)
-	{
-		foreach ($Item as $key => $value)
-		{
-			if($key == "UF_ARTICLE")
-			{
-				$allSectionArticles[] = $value;
-			}
-
-		}
-		
-	}
 
 	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allSectionArticles, $XML_arr["prototypes"], $XML_arr["compatibility"]);
+	$protoUpdater->updateAllSectionSorting();
+	// $protoGetterSite = new PrototypesNS\ProtoGetterSite($config);    
+	// $allSection = $protoGetterSite->getArrayAllSection();
 
-	$i =0;
-	foreach ($allSectionArticles as $Item)
-	{	
-		//print_r("WAS");
-	  	//echo nl2br("\r\n");
-		if ($Item !== '')
-		{
-			//print_r("WAS");
-			//print_r($Item);
-	  		//echo nl2br("\r\n");
-	    	//$protoUpdater->updateAllPrototypesByArticlesDiff();
 
-	    	$OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($Item);
-	    	if ($OneProtoArrayFromSite[0]["SORT"] == 500)
-	    	{
-	    		$protoUpdater->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $Item, 1);
-	    		print_r("WAS");
-	    		//print_r($OneProtoArrayFromSite[0]["SORT"]);
-	    		print_r($OneProtoArrayFromSite[0]["UF_PRODUCER"]);
-	    		print_r($OneProtoArrayFromSite[0]["NAME"]);
-	    		print_r($OneProtoArrayFromSite[0]["UF_ARTICLE"]);
-	    		print_r($Item);
-	    		echo nl2br("\r\n");
-	    		$i++;
-	    		break;
-	    	}
+	// $allSectionArticles = array();
+	// foreach ($allSection as $Item)
+	// {
+	// 	foreach ($Item as $key => $value)
+	// 	{
+	// 		if($key == "UF_ARTICLE")
+	// 		{
+	// 			$allSectionArticles[] = $value;
+	// 		}
 
-		}
+	// 	}
+		
+	// }
 
-		 if ($i>100)
-	    {
-	    	break;
-	    }
+	// $protoUpdater = new PrototypesNS\ProtoUpdater($config, $allSectionArticles, $XML_arr["prototypes"], $XML_arr["compatibility"]);
+
+	// $i =0;
+	// foreach ($allSectionArticles as $Item)
+	// {	
+	// 	//print_r("WAS");
+	//   	//echo nl2br("\r\n");
+	// 	if ($Item !== '')
+	// 	{
+	// 		//print_r("WAS");
+	// 		//print_r($Item);
+	//   		//echo nl2br("\r\n");
+	//     	//$protoUpdater->updateAllPrototypesByArticlesDiff();
+
+	//     	$OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($Item);
+	//     	if ($OneProtoArrayFromSite[0]["SORT"] == 500)
+	//     	{
+	//     		$protoUpdater->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $Item, 1);
+	//     		print_r("WAS");
+	//     		//print_r($OneProtoArrayFromSite[0]["SORT"]);
+	//     		print_r($OneProtoArrayFromSite[0]["UF_PRODUCER"]);
+	//     		print_r($OneProtoArrayFromSite[0]["NAME"]);
+	//     		print_r($OneProtoArrayFromSite[0]["UF_ARTICLE"]);
+	//     		print_r($Item);
+	//     		echo nl2br("\r\n");
+	//     		$i++;
+	//     		//break;
+	//     	}
+
+	// 	}
+
+	// 	 // if ($i>100)
+	//   //   {
+	//   //   	break;
+	//   //   }
 		
 
-	}
+	// }
 
 	//$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allPrototypesByArticlesDiff, $XML_arr["prototypes"], $XML_arr["compatibility"]);
 	//$protoUpdater->updateAllPrototypesByArticlesDiff();

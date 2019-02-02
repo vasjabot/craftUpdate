@@ -29,6 +29,7 @@ interface ProtoUpdaterInterface
 {
     public function updateAllPrototypesByArticlesDiff();
     public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort);
+    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort);
     public function setNewPrototype($curProtoArticle);    
 }
 
@@ -174,92 +175,22 @@ class ProtoUpdater extends AbstractProtoUpdater
 
     public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=1)
     {
-
-        //$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
-        //$OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curProtoArticle);
-
-        //$bitrix_code =  $OneProtoArrayFromSite[0]["UF_MODEL"];
-        //$bitrix_code = mb_strtolower($bitrix_code);
-        //$bitrix_code = str_replace(' ', '_', $bitrix_code);
-        //$bitrix_code = str_replace('.', '_', $bitrix_code); 
-
-        //$model_win1251 = $OneProtoArrayFromSite[0]["UF_MODEL"];
-        //$model_win1251 = iconv("utf-8", "windows-1251", $model);
-
-
-
-        //$compatibilityGetterXML = new CompatibilityGetterXML($this->config, $this->xml_compatibility);
-        //$CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curProtoArticle);
-
-        // if (empty($CompatibilityStringFromXML) || ($CompatibilityStringFromXML==NULL)) 
-        // {
-        //     $ACTIVE = "N";
-        //     //print_r("CompatibilityStringFromXML is empty" . $CompatibilityStringFromXML);
-        //     //echo nl2br("\r\n");
-            
-        // }else
-        // {
-        //     $ACTIVE = "Y";
-        //     //print_r("CompatibilityStringFromXML is NOT empty" . $CompatibilityStringFromXML);
-        //     //echo nl2br("\r\n");            
-        // }
-
         $bs = new \CIBlockSection;
-
         $arFields = Array(
-          //not XML, let't get it from Site
-          // "UF_ARTICLE" => $OneProtoArrayFromSite[0]["UF_ARTICLE"],
-          // //Define in this method 
-          // "ACTIVE" => $OneProtoArrayFromSite[0]["ACTIVE"],
-          // //Site
-          // "IBLOCK_SECTION_ID" => $OneProtoArrayFromSite[0]["IBLOCK_SECTION_ID"],
-          // //Config
-          // "IBLOCK_ID" => $this->config->IBLOCK_ID,
-          // //XML
-          // "NAME" => $OneProtoArrayFromSite[0]["NAME"],
-          // //Just temp phrase
-          // "UF_DESCRIPTION" => "test description",
-          //Defaul 500
           "SORT" => IntVal($curProtoSort)
-          //Define in this method
-          //"CODE" => $bitrix_code,
-          //Site In this field store id of PICTURE
-         // "PICTURE" => $OneProtoArrayFromSite[0]["PICTURE"],
-          //XML
-          // "UF_DEVTYPE" => $OneProtoArrayFromSite[0]["UF_DEVTYPE"],
-          // //XML
-          // "UF_PRDDATE" => $OneProtoArrayFromSite[0]["UF_PRDDATE"],
-          // //XML
-          // "UF_BATTERYTYPE" => $OneProtoArrayFromSite[0]["UF_BATTERYTYPE"],
-          // //Define in this method         
-          // "UF_MODEL" => $model_win1251,     
-          // //XML
-          // "UF_PRODUCER" => $OneProtoArrayFromSite[0]["UF_PRODUCER"],
-          // //XML
-          // "UF_COMPATIBILITYLIST" => $OneProtoArrayFromSite[0]["UF_COMPATIBILITYLIST"]
           );
 
         if($OneProtoArrayFromSite[0]["ID"] > 0)
         {
             //this method return TRUE or FALSE if Error
             $res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
-            //NEED add this string to Message
-            // print_r("old ProtoSection with Name = " . $OneProtoArrayFromXML["NAME"] . " was modifyed with arFields = "  .  $arFields);
-            // foreach($arFields as $arFieldsItem)
-            // {
-            //     print_r($arFieldsItem);
-            //     echo nl2br("\r\n");
-
-            // }
         }
         else
         {
             $res = FALSE;
         }
         
-        return $res;
-
-        
+        return $res;       
     }
 
 
@@ -369,6 +300,49 @@ class ProtoUpdater extends AbstractProtoUpdater
 
        
     }
+
+
+
+
+     public function updateAllSectionSorting()
+     {
+
+        $protoGetterSite = new ProtoGetterSite($this->config);    
+        $allSection = $protoGetterSite->getArrayAllSection();
+
+
+        $allSectionArticles = array();
+        foreach ($allSection as $Item)
+        {
+          foreach ($Item as $key => $value)
+          {
+            if($key == "UF_ARTICLE")
+            {
+              $allSectionArticles[] = $value;
+            }
+
+          }
+          
+        }
+
+  
+        foreach ($allSectionArticles as $Item)
+        { 
+          if ($Item !== '')
+          {
+              $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($Item);
+              if ($OneProtoArrayFromSite[0]["SORT"] == 550)
+              {
+                $this->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $Item, 1);
+              }
+          }
+
+        }
+
+     }
+
+
+
 
 
 

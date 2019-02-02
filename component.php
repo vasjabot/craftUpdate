@@ -117,8 +117,10 @@ if (1)
 	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);
 	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allPrototypesByArticlesDiff, $XML_arr["prototypes"], $XML_arr["compatibility"]);
 
+	$i= 0;
 	foreach ($SortedArray as $key => $value)
 	{
+		
 	    $key = str_replace(' ', '_', $key);
         $key = str_replace('.', '_', $key);
         $key = str_replace('/', '_', $key);
@@ -129,21 +131,33 @@ if (1)
 	    // print_r($value);
 	    // echo nl2br("\r\n");
 
-	    if($key === "acer_a1")
+	    $OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
+	    $curProtoArticle = $OneProtoArrayFromSite[0]["UF_ARTICLE"];
+        $res = $protoUpdater->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);
+
+	    // if($key === "acer_f1")
+	    // {
+	    // 	print_r($key);
+	    // 	echo nl2br("\r\n");
+
+	    // 	print_r($value);
+	    // 	echo nl2br("\r\n");
+
+	    // 	$OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
+	    // 	$curProtoArticle = $OneProtoArrayFromSite[0]["UF_ARTICLE"];
+     //    	$res = $protoUpdater->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);
+     //    	print_r("Was updated" . $res);
+	    // 	echo nl2br("\r\n");
+	    // }
+
+	    $i++;
+	    print_r("i = " . $i);
+	    echo nl2br("\r\n");
+
+	    if ($i>1000)
 	    {
-	    	print_r($key);
-	    	echo nl2br("\r\n");
-
-	    	print_r($value);
-	    	echo nl2br("\r\n");
-
-	    	$OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
-	    	$curProtoArticle = $OneProtoArrayFromSite[0]["UF_ARTICLE"];
-        	$res = $protoUpdater->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);
-        	print_r("Was updated" . $res);
-	    	echo nl2br("\r\n");
+	    	break;
 	    }
-
         
 
         

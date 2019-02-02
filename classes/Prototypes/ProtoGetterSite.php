@@ -215,7 +215,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
 
     public function getArrayAllSection()
     {
-        $arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID", "CODE");
+        $arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID", "CODE", "SORT");
         $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//5031 prototypes
 
         $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
@@ -234,6 +234,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
              $arFields_res["UF_PRODUCER"] = $arFields["UF_PRODUCER"];
              $arFields_res["IBLOCK_SECTION_ID"] = $arFields["IBLOCK_SECTION_ID"];
              $arFields_res["CODE"] = $arFields["CODE"];
+             $arFields_res["SORT"] = $arFields["SORT"];
              //print_php($arFields_res);
              //print_php($arFields);
              $i++;

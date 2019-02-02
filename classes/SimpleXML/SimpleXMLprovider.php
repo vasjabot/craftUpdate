@@ -17,6 +17,7 @@ require_once(__DIR__.'/../Common/AppConfig.php');
 require_once(__DIR__.'/../Curl/CurlRequestor.php');
 require_once(__DIR__.'/SimpleXMLsaver.php');
 require_once(__DIR__.'/SimpleXMLloader.php');
+require_once(__DIR__.'/SimpleXMLvalidator.php');
 
 
 

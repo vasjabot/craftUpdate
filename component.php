@@ -92,7 +92,7 @@ if(0)
 if (0)
 {
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
-	$OneBatArrayFromSite = $protoGetterSite->getArrayAllSection();
+	$allBatteriesFromSite = $protoGetterSite->getArrayAllSection();
 
 
 	//$allProtoArFields_result_array = getArrayAllSection($config);
@@ -111,8 +111,44 @@ if (0)
 /////////////////////////////////////////////////////////////////////////////
 if (1)
 {
-	$protoSorter = new ThirdPartyXMLNS\ProtoSorter();    
-	$SortedString = $protoSorter->getProtoSortedString(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
+	$protoSorter = new ThirdPartyXMLNS\ProtoSorter($config);    
+	$SortedArray = $protoSorter->getProtoSortedString(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
+
+	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);
+	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allPrototypesByArticlesDiff, $XML_arr["prototypes"], $XML_arr["compatibility"]);
+
+	foreach ($SortedArray as $key => $value)
+	{
+	    $key = str_replace(' ', '_', $key);
+        $key = str_replace('.', '_', $key);
+        $key = str_replace('/', '_', $key);
+
+     	// print_r($key);
+	    // echo nl2br("\r\n");
+
+	    // print_r($value);
+	    // echo nl2br("\r\n");
+
+	    if($key === "acer_a1")
+	    {
+	    	print_r($key);
+	    	echo nl2br("\r\n");
+
+	    	print_r($value);
+	    	echo nl2br("\r\n");
+
+	    	$OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
+	    	$curProtoArticle = $OneProtoArrayFromSite[0]["UF_ARTICLE"];
+        	$res = $protoUpdater->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);
+        	print_r("Was updated" . $res);
+	    	echo nl2br("\r\n");
+	    }
+
+        
+
+        
+	}
+
 }
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////<<ProtoSorter>>///////////////////////////////////

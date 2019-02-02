@@ -12,11 +12,8 @@
 namespace ThirdPartyXMLNS;
 
 require_once(__DIR__.'/../Prototypes/ProtoGetterSite.php');
-//require_once(__DIR__.'/SimpleXLSX.php');
-include (__DIR__.'/SimpleXLSX.php');
-//require_once  __DIR__.'./SimpleXLSX.php';
-
 require_once __DIR__.'/SimpleXLSX.php';
+use PrototypesNS\ProtoGetterSite as ProtoGetterSite;
 
 
 interface ProtoSorterInterface
@@ -29,10 +26,10 @@ abstract class AbstractProtoSorter implements ProtoSorterInterface
     protected $xml_prototypes;
     protected $config;
 
-    public function __construct()
+    public function __construct($Config)
     {
          $this->config = $Config;
-         $this->xml_prototypes = $xml_prototypes;
+         //$this->xml_prototypes = $xml_prototypes;
          
     }
 }
@@ -45,54 +42,109 @@ class ProtoSorter extends AbstractProtoSorter
 
         if ($xlsx = SimpleXLSX::parse($PathToXlsx)) 
         {
-            //$xlsx = mb_convert_encoding($xlsx, "utf-8", "windows-1251");
-            $rows = $xlsx->rows();
-            foreach ($rows as $key => $value)
+            $rows = $xlsx->rows(3);
+            $protoGetterSite = new ProtoGetterSite($this->config); 
+            $allSection = $protoGetterSite->getArrayAllSection();
+
+
+
+            $result_allSection = array();
+
+            foreach ($allSection as $key => $value)
             {
-                //$rows[$key] = iconv("UTF-8", "CP1251",$value);
-                //$rows[$key] = iconv("windows-1251", "utf-8",$value);
-                // print_r($key);
-                // echo nl2br("\r\n");
-                // print_r($value);
-                // echo nl2br("\r\n");
                 foreach ($value as $key_in => $value_in)
                 {
-                    $value_in = iconv("utf-8", "windows-1251",$value_in);
-                    print_r($key_in);
-                    echo nl2br("\r\n");
-                    print_r($value_in);
-                    echo nl2br("\r\n");
-                }
+
+                    if($key_in == "CODE") 
+                    {
+                        $value_in = str_replace('_', ' ', $value_in);
+                        $value_in = str_replace('_', '.', $value_in);
+                        $value_in = str_replace('_', '/', $value_in);
+
+                        $result_allSection[] = $value_in;
+                    }
+
+                }         
+
+            }  
+                
+            $return_array = array();
+
+            foreach ($rows as $key => $value)
+            {
+                foreach ($result_allSection as $secItemCode)
+                {
+
+                    $pos = strpos($value[0], $secItemCode);
+
+                    if ($pos === false) 
+                    {
+                        continue;
+                       
+                    } else 
+                    {
+                        if ($prev_value_1 == $value[1])
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            $return_array[$secItemCode] += $value[1];
+                            $prev_value_1 = $value[1];
+                            break;
+                        }                                                  
+                    }
+                }               
             }
 
-            //print_r($rows);
+            if(1)
+            {
+                $return_array_m = array();
+                foreach ($return_array as $key => $value)
+                {
+                    $key = str_replace(' ', '_', $key);
+                    $key = str_replace('.', '_', $key);
+                    $key = str_replace('/', '_', $key);
+
+                    $return_array_m[$key] = $value;
+
+                    // print_r($key);
+                    // echo nl2br("\r\n");
+                    // print_r($value);
+                    // echo nl2br("\r\n");
+                }
+
+                //foreach ($return_array_m as $key => $value)
+                //{                
+
+                    //print_r($key);
+                    //echo nl2br("\r\n");
+                    //print_r($value);
+                    //echo nl2br("\r\n");
+                //}
+
+            }    
+            
+
+            
+
         } else
         {
             echo SimpleXLSX::parseError();
         }
 
+        if (0)
+        {
+            $results = print_r($return_array_m, true);
+            $date  = date('Y-m-d H:i:s');
+            $fileName = 'ProtoSort';
+            $fileName = $fileName.'_'.$date;
+            $path = $fileName.'.txt';
+            $ret = file_put_contents($path, $results);
+        }
+       
+        return $return_array;
 
-
-        // $out = array();
-        // $xml = simplexml_load_file($PathToXlsx);
-        // $row = 0;
-        // foreach ($xml->sheetData->row as $item) 
-        // {
-        //     $out[$file][$row] = array();
-        //     $cell = 0;
-        //     foreach ($item as $child) 
-        //     {
-        //         $attr = $child->attributes();
-        //         $value = isset($child->v)? (string)$child->v:false;
-        //         $out[$file][$row][$cell] = isset($attr['t']) ? $sharedStringsArr[$value] : $value;
-        //         $cell++;
-        //     }
-        //     $row++;
-        // }
-     
-        // var_dump($out);
-        // $ProtoArray = $out; 
-        // return $ProtoArray;     
     }
 }
 

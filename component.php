@@ -103,8 +103,7 @@ if(0)
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 //allBatteriesByArticlesDiff
-print_php('ksfdhgskjd');
-if (0)
+if (1)
 {
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
 	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
@@ -113,8 +112,18 @@ if (0)
 	foreach ($allBatteriesFromSite as $Bat)
 	{	
 		$i++;
-		print_php($Bat);
+		foreach ($Bat as $key => $value)
+		{
+			print_php($key);
+			print_php($value);
 
+		}
+		
+		if ($i>10)
+		{
+			break;
+		}
+		
 	}
 	print_php("i = " . $i);
 

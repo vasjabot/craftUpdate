@@ -25,9 +25,9 @@ abstract class AbstractBatComparator implements BatComparatorInterface
 
     public function __construct($Config, $xml_offers, $array_batteries)
     {
-         $this->config = $Config;
-         $this->xml_offers = $xml_offers;
-         $this->array_batteries = $array_batteries;
+        $this->config = $Config;
+        $this->xml_offers = $xml_offers;
+        $this->array_batteries = $array_batteries;
     }
 }
 

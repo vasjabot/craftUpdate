@@ -89,33 +89,16 @@ class BatGetterSite extends AbstractBatGetterSite
 
 
 
-    
-
-
-
-
-
-
 
     public function getArrayAllBatteries()
     {
-        //$arSelect = Array("ID", "UF_ARTICLE", "UF_BATTERYTYPE", "UF_DEVTYPE", "NAME", "UF_PRDDATE", "UF_PRODUCER", "IBLOCK_SECTION_ID", "CODE", "SORT");
-        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//5031 prototypes
-
-        $arSelect = Array("ID", "IBLOCK_SECTION_ID", "NAME", "ACTIVE", "SORT", "DETAIL_PICTURE", "SEARCHABLE_CONTENT", "IN_SECTIONS", "CODE", "SORT", "ARTICLE");
-        //$arSelect = Array();
- 
-
         $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//all batteries
-
- 
+        $arSelect = Array("ID", "IBLOCK_SECTION_ID", "NAME", "ACTIVE", "SORT", "DETAIL_PICTURE", "SEARCHABLE_CONTENT", "IN_SECTIONS", "CODE", "SORT", "ARTICLE");
 
         $rsElements = \CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-
-
-        //$resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
-        
+    
         $allBatteriesArFields_result_array = array();
+
         while($arElement = $rsElements->GetNextElement())
         {
             $arFields = $arElement->GetFields();
@@ -136,16 +119,8 @@ class BatGetterSite extends AbstractBatGetterSite
             while ($ar_props = $element_props->Fetch())
             {
                 $PROPS[$ar_props['CODE']] = $ar_props['VALUE'];
-                //print_r($PROPS);
-                //echo nl2br("\r\n");
-                // if ($ar_props['CODE'] == 'PICTURES')
-                // {
-                //     //print_r("PICTURES");
-                //     //echo nl2br("\r\n");
-                // }
             }
 
-            //$arFields_res["PROPS"] = $PROPS;
             $arFields_res["ARTICLE"] = $PROPS["ARTICLE"];
             $arFields_res["ORIGINAL_CODE"] = $PROPS["ORIGINAL_CODE"];
             $arFields_res["COMPATIBLE_MODEL"] = $PROPS["COMPATIBLE_MODEL"];
@@ -175,13 +150,8 @@ class BatGetterSite extends AbstractBatGetterSite
             $arFields_res["UNI_TOP_BLOCK"] = $PROPS["UNI_TOP_BLOCK"];
             $arFields_res["UNI_BOTTOM_BLOCK"] = $PROPS["UNI_BOTTOM_BLOCK"];
     
-            $i++;
             $allProtoArFields_result_array[] = $arFields_res;
-            //$allProtoArFields_result_array[] = $arFields;
         }
-        //print_php($allProtoArFields_result_array);
-        //print_php($res);
-        //print_php($i);
         return $allProtoArFields_result_array;
     }
 

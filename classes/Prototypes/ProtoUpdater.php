@@ -29,7 +29,7 @@ interface ProtoUpdaterInterface
 {
     public function updateAllPrototypesByArticlesDiff();
     public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort);
-    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort);
+    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoSort);
     public function setNewPrototype($curProtoArticle);    
 }
 
@@ -173,7 +173,7 @@ class ProtoUpdater extends AbstractProtoUpdater
     }
 
 
-    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=1)
+    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoSort=1)
     {
         $bs = new \CIBlockSection;
         $arFields = Array(
@@ -333,7 +333,7 @@ class ProtoUpdater extends AbstractProtoUpdater
               $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($Item);
               if (($OneProtoArrayFromSite[0]["SORT"] == 500) || ($OneProtoArrayFromSite[0]["SORT"] == 550))
               {
-                $this->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $Item, 1);
+                $this->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, 1);
               }
           }
 

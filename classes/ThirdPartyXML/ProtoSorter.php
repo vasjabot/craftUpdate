@@ -160,8 +160,7 @@ class ProtoSorter extends AbstractProtoSorter
             $key = str_replace('/', '_', $key);
 
             $OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
-            $curProtoArticle = $OneProtoArrayFromSite[0]["UF_ARTICLE"];
-            $res = $this->protoUpdate->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $value);          
+            $res = $this->protoUpdater->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $value);          
         }
 
 

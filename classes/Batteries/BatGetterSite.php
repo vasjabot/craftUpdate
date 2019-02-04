@@ -149,6 +149,26 @@ class BatGetterSite extends AbstractBatGetterSite
             $arFields_res["MATERIAL"] = $PROPS["MATERIAL"];
             $arFields_res["UNI_TOP_BLOCK"] = $PROPS["UNI_TOP_BLOCK"];
             $arFields_res["UNI_BOTTOM_BLOCK"] = $PROPS["UNI_BOTTOM_BLOCK"];
+
+            $element_groups = \CIBlockElement::GetElementGroups($arFields["ID"], true);
+            $GROUPS = array();
+            while($ar_group = $element_groups->Fetch()) 
+            {
+                $GROUPS[] = $ar_group["NAME"];
+                echo 'Все товары: <a href="/catalog/'. $ar_group["ID"] . '/">';
+                echo $ar_group["NAME"];
+                foreach($ar_group as $key => $value)
+                {
+                    echo "ar_group_item";
+                    echo nl2br("\r\n");
+                    print_r($key);
+                    echo nl2br("\r\n");
+                    print_r($value);
+                    echo nl2br("\r\n");
+                }
+                echo "</a>";
+            }
+
     
             $allProtoArFields_result_array[] = $arFields_res;
         }

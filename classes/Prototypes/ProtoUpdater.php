@@ -28,7 +28,8 @@ Loader::includeModule("iblock");
 interface ProtoUpdaterInterface
 {
     public function updateAllPrototypesByArticlesDiff();
-    public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle);
+    public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort);
+    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort);
     public function setNewPrototype($curProtoArticle);    
 }
 
@@ -81,7 +82,7 @@ class ProtoUpdater extends AbstractProtoUpdater
         }
     }
 
-    public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=500)
+    public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=1)
     {
 
         $protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
@@ -129,7 +130,7 @@ class ProtoUpdater extends AbstractProtoUpdater
           //Just temp phrase
           "UF_DESCRIPTION" => "test description",
           //Defaul 500
-          "SORT" => $curProtoSort,
+          "SORT" => IntVal($curProtoSort),
           //Define in this method
           "CODE" => $bitrix_code,
           //Site In this field store id of PICTURE
@@ -170,6 +171,28 @@ class ProtoUpdater extends AbstractProtoUpdater
 
         
     }
+
+
+    public function updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=1)
+    {
+        $bs = new \CIBlockSection;
+        $arFields = Array(
+          "SORT" => IntVal($curProtoSort)
+          );
+
+        if($OneProtoArrayFromSite[0]["ID"] > 0)
+        {
+            //this method return TRUE or FALSE if Error
+            $res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
+        }
+        else
+        {
+            $res = FALSE;
+        }
+        
+        return $res;       
+    }
+
 
     public function setNewPrototype($curProtoArticle)
     {
@@ -277,6 +300,49 @@ class ProtoUpdater extends AbstractProtoUpdater
 
        
     }
+
+
+
+
+     public function updateAllSectionSorting()
+     {
+
+        $protoGetterSite = new ProtoGetterSite($this->config);    
+        $allSection = $protoGetterSite->getArrayAllSection();
+
+
+        $allSectionArticles = array();
+        foreach ($allSection as $Item)
+        {
+          foreach ($Item as $key => $value)
+          {
+            if($key == "UF_ARTICLE")
+            {
+              $allSectionArticles[] = $value;
+            }
+
+          }
+          
+        }
+
+  
+        foreach ($allSectionArticles as $Item)
+        { 
+          if ($Item !== '')
+          {
+              $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($Item);
+              if (($OneProtoArrayFromSite[0]["SORT"] == 500) || ($OneProtoArrayFromSite[0]["SORT"] == 550))
+              {
+                $this->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $Item, 1);
+              }
+          }
+
+        }
+
+     }
+
+
+
 
 
 

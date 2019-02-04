@@ -31,7 +31,7 @@ function printAllXML($XML_arr)
 
 
 
-set_time_limit(60);
+set_time_limit(600);
 $t0 = microtime(true);
 $mem0 = memory_get_usage(true);
 

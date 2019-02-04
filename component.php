@@ -109,18 +109,23 @@ if (1)
 	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
 
 
-	// $i = 0;
-	// foreach ($allBatteriesFromSite as $Bat)
-	// {	
-	// 	$i++;
-	// 	print_php($Bat);
+	$i = 0;
+	foreach ($allBatteriesFromSite as $Bat)
+	{	
+		$i++;
+		if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
+		{
+			print_php($Bat);
 
-	// 	if($i>500)
-	// 	{
-	// 		break;
-	// 	}
-	// }
-	// print_php("i = " . $i);
+		}
+		
+
+		if($i>6000)
+		{
+			break;
+		}
+	}
+	print_php("i = " . $i);
 
 
 	//$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);

@@ -279,17 +279,19 @@ class BatComparator extends AbstractBatComparator
                         }
                         else if ($type_in_xml == "Li-Polymer")
                         {
-                            //$type_in_xml = IntVal(91); ///// Need paste this number
+                            $type_in_xml = IntVal(93); 
                         }
                         else if ($type_in_xml == "Ni-MH")
                         {
-                            //$type_in_xml = IntVal(92); ///// Need paste this number
+                            $type_in_xml = IntVal(91); 
+                        }
+                        else if ($type_in_xml == "Li-Polimer")
+                        {
+                            $type_in_xml = IntVal(92); 
                         }
 
                         if($type_in_xml !== $value["TYPE"])
                         {
-                            print_r( $type_in_xml . " соответствует " . $value["TYPE"]);
-                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal type");

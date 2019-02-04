@@ -37,22 +37,22 @@ $XML_arr = $simpleXMLprovider->getAllXML($XML_arr_names);
 /////////////////////<<protoUpdaterProducers>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 //firstDepthLevelSectionByNamesDiff
-if(0)
-{
-	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);    
-	$allFirstDepthLevelSection = $protoGetterSite->getArrayAllFirstDepthLevelSection();
+// if(0)
+// {
+// 	$protoGetterSite = new PrototypesNS\ProtoGetterSite($config);    
+// 	$allFirstDepthLevelSection = $protoGetterSite->getArrayAllFirstDepthLevelSection();
 
-	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
-	$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
-}
-//protoUpdaterProducers
-if(0)
-{	
-	//$firstDepthLevelSectionByNamesDiff = array("ABER");	//test for new add
-	//$firstDepthLevelSectionByNamesDiff = array("ACER");  	//test for update old
-	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $firstDepthLevelSectionByNamesDiff);
-	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();
-}
+// 	$protoComparatorProducers = new PrototypesNS\ProtoComparatorProducers($config, $XML_arr["prototypes"], $allFirstDepthLevelSection);
+// 	$firstDepthLevelSectionByNamesDiff = $protoComparatorProducers->getDiffArray();
+// }
+// //protoUpdaterProducers
+// if(0)
+// {	
+// 	//$firstDepthLevelSectionByNamesDiff = array("ABER");	//test for new add
+// 	//$firstDepthLevelSectionByNamesDiff = array("ACER");  	//test for update old
+// 	$protoUpdaterProducers = new PrototypesNS\ProtoUpdaterProducers($config, $firstDepthLevelSectionByNamesDiff);
+// 	$protoUpdaterProducers->updateAllFirstDepthLevelSectionDiffArray();
+// }
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////<<protoUpdaterProducers>>///////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -74,8 +74,8 @@ if(0)
 //ProtoUpdater
 if(0)
 {
-	//$allPrototypesByArticlesDiff = array('A0.00.000'); 	//test for new add
-	//$allPrototypesByArticlesDiff = array('A1.13.010');	//test for update old
+	// $allPrototypesByArticlesDiff = array('A0.00.000'); 	//test for new add
+	// $allPrototypesByArticlesDiff = array('A1.13.010');	//test for update old
 	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allPrototypesByArticlesDiff, $XML_arr["prototypes"], $XML_arr["compatibility"]);
 	$protoUpdater->updateAllPrototypesByArticlesDiff();
 }
@@ -86,8 +86,8 @@ if(0)
 	$protoUpdater = new PrototypesNS\ProtoUpdater($config, $allSectionArticles, $XML_arr["prototypes"], $XML_arr["compatibility"]);
 	$protoUpdater->updateAllSectionSorting();
 
-	$protoSorter = new ThirdPartyXMLNS\ProtoSorter($config, $protoUpdater);
-	$protoSorter->setAllSectionSorting(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx')
+	$protoSorter = new ThirdPartyXMLNS\ProtoSorter($config, $XML_arr);
+	$protoSorter->setAllSectionSorting(__DIR__.'/classes/ThirdPartyXML/4proto.xlsx');
 }	
 
 /////////////////////////////////////////////////////////////////////////////
@@ -103,11 +103,20 @@ if(0)
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 //allBatteriesByArticlesDiff
+print_php('ksfdhgskjd');
 if (0)
 {
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
-	$allBatteriesFromSite = $protoGetterSite->getArrayAllSection();
+	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
 
+	$i = 0;
+	foreach ($allBatteriesFromSite as $Bat)
+	{	
+		$i++;
+		print_php($Bat);
+
+	}
+	print_php("i = " . $i);
 
 
 

@@ -16,6 +16,7 @@ require_once(__DIR__.'/classes/Prototypes/ProtoGetterSite.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoUpdaterProducers.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoUpdater.php');
 require_once(__DIR__.'/classes/ThirdPartyXML/ProtoSorter.php');
+require_once(__DIR__.'/classes/Batteries/BatGetterSite.php');
 
 
 

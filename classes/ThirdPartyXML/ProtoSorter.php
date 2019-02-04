@@ -12,24 +12,29 @@
 namespace ThirdPartyXMLNS;
 
 require_once(__DIR__.'/../Prototypes/ProtoGetterSite.php');
+require_once(__DIR__.'/../Prototypes/ProtoUpdater.php');
 require_once __DIR__.'/SimpleXLSX.php';
 use PrototypesNS\ProtoGetterSite as ProtoGetterSite;
+use PrototypesNS\ProtoUpdater as ProtoUpdater;
+
 
 
 interface ProtoSorterInterface
 {
     public function getProtoSortedArray($PathToXlsx);
+    public function setAllSectionSorting($PathToXlsx);
 }
 
 abstract class AbstractProtoSorter implements ProtoSorterInterface
 {
     protected $config;
     protected $protoUpdater;
+    protected $XML_arr;
 
-    public function __construct($Config, $ProtoUpdater)
+    public function __construct($Config, $XML_arr)
     {
         $this->config = $Config;
-        $this->protoUpdater = $ProtoUpdater;
+        $this->XML_arr = $XML_arr;
     }
 }
 
@@ -149,7 +154,7 @@ class ProtoSorter extends AbstractProtoSorter
 
     public function setAllSectionSorting($PathToXlsx)
     {   
-        $SortedArray = $protoSorter->getProtoSortedArray($PathToXlsx);
+        $SortedArray = $this->getProtoSortedArray($PathToXlsx);
 
         $protoGetterSite = new ProtoGetterSite($this->config);
 
@@ -160,6 +165,7 @@ class ProtoSorter extends AbstractProtoSorter
             $key = str_replace('/', '_', $key);
 
             $OneProtoArrayFromSite = $protoGetterSite->getProtoByBitrixCode($key);
+            $protoUpdater = new ProtoUpdater($this->config, array(), $this->XML_arr["prototypes"], $this->XML_arr["compatibility"]); 
             $res = $this->protoUpdater->updateOldPrototypeFastForUpdatingSort($OneProtoArrayFromSite, $value);          
         }
 

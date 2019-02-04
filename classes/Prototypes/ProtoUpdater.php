@@ -56,29 +56,31 @@ class ProtoUpdater extends AbstractProtoUpdater
     {   
         $protoGetterSite = new ProtoGetterSite($this->config);        
         foreach($this->diff_array_of_articles as $curProtoArticle)
-        {        
-            $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($curProtoArticle);
-            // print_r("OneProtoArrayFromSite is: ");
-            // echo nl2br("\r\n");
-            // print_r($OneProtoArrayFromSite);
-            // echo nl2br("\r\n");
-            // foreach($OneProtoArrayFromSite[0] as $key => $value)
-            // {
-            //     print_r("$key: " . $value);
-            //     echo nl2br("\r\n");
-            // }
-            if ($OneProtoArrayFromSite!==NULL)
-            {
-                //res is TRUE or FALSE
-                $res = $this->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle);
+        {  
+            if (($curProtoArticle !== NULL) || $curProtoArticle !== '')
+            {      
+              $OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($curProtoArticle);
+              // print_r("OneProtoArrayFromSite is: ");
+              // echo nl2br("\r\n");
+              // print_r($OneProtoArrayFromSite);
+              // echo nl2br("\r\n");
+              // foreach($OneProtoArrayFromSite[0] as $key => $value)
+              // {
+              //     print_r("$key: " . $value);
+              //     echo nl2br("\r\n");
+              // }
+              if ($OneProtoArrayFromSite!==NULL)
+              {
+                  //res is TRUE or FALSE
+                  $res = $this->updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle);
+              }
+              else
+              {  
+                  //print_r("setNewPrototype");
+                  //echo nl2br("\r\n");         
+                  $res = $this->setNewPrototype($curProtoArticle);   
+              }
             }
-            else
-            {  
-                print_r("setNewPrototype");
-                echo nl2br("\r\n");         
-                $res = $this->setNewPrototype($curProtoArticle);   
-            }
-            
         }
     }
 

@@ -109,6 +109,12 @@ if (0)
 	$allBatteriesFromSite = $protoGetterSite->getArrayAllSection();
 
 
+
+
+
+
+
+
 	//$allProtoArFields_result_array = getArrayAllSection($config);
 	//$protoComparator = new PrototypesNS\ProtoComparator($config, $XML_arr["prototypes"], $allProtoArFields_result_array);
 	//$allPrototypesByArticlesDiff = $protoComparator->getDiffArray();

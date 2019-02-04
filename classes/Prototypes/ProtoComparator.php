@@ -20,8 +20,8 @@ interface ProtoComparatorInterface
 
 abstract class AbstractProtoComparator implements ProtoComparatorInterface
 {
-    protected $xml_prototypes;
     protected $config;
+    protected $xml_prototypes;    
     protected $array_prototypes;
 
     public function __construct($Config, $xml_prototypes, $array_prototypes)

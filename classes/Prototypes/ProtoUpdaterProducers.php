@@ -13,8 +13,6 @@ namespace PrototypesNS;
 
 $_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
-require_once(__DIR__.'/../SimpleXML/ProtoGetterXML.php');
-use SimpleXMLNS\ProtoGetterXML as ProtoGetterXML;
 require_once(__DIR__.'/ProtoGetterSite.php');
 use Bitrix;
 use Bitrix\Main\Loader;
@@ -59,10 +57,6 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
             
             if ($OneProtoArrayFromSite!==NULL)
             {
-                
-                //$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
-                //No needed this func because no data in prototypes_work.xml
-                //$OneProtoArrayFromDiffMass = $protoGetterXML->getProtoByName();
                 //res is TRUE or FALSE
                 $res = $this->updateOldFirstDepthLevelSection($OneProtoArrayFromSite, $curProtoName);
             }
@@ -98,7 +92,7 @@ class ProtoUpdaterProducers extends AbstractProtoUpdaterProducers
           "IBLOCK_SECTION_ID" => "",
           "IBLOCK_ID" => $this->config->IBLOCK_ID,
           "NAME" => $curProtoName,
-          "SORT" => 500,
+          "SORT" => 1,
           "CODE" => $bitrix_code
           );
 

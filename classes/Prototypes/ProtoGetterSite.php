@@ -29,9 +29,7 @@ interface ProtoGetterSiteInterface
 
 abstract class AbstractProtoGetterSite implements ProtoGetterSiteInterface
 {
-    protected $xml_prototypes;
     protected $config;
-    protected $CIBlockSection;
 
     public function __construct($Config)
     {
@@ -188,7 +186,7 @@ class ProtoGetterSite extends AbstractProtoGetterSite
         $arSelect = Array("ID", "NAME", "ACTIVE", "SORT", "CODE");
         $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "DEPTH_LEVEL"=>1);//razdel prototypes 98 with CRAFTMANN
 
-        $resSection = CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+        $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
         $i = 0;
         $allProtoArFields_result_array = array();
         while($ob = $resSection->GetNextElement())

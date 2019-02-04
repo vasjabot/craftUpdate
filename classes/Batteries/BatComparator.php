@@ -3,7 +3,7 @@
 *-------------------------------------------------------------------------------
 * BatComparator Class
 *-------------------------------------------------------------------------------
-* This is a class for curl requests execution.
+* This is a class for compare properties of batteries from Site and Craftmiddle.
 * @package  BatteriesNS 
 * @author   mixxxxx 
 * @link     top-secret

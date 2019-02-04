@@ -117,6 +117,14 @@ if (1)
 		{
 			print_php($Bat);
 
+			$db_groups = CIBlockElement::GetElementGroups($Bat["ID"], true);
+		    while($ar_group = $db_groups->Fetch()) 
+		    {
+		        echo 'Все товары: <a href="/catalog/'. $ar_group["ID"] . '/">';
+		        echo $ar_group["NAME"];
+		        echo "</a>";
+			}
+
 		}
 		
 

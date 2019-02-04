@@ -23,11 +23,12 @@ abstract class AbstractBatComparator implements BatComparatorInterface
     protected $xml_offers;
     protected $array_batteries;
 
-    public function __construct($Config, $xml_offers, $xml_instock, $array_batteries)
+    public function __construct($Config, $xml_offers, $xml_instock, $xml_prices, $array_batteries)
     {
         $this->config = $Config;
         $this->xml_offers = $xml_offers;
         $this->xml_instock = $xml_instock;
+        $this->xml_prices = $xml_prices;      
         $this->array_batteries = $array_batteries;
     }
 }
@@ -113,6 +114,18 @@ class BatComparator extends AbstractBatComparator
                             continue;
                         }
                         print_r("Equal complect");
+
+
+
+                        /////////////////////<<devices>>///////////////////////////
+                        ///
+                        if($complect_in_xml !== $value["COMPLECT"])
+                        {
+                            continue;
+                        }
+                        print_r("Equal devices");
+
+
 
 
                         /////////////////////<<group>>///////////////////////////
@@ -226,39 +239,71 @@ class BatComparator extends AbstractBatComparator
 
 
                         /////////////////////<<price>>///////////////////////////
-
-                        if ($xml_prices->xpath('//dataWs'))
+                        if ($this->xml_prices->xpath('//dataWs'))
                         {
-                            foreach ($xml_prices->xpath('//dataWs') as $item_prices)
+                            foreach ($this->xml_prices->xpath('//dataWs') as $item_prices)
                             {
                                 $item_prices_article = $item_prices->article;
                                 $item_prices_article = (array)$item_prices_article;
+                                $item_prices_article = $item_prices_article[0];
                                 //print_r($item_instock_article[0]);
                                 //echo nl2br("\r\n");
                                 //print_r($article_var[0]);
                                 //echo nl2br("\r\n");
-                                if ($article_var[0] == $item_prices_article[0])
+                                if ($item_article_in_xml == $item_prices_article)
                                 {
                                     $price_var = $item_prices->price;
                                     $price_var = (array)$price_var;
-                                    AddMessage2Log("Товар с артикулом " . $article_var[0] . " поменЯл цену на " . $price_var[0], "FirstUpload");
-                                    $flag_price_exist = TRUE;
+                                    $price_var = $price_var[0];
+                                    //local break                                  
                                     break;
                                 }
                             }
                         }
 
-
-
-                        
-                        $price_in_xml = $item_offers_xml->price;
-                        $price_in_xml = (array)$price_in_xml;
-                        $price_in_xml = $price_in_xml[0];
-                        if($price_in_xml !== $value["PRICE"])
+                        if($price_var !== $value["PRICE"])
                         {
                             continue;
                         }
                         print_r("Equal price");
+
+
+                        /////////////////////<<type>>///////////////////////////
+                        $type_in_xml = $item_offers_xml->type;
+                        $type_in_xml = (array)$type_in_xml;
+                        $type_in_xml = $type_in_xml[0];
+
+                        if ($type_in_xml == "Li-ion")
+                        {
+                            $type_in_xml = IntVal(90);
+                        }
+                        else if ($type_in_xml == "Li-Polymer")
+                        {
+                            //$type_in_xml = IntVal(91); ///// Need paste this number
+                        }
+                        else if ($type_in_xml == "Ni-MH")
+                        {
+                            //$type_in_xml = IntVal(92); ///// Need paste this number
+                        }
+
+                        if($type_in_xml !== $value["TYPE"])
+                        {
+                            print_r( $type_in_xml . " соответствует " . $value["TYPE"]);
+                            echo nl2br("\r\n");
+                            continue;
+                        }
+                        print_r("Equal type");
+
+
+                        /////////////////////<<voltage>>///////////////////////////
+                        $voltage_in_xml = $item_offers_xml->voltage;
+                        $voltage_in_xml = (array)$voltage_in_xml;
+                        $voltage_in_xml = $voltage_in_xml[0];
+                        if($voltage_in_xml !== $value["VOLTAGE"])
+                        {
+                            continue;
+                        }
+                        print_r("Equal voltage");
         
 
 
@@ -267,7 +312,7 @@ class BatComparator extends AbstractBatComparator
 
 
                         $WasFound = TRUE;
-                        //print_r("WasFound is TRUE");
+                        print_r("WasFound is TRUE");
                     }                     
                 }
 

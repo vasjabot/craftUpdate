@@ -108,8 +108,23 @@ if (1)
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
 	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
 
-	$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $allBatteriesFromSite);
-	$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
+
+	// $i = 0;
+	// foreach ($allBatteriesFromSite as $Bat)
+	// {	
+	// 	$i++;
+	// 	print_php($Bat);
+
+	// 	if($i>500)
+	// 	{
+	// 		break;
+	// 	}
+	// }
+	// print_php("i = " . $i);
+
+
+	//$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);
+	//$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
 
 
 

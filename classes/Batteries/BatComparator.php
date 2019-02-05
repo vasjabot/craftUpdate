@@ -89,24 +89,23 @@ class BatComparator extends AbstractBatComparator
 
                         print_r("batteryDescription_in_xml: " . $batteryDescription_in_xml);
                         echo nl2br("\r\n");
-                        //if(1)
                         if($batteryDescription_in_xml !== '')
                         {
-                            print_r("batteryDescription_in_xml: " .$batteryDescription_in_xml);
-                            echo nl2br("\r\n");
-                            print_r("DETAIL_TEXT: " .$value["DETAIL_TEXT"]);
-                            echo nl2br("\r\n");
+                            // print_r("batteryDescription_in_xml: " .$batteryDescription_in_xml);
+                            // echo nl2br("\r\n");
+                            // print_r("DETAIL_TEXT: " .$value["DETAIL_TEXT"]);
+                            // echo nl2br("\r\n");
 
                             if(empty($batteryDescription_in_xml))
                             {
-                                print_r("batteryDescription_in_xml is empty ");
-                                echo nl2br("\r\n");
+                                // print_r("batteryDescription_in_xml is empty ");
+                                // echo nl2br("\r\n");
                                 $batteryDescription_in_xml = '';
                             }
                             if(empty($value["DETAIL_TEXT"]))
                             {
-                                print_r("value['DETAIL_TEXT'] is empty ");
-                                echo nl2br("\r\n");
+                                // print_r("value['DETAIL_TEXT'] is empty ");
+                                // echo nl2br("\r\n");
                                 $value["DETAIL_TEXT"] = '';
                             }
                             if($batteryDescription_in_xml !== $value["DETAIL_TEXT"])
@@ -117,9 +116,16 @@ class BatComparator extends AbstractBatComparator
                         print_r("Equal batteryDescription");
                        
                         /////////////////////<<capacity>>///////////////////////////
-                        $capacity_in_xml = $item_offers_xml->prdDate;
+                        $capacity_in_xml = $item_offers_xml->capacity;
                         $capacity_in_xml = (array)$capacity_in_xml;
                         $capacity_in_xml = $capacity_in_xml[0];
+
+                        // print_r("capacity_in_xml: " .$capacity_in_xml);
+                        // echo nl2br("\r\n");
+
+                        // print_r("CAPACITY: " .$value["CAPACITY"]);
+                        // echo nl2br("\r\n");
+
                         if($capacity_in_xml !== $value["CAPACITY"])
                         {
                             continue;
@@ -130,6 +136,15 @@ class BatComparator extends AbstractBatComparator
                         $complect_in_xml = $item_offers_xml->complect;
                         $complect_in_xml = (array)$complect_in_xml;
                         $complect_in_xml = $complect_in_xml[0];
+
+                        $complect_in_xml = iconv("utf-8", "windows-1251", $complect_in_xml);
+
+                        // print_r("complect_in_xml: " .$complect_in_xml);
+                        // echo nl2br("\r\n");
+
+                        // print_r("COMPLECT: " .$value["COMPLECT"]);
+                        // echo nl2br("\r\n");
+
                         if($complect_in_xml !== $value["COMPLECT"])
                         {
                             continue;
@@ -157,9 +172,18 @@ class BatComparator extends AbstractBatComparator
                                 //print_r($devices_array[$count_dev]);
                                 //echo nl2br("\r\n");
                             }
+                            asort($devices_array);
+                            asort($value["GROUPS_ARTICLE"]);
                             $devicesStrXML = implode("; ", $devices_array);
 
                             $devicesStrSite = implode("; ", $value["GROUPS_ARTICLE"]);
+
+                            // print_r("devicesStrXML: " .$devicesStrXML);
+                            // echo nl2br("\r\n");
+
+                            // print_r("devicesStrSite: " .$devicesStrSite);
+                            // echo nl2br("\r\n");
+
 
                             if($devicesStrXML !== $devicesStrSite)
                             {
@@ -189,7 +213,13 @@ class BatComparator extends AbstractBatComparator
                             $group_var_production_status = IntVal(95);
                         }
 
-                        if($group_var_production_status !== $value["DISCONTINUED"])
+                        // print_r("group_var_production_status: " .$group_var_production_status);
+                        // echo nl2br("\r\n");
+
+                        // print_r("value['DISCONTINUED']: " .$value["DISCONTINUED"]);
+                        // echo nl2br("\r\n");
+
+                        if(IntVal($group_var_production_status) !== IntVal($value["DISCONTINUED"]))
                         {
                             continue;
                         }
@@ -217,6 +247,13 @@ class BatComparator extends AbstractBatComparator
                             }
                         }
 
+                        $instock_var = iconv("utf-8", "windows-1251", $instock_var);
+
+                        // print_r("instock_var: " . $instock_var);
+                        // echo nl2br("\r\n");
+
+                        // print_r("value['STORE']: " . $value["STORE"]);
+                        // echo nl2br("\r\n");
 
                         if($instock_var !== $value["STORE"])
                         {
@@ -233,7 +270,7 @@ class BatComparator extends AbstractBatComparator
                         {
                             continue;
                         }
-                        print_r("Equal name of battery not article. COMPATIBLE_MODEL");
+                        print_r("Equal name of battery");
 
 
 
@@ -242,16 +279,60 @@ class BatComparator extends AbstractBatComparator
                         $originalCode_0 = (array)$originalCode_0;
                         $originalCode_0 = $originalCode_0[0];
                         $index_temp = 1;
-                        if ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) )
+                        //if ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) )
+                        if ($item_offers_xml->originalCode)
                         {
                             $originalCode_array = array();
+
+                            $originalCode_var_0 = $item_offers_xml->originalCode;
+                            $originalCode_var_0 = (array)$originalCode_var_0;
+                            $originalCode_var_0 = $originalCode_var_0[0];
+                            $originalCode_array[] = $originalCode_var_0;
+
+                            $index_temp = 1;
                             while ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) ) 
                             {
-                               $originalCode_array[$index_temp] = $item_offers->{"originalCode" . (string)$index_temp};
+                               $originalCode_array[] = $item_offers->{"originalCode" . (string)$index_temp};
                                $index_temp++;
                             }
 
+                            $count_item_orig_code = $index_temp;
+
+
+                            print_r("count_item_orig_code: " . $count_item_orig_code);
+                            echo nl2br("\r\n");
+
+                            
+
+
+                            for ($count_orig_code = 0; $count_orig_code < $count_item_orig_code; $count_orig_code++)
+                            {
+                                $temp_item_offers_devices = $item_offers_xml->devices[$count_orig_code];
+                                $temp_item_offers_devices = (array)$temp_item_offers_devices;
+                                $temp_item_offers_devices = $temp_item_offers_devices[0];
+
+                                $devices_array[$count_orig_code] = $temp_item_offers_devices;
+                                //print_r($devices_array[$count_orig_code]);
+                                //echo nl2br("\r\n");
+                            }
+                            asort($originalCode_array);
+                            asort($value["ORIGINAL_CODE"]);
+
+
+                            // while ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) ) 
+                            // {
+                            //    $originalCode_array[$index_temp] = $item_offers->{"originalCode" . (string)$index_temp};
+                            //    $index_temp++;
+                            // }
+
+
                             $originalCodeStr = implode("; ", $originalCode_array);
+
+                            print_r("originalCodeStr: " . $originalCodeStr);
+                            echo nl2br("\r\n");
+
+                            print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
+                            echo nl2br("\r\n");
 
                             if($originalCodeStr !== $value["ORIGINAL_CODE"])
                             {

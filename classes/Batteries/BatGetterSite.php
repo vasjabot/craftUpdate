@@ -93,7 +93,7 @@ class BatGetterSite extends AbstractBatGetterSite
     public function getArrayAllBatteries()
     {
         $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//all batteries
-        $arSelect = Array("ID", "IBLOCK_SECTION_ID", "NAME", "ACTIVE", "SORT", "DETAIL_PICTURE", "SEARCHABLE_CONTENT", "IN_SECTIONS", "CODE", "SORT", "ARTICLE");
+        $arSelect = Array("ID", "IBLOCK_SECTION_ID", "NAME", "ACTIVE", "SORT", "DETAIL_PICTURE", "DETAIL_TEXT", "SEARCHABLE_CONTENT", "IN_SECTIONS", "CODE", "SORT", "ARTICLE");
 
         $rsElements = \CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
     
@@ -111,6 +111,7 @@ class BatGetterSite extends AbstractBatGetterSite
              
             $arFields_res["DETAIL_PICTURE"] = $arFields["DETAIL_PICTURE"];
             $arFields_res["SEARCHABLE_CONTENT"] = $arFields["SEARCHABLE_CONTENT"];
+            $arFields_res["DETAIL_TEXT"] = $arFields["DETAIL_TEXT"];
             $arFields_res["IN_SECTIONS"] = $arFields["IN_SECTIONS"];
             $arFields_res["CODE"] = $arFields["CODE"];
 

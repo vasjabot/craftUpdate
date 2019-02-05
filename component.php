@@ -134,7 +134,7 @@ if (1)
 
 
 	$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);
-	//$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
+	$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
 
 
 

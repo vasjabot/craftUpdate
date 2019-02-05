@@ -86,14 +86,35 @@ class BatComparator extends AbstractBatComparator
                         $batteryDescription_in_xml = (array)$batteryDescription_in_xml;
                         $batteryDescription_in_xml = $batteryDescription_in_xml[0];
                         //if (isset($item_offers_xml->batteryDescription))
+
+                        print_r("batteryDescription_in_xml: " . $batteryDescription_in_xml);
+                        echo nl2br("\r\n");
+                        //if(1)
                         if($batteryDescription_in_xml !== '')
                         {
-                            if($batteryDescription_in_xml !== $value["SEARCHABLE_CONTENT"])
+                            print_r("batteryDescription_in_xml: " .$batteryDescription_in_xml);
+                            echo nl2br("\r\n");
+                            print_r("DETAIL_TEXT: " .$value["DETAIL_TEXT"]);
+                            echo nl2br("\r\n");
+
+                            if(empty($batteryDescription_in_xml))
+                            {
+                                print_r("batteryDescription_in_xml is empty ");
+                                echo nl2br("\r\n");
+                                $batteryDescription_in_xml = '';
+                            }
+                            if(empty($value["DETAIL_TEXT"]))
+                            {
+                                print_r("value['DETAIL_TEXT'] is empty ");
+                                echo nl2br("\r\n");
+                                $value["DETAIL_TEXT"] = '';
+                            }
+                            if($batteryDescription_in_xml !== $value["DETAIL_TEXT"])
                             {
                                 continue;
                             }
                         }
-                        print_r("Equal batteryDescription or batteryDescription_in_xml is empty");
+                        print_r("Equal batteryDescription");
                        
                         /////////////////////<<capacity>>///////////////////////////
                         $capacity_in_xml = $item_offers_xml->prdDate;
@@ -118,7 +139,6 @@ class BatComparator extends AbstractBatComparator
 
 
                         /////////////////////<<devices>>///////////////////////////   
-
                         if ($item_offers_xml->devices)
                         {
                             $count_item_offers_devices = count($item_offers_xml->devices);
@@ -348,7 +368,14 @@ class BatComparator extends AbstractBatComparator
                 {
                     $DiffArrayOfArticles[] = $item_search_prototypes_article_in_xml;
                 }
-                $index_dataWs++;            
+                $index_dataWs++;
+
+                print_r($index_dataWs);   
+
+                if ($index_dataWs > 100)
+                {
+                    break;                 
+                }         
             }
         }
         return $DiffArrayOfArticles;

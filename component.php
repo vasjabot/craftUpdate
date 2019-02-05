@@ -112,10 +112,10 @@ if (1)
 	{
 		if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
 		{
-			print_php($Bat["GROUPS_ARRAY"]);
-			echo nl2br("\r\n");
-			print_php($Bat["GROUPS_ID_ARRAY"]);
-			echo nl2br("\r\n");
+			// print_php($Bat["GROUPS_ARRAY"]);
+			// echo nl2br("\r\n");
+			// print_php($Bat["GROUPS_ID_ARRAY"]);
+			// echo nl2br("\r\n");
 
 		}
 		

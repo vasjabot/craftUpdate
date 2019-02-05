@@ -152,23 +152,19 @@ class BatGetterSite extends AbstractBatGetterSite
 
             $element_groups = \CIBlockElement::GetElementGroups($arFields["ID"], true);
             $GROUPS = array();
+            $GROUPS_ID = array();
             while($ar_group = $element_groups->Fetch()) 
             {
-                $GROUPS[] = $ar_group["NAME"];
-                echo 'Все товары: <a href="/catalog/'. $ar_group["ID"] . '/">';
-                echo $ar_group["NAME"];
-                foreach($ar_group as $key => $value)
+                if ($ar_group["DEPTH_LEVEL"] == 2)
                 {
-                    echo "ar_group_item";
-                    echo nl2br("\r\n");
-                    print_r($key);
-                    echo nl2br("\r\n");
-                    print_r($value);
-                    echo nl2br("\r\n");
+                    $GROUPS[] = $ar_group["NAME"];
+                    $GROUPS_ID[] = $ar_group["ID"];
                 }
-                echo "</a>";
+                
+                
             }
-
+            $arFields_res["GROUPS_ARRAY"] = $GROUPS;
+            $arFields_res["GROUPS_ID_ARRAY"] = $GROUPS_ID;
     
             $allProtoArFields_result_array[] = $arFields_res;
         }

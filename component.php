@@ -108,32 +108,22 @@ if (1)
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
 	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
 
-
-	$i = 0;
 	foreach ($allBatteriesFromSite as $Bat)
-	{	
-		$i++;
+	{
 		if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
 		{
-			print_php($Bat);
-
-			$db_groups = CIBlockElement::GetElementGroups($Bat["ID"], true);
-		    while($ar_group = $db_groups->Fetch()) 
-		    {
-		        echo 'Все товары: <a href="/catalog/'. $ar_group["ID"] . '/">';
-		        echo $ar_group["NAME"];
-		        echo "</a>";
-			}
+			print_php($Bat["GROUPS_ARRAY"]);
+			echo nl2br("\r\n");
+			print_php($Bat["GROUPS_ID_ARRAY"]);
+			echo nl2br("\r\n");
 
 		}
 		
-
-		if($i>6000)
-		{
-			break;
-		}
 	}
-	print_php("i = " . $i);
+
+
+
+
 
 
 	//$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);

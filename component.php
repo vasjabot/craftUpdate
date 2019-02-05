@@ -108,32 +108,32 @@ if (1)
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
 	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
 
-	foreach ($allBatteriesFromSite as $Bat)
-	{
-		if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
-		//if(trim($Bat["TYPE"]) == "90")
-		{
-			// print_php($Bat["GROUPS_ARRAY"]);
-			// echo nl2br("\r\n");
-			// print_php($Bat["GROUPS_ID_ARRAY"]);
-			// echo nl2br("\r\n");
-			//print_php($Bat["GROUPS_ARTICLE"]);
+	// foreach ($allBatteriesFromSite as $Bat)
+	// {
+	// 	if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
+	// 	//if(trim($Bat["TYPE"]) == "90")
+	// 	{
+	// 		// print_php($Bat["GROUPS_ARRAY"]);
+	// 		// echo nl2br("\r\n");
+	// 		// print_php($Bat["GROUPS_ID_ARRAY"]);
+	// 		// echo nl2br("\r\n");
+	// 		//print_php($Bat["GROUPS_ARTICLE"]);
 
-			print_php($Bat);
-			echo nl2br("\r\n");
+	// 		print_php($Bat);
+	// 		echo nl2br("\r\n");
 
-			//break;
+	// 		//break;
 
-		}
+	// 	}
 		
-	}
+	// }
 
 
 
 
 
 
-	//$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);
+	$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);
 	//$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
 
 

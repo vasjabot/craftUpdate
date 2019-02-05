@@ -117,13 +117,32 @@ class BatComparator extends AbstractBatComparator
 
 
 
-                        /////////////////////<<devices>>///////////////////////////
-                        ///
-                        if($complect_in_xml !== $value["COMPLECT"])
+                        /////////////////////<<devices>>///////////////////////////            
+                        if ( !empty($item_offers_xml->devices) )
                         {
+                            $devices_array = array();
+                            $devices_array[] = $item_offers->devices;
+                            while ( !empty($item_offers_xml->devices) ) 
+                            {
+                               $devices_array[] = $item_offers->devices;
+                            }
+
+                            $devicesStrXML = implode("; ", $devices_array);
+
+                            $devicesStrSite = implode("; ", $value["GROUPS_ARTICLE"]);
+
+                            if($devicesStrXML !== $devicesStrSite)
+                            {
+                                continue;
+                            }
+                            print_r("Equal devices");
+                        }
+                        else
+                        {     
                             continue;
                         }
-                        print_r("Equal devices");
+
+
 
 
 

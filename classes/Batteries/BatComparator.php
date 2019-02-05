@@ -117,16 +117,26 @@ class BatComparator extends AbstractBatComparator
 
 
 
-                        /////////////////////<<devices>>///////////////////////////            
-                        if ( !empty($item_offers_xml->devices) )
-                        {
-                            $devices_array = array();
-                            $devices_array[] = $item_offers->devices;
-                            while ( !empty($item_offers_xml->devices) ) 
-                            {
-                               $devices_array[] = $item_offers->devices;
-                            }
+                        /////////////////////<<devices>>///////////////////////////   
 
+                        if ($item_offers_xml->devices)
+                        {
+                            $count_item_offers_devices = count($item_offers_xml->devices);
+                            //print_r($count_item_offers_devices);
+                            //echo nl2br("\r\n");
+                            $devices_array = array();
+                            // print_r($count_item_offers_devices);
+                            // echo nl2br("\r\n");
+                            for ($count_dev = 0; $count_dev < $count_item_offers_devices; $count_dev++)
+                            {
+                                $temp_item_offers_devices = $item_offers_xml->devices[$count_dev];
+                                $temp_item_offers_devices = (array)$temp_item_offers_devices;
+                                $temp_item_offers_devices = $temp_item_offers_devices[0];
+
+                                $devices_array[$count_dev] = $temp_item_offers_devices;
+                                //print_r($devices_array[$count_dev]);
+                                //echo nl2br("\r\n");
+                            }
                             $devicesStrXML = implode("; ", $devices_array);
 
                             $devicesStrSite = implode("; ", $value["GROUPS_ARTICLE"]);
@@ -136,14 +146,11 @@ class BatComparator extends AbstractBatComparator
                                 continue;
                             }
                             print_r("Equal devices");
-                        }
+                        } 
                         else
-                        {     
+                        {
                             continue;
                         }
-
-
-
 
 
 

@@ -153,49 +153,39 @@ class BatGetterSite extends AbstractBatGetterSite
             $element_groups = \CIBlockElement::GetElementGroups($arFields["ID"], true);
             $GROUPS = array();
             $GROUPS_ID = array();
+            $GROUPS_ARTICLE = array();
             while($ar_group = $element_groups->Fetch()) 
-            {
-                if ($ar_group["DEPTH_LEVEL"] == 2)
-                {
-                    //$GROUPS[] = $ar_group["NAME"];
-                    $GROUPS_ID[] = $ar_group["ID"];
-                    // print_php($ar_group);
-                    // echo nl2br("\r\n");
-                    //$proto_element =  \CIBlockElement::GetByID($ar_group["ID"]);
-
-
-                    print($ar_group["ID"]);
-                    echo nl2br("\r\n");
-
-                    //$proto_element = \CIBlockElement::GetProperty($this->config->IBLOCK_ID, $ar_group["ID"], array("sort" => "asc"), Array());
-
-                    //$proto_element = \CIBlockElement::GetProperty($this->config->IBLOCK_ID, $ar_group["ID"], array("sort" => "asc"), Array());
-                    $proto_element = \CIBlockElement::GetPropertyValues($this->config->IBLOCK_ID, array(), true, array('ID' => $ar_group["ID"]));
-
-                    //print_php($proto_element['NAME']);
-                    //echo nl2br("\r\n");
-                    while($proto_element_fiels = $proto_element->Fetch())
-                    {
-                        //print_php($proto_element_fiels['NAME']);
-                        //echo nl2br("\r\n");
-                        // print_r($proto_element_fiels['NAME']);
-                        // echo nl2br("\r\n");
-
-                        //print_r($proto_element_fiels);
-                        //echo nl2br("\r\n");
-
-                    }
-                    
-
-                }
-                
-                
+            {             
+                $GROUPS[] = $ar_group["NAME"];
+                $GROUPS_ID[] = $ar_group["ID"];
+                // print($ar_group["ID"]);
+                // echo nl2br("\r\n");                        
             }
+
+            foreach($GROUPS_ID as $group_id)
+            {
+                $OneProtoArray = array();
+                $arSelect = Array("UF_ARTICLE",  "NAME");
+                $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "ID"=>$group_id);
+                $resSection = \CIBlockSection::GetList(Array(), $arFilter, false, $arSelect);
+   
+                while($proto_element = $resSection->GetNextElement())
+                {
+                    $proto_element_arFields = $proto_element->GetFields();
+                    $GROUPS_ARTICLE[] = $proto_element_arFields["UF_ARTICLE"];
+                    // print_r($proto_element_arFields["UF_ARTICLE"]);
+                    // echo nl2br("\r\n");
+                    //print_r($proto_element_arFields);
+                    //echo nl2br("\r\n");
+                }
+            }
+            
             $arFields_res["GROUPS_ARRAY"] = $GROUPS;
             $arFields_res["GROUPS_ID_ARRAY"] = $GROUPS_ID;
+            $arFields_res["GROUPS_ARTICLE"] = $GROUPS_ARTICLE;
     
             $allProtoArFields_result_array[] = $arFields_res;
-            break;
+            
         }
         return $allProtoArFields_result_array;
     }

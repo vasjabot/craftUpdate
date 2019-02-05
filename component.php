@@ -111,11 +111,18 @@ if (1)
 	foreach ($allBatteriesFromSite as $Bat)
 	{
 		if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
+		//if(trim($Bat["TYPE"]) == "90")
 		{
 			// print_php($Bat["GROUPS_ARRAY"]);
 			// echo nl2br("\r\n");
 			// print_php($Bat["GROUPS_ID_ARRAY"]);
 			// echo nl2br("\r\n");
+			//print_php($Bat["GROUPS_ARTICLE"]);
+
+			print_php($Bat);
+			echo nl2br("\r\n");
+
+			//break;
 
 		}
 		

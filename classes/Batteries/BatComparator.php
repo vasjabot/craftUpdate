@@ -307,7 +307,23 @@ class BatComparator extends AbstractBatComparator
                             // echo nl2br("\r\n");
               
                             asort($originalCode_array);
-                            asort($value["ORIGINAL_CODE"]);
+
+
+                            print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
+                            echo nl2br("\r\n");
+
+                            $ORIGINAL_CODE_ARRAY = array();
+
+                            $pieces = explode("; ", $value["ORIGINAL_CODE"]);
+
+                            foreach($pieces as $piece)
+                            {
+                                $ORIGINAL_CODE_ARRAY[] = $piece;
+                            }
+
+                            asort($ORIGINAL_CODE_ARRAY);
+
+                            $value["ORIGINAL_CODE"] = implode("; ", $ORIGINAL_CODE_ARRAY);
 
 
                             $originalCodeStr = implode("; ", $originalCode_array);

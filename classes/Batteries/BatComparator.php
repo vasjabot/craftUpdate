@@ -93,20 +93,31 @@ class BatComparator extends AbstractBatComparator
                         //$value_DETAIL_TEXT = iconv("utf-8", "windows-1251", $value["DETAIL_TEXT"]);  //wrong string
                         $value_DETAIL_TEXT = $value["DETAIL_TEXT"];
 
-                        print_r("batteryDescription_in_xml: " . $batteryDescription_in_xml);
-                        echo nl2br("\r\n");
-                        print_r("value['DETAIL_TEXT']: " . $value_DETAIL_TEXT);
-                        echo nl2br("\r\n");
+                        // print_r("batteryDescription_in_xml: " . $batteryDescription_in_xml);
+                        // echo nl2br("\r\n");
+                        // print_r("value['DETAIL_TEXT']: " . $value_DETAIL_TEXT);
+                        // echo nl2br("\r\n");
 
-                        $batteryDescription_in_xml_temp = mb_strtolower($batteryDescription_in_xml, "windows-1251");
-                        $batteryDescription_in_xml_temp = trim($batteryDescription_in_xml_temp);
-                        $value_DETAIL_TEXT_temp = mb_strtolower($value_DETAIL_TEXT, "windows-1251");
-                        $value_DETAIL_TEXT_temp = trim($value_DETAIL_TEXT_temp);
+                        // $batteryDescription_in_xml_temp = mb_strtolower($batteryDescription_in_xml, "windows-1251");
+                        // $batteryDescription_in_xml_temp = str_replace(' ', '_', $batteryDescription_in_xml_temp);
+                        // $batteryDescription_in_xml_temp = trim($batteryDescription_in_xml_temp);
+                        // $value_DETAIL_TEXT_temp = mb_strtolower($value_DETAIL_TEXT, "windows-1251");
+                        // $value_DETAIL_TEXT_temp = str_replace(' ', '_', $value_DETAIL_TEXT_temp);
+                        // $value_DETAIL_TEXT_temp = trim($value_DETAIL_TEXT_temp);
 
-                        $strcmp_result = strcmp($batteryDescription_in_xml_temp, $value_DETAIL_TEXT_temp);
+                        // //$strcmp_result = strcmp($batteryDescription_in_xml_temp, $value_DETAIL_TEXT_temp);
+                        // //$strcmp_result = $batteryDescription_in_xml_temp === $value_DETAIL_TEXT_temp;
+                        // if ($batteryDescription_in_xml_temp === $batteryDescription_in_xml_temp)
+                        // {
+                        //     $strcmp_result = "TRUE";
+                        // }
+                        // else
+                        // {
+                        //     $strcmp_result = "FALSE";
+                        // }
 
-                        print_r("strcmp result: " . $strcmp_result);
-                        echo nl2br("\r\n");
+                        // print_r("strcmp result: " . $strcmp_result);
+                        // echo nl2br("\r\n");
 
                         if($batteryDescription_in_xml !== '')
                         {

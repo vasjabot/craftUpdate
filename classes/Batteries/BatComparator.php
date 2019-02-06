@@ -417,12 +417,19 @@ class BatComparator extends AbstractBatComparator
                             $type_in_xml = IntVal(92); 
                         }
 
-                        if($type_in_xml !== $value["TYPE"])
+                        // print_r("type_in_xml: " . $type_in_xml);
+                        // echo nl2br("\r\n");
+
+                        // print_r("value['TYPE']: " . $value["TYPE"]);
+                        // echo nl2br("\r\n");
+
+                        if(IntVal($type_in_xml) !== IntVal($value["TYPE"]))
                         {
                             continue;
                         }
                         print_r("Equal type");
 
+                        
 
                         /////////////////////<<voltage>>///////////////////////////
                         $voltage_in_xml = $item_offers_xml->voltage;
@@ -434,11 +441,6 @@ class BatComparator extends AbstractBatComparator
                         }
                         print_r("Equal voltage");
         
-
-
-
-
-
 
                         $WasFound = TRUE;
                         print_r("WasFound is TRUE");
@@ -453,10 +455,10 @@ class BatComparator extends AbstractBatComparator
 
                 print_r($index_dataWs);   
 
-                if ($index_dataWs > 100)
-                {
-                    break;                 
-                }         
+                // if ($index_dataWs > 1000)
+                // {
+                //     break;                 
+                // }         
             }
         }
         return $DiffArrayOfArticles;

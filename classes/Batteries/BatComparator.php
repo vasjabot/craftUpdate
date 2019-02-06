@@ -500,7 +500,7 @@ class BatComparator extends AbstractBatComparator
                             // echo nl2br("\r\n");
                             continue;
                         }
-                        print_r("Equal type");
+                        //print_r("Equal type");
 
                         
 

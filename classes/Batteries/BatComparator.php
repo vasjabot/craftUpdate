@@ -76,6 +76,8 @@ class BatComparator extends AbstractBatComparator
                         $barcode_in_xml = $barcode_in_xml[0];
                         if($barcode_in_xml !== $value["EAN_13"])
                         {
+                            print_r("Wrong EAN_13 in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal barcode");
@@ -110,6 +112,8 @@ class BatComparator extends AbstractBatComparator
                             }
                             if($batteryDescription_in_xml !== $value["DETAIL_TEXT"])
                             {
+                                print_r("Wrong DETAIL_TEXT in : " . $item_article_in_xml );
+                                echo nl2br("\r\n");
                                 continue;
                             }
                         }
@@ -128,6 +132,8 @@ class BatComparator extends AbstractBatComparator
 
                         if($capacity_in_xml !== $value["CAPACITY"])
                         {
+                            print_r("Wrong CAPACITY in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal capacity");
@@ -147,6 +153,8 @@ class BatComparator extends AbstractBatComparator
 
                         if($complect_in_xml !== $value["COMPLECT"])
                         {
+                            print_r("Wrong COMPLECT in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal complect");
@@ -187,12 +195,16 @@ class BatComparator extends AbstractBatComparator
 
                             if($devicesStrXML !== $devicesStrSite)
                             {
+                                print_r("Wrong devices in : " . $item_article_in_xml );
+                                echo nl2br("\r\n");
                                 continue;
                             }
                             print_r("Equal devices");
                         } 
                         else
                         {
+                            print_r("Wrong devices in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
 
@@ -221,6 +233,8 @@ class BatComparator extends AbstractBatComparator
 
                         if(IntVal($group_var_production_status) !== IntVal($value["DISCONTINUED"]))
                         {
+                            print_r("Wrong DISCONTINUED in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal DISCONTINUED");
@@ -257,6 +271,8 @@ class BatComparator extends AbstractBatComparator
 
                         if($instock_var !== $value["STORE"])
                         {
+                            print_r("Wrong STORE in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal instock");
@@ -268,6 +284,8 @@ class BatComparator extends AbstractBatComparator
                         $name_in_xml = $name_in_xml[0];
                         if($name_in_xml !== $value["COMPATIBLE_MODEL"])
                         {
+                            print_r("Wrong COMPATIBLE_MODEL in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal name of battery");
@@ -336,6 +354,8 @@ class BatComparator extends AbstractBatComparator
 
                             if($originalCodeStr !== $value["ORIGINAL_CODE"])
                             {
+                                print_r("Wrong ORIGINAL_CODE in : " . $item_article_in_xml );
+                                echo nl2br("\r\n");
                                 continue;
                             }
                             print_r("Equal originalCode");
@@ -344,6 +364,8 @@ class BatComparator extends AbstractBatComparator
                         {
                             if($originalCode_0 !== $value["ORIGINAL_CODE"])
                             {
+                                print_r("Wrong ORIGINAL_CODE in : " . $item_article_in_xml );
+                                echo nl2br("\r\n");
                                 continue;
                             }
                             print_r("Equal originalCode");
@@ -360,6 +382,8 @@ class BatComparator extends AbstractBatComparator
                         $power_in_xml = $power_in_xml[0];
                         if($power_in_xml !== $value["POWER"])
                         {
+                            print_r("Wrong POWER in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal power");
@@ -390,6 +414,8 @@ class BatComparator extends AbstractBatComparator
 
                         if($price_var !== $value["PRICE"])
                         {
+                            print_r("Wrong PRICE in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal price");
@@ -425,6 +451,8 @@ class BatComparator extends AbstractBatComparator
 
                         if(IntVal($type_in_xml) !== IntVal($value["TYPE"]))
                         {
+                            print_r("Wrong type in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal type");
@@ -437,6 +465,8 @@ class BatComparator extends AbstractBatComparator
                         $voltage_in_xml = $voltage_in_xml[0];
                         if($voltage_in_xml !== $value["VOLTAGE"])
                         {
+                            print_r("Wrong voltage in : " . $item_article_in_xml );
+                            echo nl2br("\r\n");
                             continue;
                         }
                         print_r("Equal voltage");
@@ -444,12 +474,13 @@ class BatComparator extends AbstractBatComparator
 
                         $WasFound = TRUE;
                         print_r("WasFound is TRUE");
-                    }                     
+                    }
+                                      
                 }
 
                 if(!$WasFound)
                 {
-                    $DiffArrayOfArticles[] = $item_search_prototypes_article_in_xml;
+                    $DiffArrayOfArticles[] = $item_article_in_xml;
                 }
                 $index_dataWs++;
 

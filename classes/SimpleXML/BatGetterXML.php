@@ -139,7 +139,7 @@ class BatGetterXML extends AbstractBatGetterXML
 
 
                     $originalCode_array = array();
-                    $originalCode_array[] = $originalCode_0
+                    $originalCode_array[] = $originalCode_0;
 
                     if ($item_bat_in_xml->originalCode)
                     {

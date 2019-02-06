@@ -89,8 +89,25 @@ class BatComparator extends AbstractBatComparator
                         $batteryDescription_in_xml = $batteryDescription_in_xml[0];
                         //if (isset($item_offers_xml->batteryDescription))
 
+                        $batteryDescription_in_xml = iconv("utf-8", "windows-1251", $batteryDescription_in_xml);
+                        //$value_DETAIL_TEXT = iconv("utf-8", "windows-1251", $value["DETAIL_TEXT"]);  //wrong string
+                        $value_DETAIL_TEXT = $value["DETAIL_TEXT"];
+
                         print_r("batteryDescription_in_xml: " . $batteryDescription_in_xml);
                         echo nl2br("\r\n");
+                        print_r("value['DETAIL_TEXT']: " . $value_DETAIL_TEXT);
+                        echo nl2br("\r\n");
+
+                        $batteryDescription_in_xml_temp = mb_strtolower($batteryDescription_in_xml, "windows-1251");
+                        $batteryDescription_in_xml_temp = trim($batteryDescription_in_xml_temp);
+                        $value_DETAIL_TEXT_temp = mb_strtolower($value_DETAIL_TEXT, "windows-1251");
+                        $value_DETAIL_TEXT_temp = trim($value_DETAIL_TEXT_temp);
+
+                        $strcmp_result = strcmp($batteryDescription_in_xml_temp, $value_DETAIL_TEXT_temp);
+
+                        print_r("strcmp result: " . $strcmp_result);
+                        echo nl2br("\r\n");
+
                         if($batteryDescription_in_xml !== '')
                         {
                             // print_r("batteryDescription_in_xml: " .$batteryDescription_in_xml);
@@ -110,7 +127,8 @@ class BatComparator extends AbstractBatComparator
                                 // echo nl2br("\r\n");
                                 $value["DETAIL_TEXT"] = '';
                             }
-                            if($batteryDescription_in_xml !== $value["DETAIL_TEXT"])
+
+                            if(trim($batteryDescription_in_xml) !== trim($value_DETAIL_TEXT))
                             {
                                 print_r("Wrong DETAIL_TEXT in : " . $item_article_in_xml );
                                 echo nl2br("\r\n");

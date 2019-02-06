@@ -290,49 +290,33 @@ class BatComparator extends AbstractBatComparator
                             $originalCode_array[] = $originalCode_var_0;
 
                             $index_temp = 1;
+
                             while ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) ) 
                             {
-                               $originalCode_array[] = $item_offers->{"originalCode" . (string)$index_temp};
+                               $originalCode_array[] = $item_offers_xml->{"originalCode" . (string)$index_temp};
                                $index_temp++;
                             }
 
                             $count_item_orig_code = $index_temp;
 
 
-                            print_r("count_item_orig_code: " . $count_item_orig_code);
-                            echo nl2br("\r\n");
+                            // print_r("count_item_orig_code: " . $count_item_orig_code);
+                            // echo nl2br("\r\n");
 
-                            
-
-
-                            for ($count_orig_code = 0; $count_orig_code < $count_item_orig_code; $count_orig_code++)
-                            {
-                                $temp_item_offers_devices = $item_offers_xml->devices[$count_orig_code];
-                                $temp_item_offers_devices = (array)$temp_item_offers_devices;
-                                $temp_item_offers_devices = $temp_item_offers_devices[0];
-
-                                $devices_array[$count_orig_code] = $temp_item_offers_devices;
-                                //print_r($devices_array[$count_orig_code]);
-                                //echo nl2br("\r\n");
-                            }
+                            // print_r("originalCode_array: " . $originalCode_array);
+                            // echo nl2br("\r\n");
+              
                             asort($originalCode_array);
                             asort($value["ORIGINAL_CODE"]);
 
 
-                            // while ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) ) 
-                            // {
-                            //    $originalCode_array[$index_temp] = $item_offers->{"originalCode" . (string)$index_temp};
-                            //    $index_temp++;
-                            // }
-
-
                             $originalCodeStr = implode("; ", $originalCode_array);
 
-                            print_r("originalCodeStr: " . $originalCodeStr);
-                            echo nl2br("\r\n");
+                            // print_r("originalCodeStr: " . $originalCodeStr);
+                            // echo nl2br("\r\n");
 
-                            print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
-                            echo nl2br("\r\n");
+                            // print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
+                            // echo nl2br("\r\n");
 
                             if($originalCodeStr !== $value["ORIGINAL_CODE"])
                             {

@@ -129,10 +129,6 @@ if (1)
 	// }
 
 
-
-
-
-
 	$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);
 	$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
 
@@ -148,9 +144,14 @@ if (1)
 	 	break;
 	}
 
-	$new_allBatteriestypesByArticlesDiff = array('C1.01.001'); 	//test for new add
-	$batUpdater = new BatteriesNS\BatUpdater($config, $new_allBatteriestypesByArticlesDiff, $XML_arr["offers"]);
-	$batUpdater->updateAllBatteriesByArticlesDiff();
+
+	$batGetterXML = new SimpleXMLNS\BatGetterXML($config, $XML_arr["offers"]);
+	$Bat = $batGetterXML->getBatByArticle('C1.01.001'); 
+	print_php($Bat);
+
+	//$new_allBatteriestypesByArticlesDiff = array('C1.01.001'); 	//test for new add
+	//$batUpdater = new BatteriesNS\BatUpdater($config, $new_allBatteriestypesByArticlesDiff, $XML_arr["offers"]);
+	//$batUpdater->updateAllBatteriesByArticlesDiff();
 
 
 

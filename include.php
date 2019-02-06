@@ -12,6 +12,7 @@ require_once(__DIR__.'/classes/SimpleXML/SimpleXMLvalidator.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoComparator.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoComparatorProducers.php');
 require_once(__DIR__.'/classes/SimpleXML/ProtoGetterXML.php');
+require_once(__DIR__.'/classes/SimpleXML/BatGetterXML.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoGetterSite.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoUpdaterProducers.php');
 require_once(__DIR__.'/classes/Prototypes/ProtoUpdater.php');

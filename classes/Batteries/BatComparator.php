@@ -322,11 +322,10 @@ class BatComparator extends AbstractBatComparator
 
 
                         /////////////////////<<originalCode>>///////////////////////////
-                        $originalCode_0 = $item_offers->originalCode;
+                        $originalCode_0 = $item_offers_xml->originalCode;
                         $originalCode_0 = (array)$originalCode_0;
                         $originalCode_0 = $originalCode_0[0];
-                        $index_temp = 1;
-                        //if ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) )
+                 
                         if ($item_offers_xml->originalCode)
                         {
                             $originalCode_array = array();

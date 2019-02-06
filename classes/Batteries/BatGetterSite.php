@@ -22,7 +22,7 @@ Loader::includeModule("iblock");
 interface BatGetterSiteInterface
 {
     public function getBatByArticle($Article); 
-    public function getArrayAllBatteries();
+    public function getArrayAllBatteries($Article_for_filter=NULL);
 }
 
 abstract class AbstractBatGetterSite implements BatGetterSiteInterface
@@ -90,9 +90,17 @@ class BatGetterSite extends AbstractBatGetterSite
 
 
 
-    public function getArrayAllBatteries()
+    public function getArrayAllBatteries($Article_for_filter = NULL)
     {
-        $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//all batteries
+        if($Article_for_filter == NULL)
+        {
+            $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID));//all batteries
+        }
+        else
+        {
+            $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "ARTICLE"=>$Article_for_filter);//one battery
+        }
+        
         $arSelect = Array("ID", "IBLOCK_SECTION_ID", "NAME", "ACTIVE", "SORT", "DETAIL_PICTURE", "DETAIL_TEXT", "SEARCHABLE_CONTENT", "IN_SECTIONS", "CODE", "SORT", "ARTICLE");
 
         $rsElements = \CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
@@ -189,6 +197,13 @@ class BatGetterSite extends AbstractBatGetterSite
             
         }
         return $allProtoArFields_result_array;
+    }
+
+
+    public function getBatByArticle($curBatArticle)
+    {
+        return $this->getArrayAllBatteries($curBatArticle);
+
     }
 
 

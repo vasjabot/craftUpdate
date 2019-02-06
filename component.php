@@ -145,13 +145,13 @@ if (1)
 	}
 
 
-	$batGetterXML = new SimpleXMLNS\BatGetterXML($config, $XML_arr["offers"]);
-	$Bat = $batGetterXML->getBatByArticle('C1.01.001'); 
-	print_php($Bat);
+	// $batGetterXML = new SimpleXMLNS\BatGetterXML($config, $XML_arr["offers"]);
+	// $Bat = $batGetterXML->getBatByArticle('C1.01.001'); 
+	// print_php($Bat);
 
-	//$new_allBatteriestypesByArticlesDiff = array('C1.01.001'); 	//test for new add
-	//$batUpdater = new BatteriesNS\BatUpdater($config, $new_allBatteriestypesByArticlesDiff, $XML_arr["offers"]);
-	//$batUpdater->updateAllBatteriesByArticlesDiff();
+	$new_allBatteriestypesByArticlesDiff = array('C1.01.001'); 	//test for new add
+	$batUpdater = new BatteriesNS\BatUpdater($config, $new_allBatteriestypesByArticlesDiff, $XML_arr["offers"]);
+	$batUpdater->updateAllBatteriesByArticlesDiff();
 
 
 

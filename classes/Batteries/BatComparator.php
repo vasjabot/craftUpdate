@@ -241,41 +241,41 @@ class BatComparator extends AbstractBatComparator
 
 
                         /////////////////////<<instock>>///////////////////////////
-                        if ($this->xml_instock->xpath('//dataWs'))
-                        {
-                            foreach ($this->xml_instock->xpath('//dataWs') as $item_instock)
-                            {
-                                $item_instock_article = $item_instock->article;
-                                $item_instock_article = (array)$item_instock_article;
-                                $item_instock_article = $item_instock_article[0];
+                        // if ($this->xml_instock->xpath('//dataWs'))
+                        // {
+                        //     foreach ($this->xml_instock->xpath('//dataWs') as $item_instock)
+                        //     {
+                        //         $item_instock_article = $item_instock->article;
+                        //         $item_instock_article = (array)$item_instock_article;
+                        //         $item_instock_article = $item_instock_article[0];
       
-                                if ($item_article_in_xml == $item_instock_article)
-                                {
-                                    $instock_var = $item_instock->status;
-                                    $instock_var = (array)$instock_var;
-                                    $instock_var = $instock_var[0];
-                                    //AddMessage2Log("Товар с артикулом " . $article_var[0] . " поменЯл наличие на " . $instock_var[0], "FirstUpload");
-                                    //local break
-                                    break;
-                                }
-                            }
-                        }
+                        //         if ($item_article_in_xml == $item_instock_article)
+                        //         {
+                        //             $instock_var = $item_instock->status;
+                        //             $instock_var = (array)$instock_var;
+                        //             $instock_var = $instock_var[0];
+                        //             //AddMessage2Log("Товар с артикулом " . $article_var[0] . " поменЯл наличие на " . $instock_var[0], "FirstUpload");
+                        //             //local break
+                        //             break;
+                        //         }
+                        //     }
+                        // }
 
-                        $instock_var = iconv("utf-8", "windows-1251", $instock_var);
+                        // $instock_var = iconv("utf-8", "windows-1251", $instock_var);
 
-                        // print_r("instock_var: " . $instock_var);
-                        // echo nl2br("\r\n");
+                        // // print_r("instock_var: " . $instock_var);
+                        // // echo nl2br("\r\n");
 
-                        // print_r("value['STORE']: " . $value["STORE"]);
-                        // echo nl2br("\r\n");
+                        // // print_r("value['STORE']: " . $value["STORE"]);
+                        // // echo nl2br("\r\n");
 
-                        if($instock_var !== $value["STORE"])
-                        {
-                            print_r("Wrong STORE in : " . $item_article_in_xml );
-                            echo nl2br("\r\n");
-                            continue;
-                        }
-                        print_r("Equal instock");
+                        // if($instock_var !== $value["STORE"])
+                        // {
+                        //     print_r("Wrong STORE in : " . $item_article_in_xml );
+                        //     echo nl2br("\r\n");
+                        //     continue;
+                        // }
+                        // print_r("Equal instock");
 
 
                         /////////////////////<<name>>///////////////////////////
@@ -324,7 +324,7 @@ class BatComparator extends AbstractBatComparator
                             // print_r("originalCode_array: " . $originalCode_array);
                             // echo nl2br("\r\n");
               
-                            asort($originalCode_array);
+                            
 
 
                             print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
@@ -340,17 +340,33 @@ class BatComparator extends AbstractBatComparator
                             }
 
                             asort($ORIGINAL_CODE_ARRAY);
-
                             $value["ORIGINAL_CODE"] = implode("; ", $ORIGINAL_CODE_ARRAY);
 
+                            //asort($originalCode_array);//Doesn't work
+                            //asort($originalCode_array);
+                            $originalCodeStr_temp = implode("; ", $originalCode_array);
 
-                            $originalCodeStr = implode("; ", $originalCode_array);
+                            $ORIGINAL_CODE_ARRAY_FROM_originalCode_array  = array();
 
-                            // print_r("originalCodeStr: " . $originalCodeStr);
-                            // echo nl2br("\r\n");
+                            $pieces = explode("; ", $originalCodeStr_temp);
 
-                            // print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
-                            // echo nl2br("\r\n");
+                            foreach($pieces as $piece)
+                            {
+                                $ORIGINAL_CODE_ARRAY_FROM_originalCode_array[] = $piece;
+                            }
+                            asort($ORIGINAL_CODE_ARRAY_FROM_originalCode_array);
+
+                            $originalCodeStr = implode("; ", $ORIGINAL_CODE_ARRAY_FROM_originalCode_array);
+
+                            
+
+                            print_r("originalCodeStr: " . $originalCodeStr);
+                            echo nl2br("\r\n");
+
+                            print_r("value['ORIGINAL_CODE']: " . $value["ORIGINAL_CODE"]);
+                            echo nl2br("\r\n");
+
+
 
                             if($originalCodeStr !== $value["ORIGINAL_CODE"])
                             {
@@ -390,35 +406,35 @@ class BatComparator extends AbstractBatComparator
 
 
                         /////////////////////<<price>>///////////////////////////
-                        if ($this->xml_prices->xpath('//dataWs'))
-                        {
-                            foreach ($this->xml_prices->xpath('//dataWs') as $item_prices)
-                            {
-                                $item_prices_article = $item_prices->article;
-                                $item_prices_article = (array)$item_prices_article;
-                                $item_prices_article = $item_prices_article[0];
-                                //print_r($item_instock_article[0]);
-                                //echo nl2br("\r\n");
-                                //print_r($article_var[0]);
-                                //echo nl2br("\r\n");
-                                if ($item_article_in_xml == $item_prices_article)
-                                {
-                                    $price_var = $item_prices->price;
-                                    $price_var = (array)$price_var;
-                                    $price_var = $price_var[0];
-                                    //local break                                  
-                                    break;
-                                }
-                            }
-                        }
+                        // if ($this->xml_prices->xpath('//dataWs'))
+                        // {
+                        //     foreach ($this->xml_prices->xpath('//dataWs') as $item_prices)
+                        //     {
+                        //         $item_prices_article = $item_prices->article;
+                        //         $item_prices_article = (array)$item_prices_article;
+                        //         $item_prices_article = $item_prices_article[0];
+                        //         //print_r($item_instock_article[0]);
+                        //         //echo nl2br("\r\n");
+                        //         //print_r($article_var[0]);
+                        //         //echo nl2br("\r\n");
+                        //         if ($item_article_in_xml == $item_prices_article)
+                        //         {
+                        //             $price_var = $item_prices->price;
+                        //             $price_var = (array)$price_var;
+                        //             $price_var = $price_var[0];
+                        //             //local break                                  
+                        //             break;
+                        //         }
+                        //     }
+                        // }
 
-                        if($price_var !== $value["PRICE"])
-                        {
-                            print_r("Wrong PRICE in : " . $item_article_in_xml );
-                            echo nl2br("\r\n");
-                            continue;
-                        }
-                        print_r("Equal price");
+                        // if($price_var !== $value["PRICE"])
+                        // {
+                        //     print_r("Wrong PRICE in : " . $item_article_in_xml );
+                        //     echo nl2br("\r\n");
+                        //     continue;
+                        // }
+                        // print_r("Equal price");
 
 
                         /////////////////////<<type>>///////////////////////////

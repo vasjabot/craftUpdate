@@ -124,7 +124,10 @@ class BatUpdater extends AbstractBatUpdater
 				 $prop['VOLTAGE'] = $OneBatArrayFromXML['VOLTAGE'];
 				 if ($OneBatArrayFromXML['PRICE'] !== NULL)
 				 {
-				 		$prop['PRICE'] = $OneBatArrayFromXML['PRICE'];
+				 		//$prop['PRICE'] = $OneBatArrayFromXML['PRICE'];
+				 		$prop['PRICE'] = 665;
+				 		$arFields = array('PRICE' => IntVal(665));
+				 		\CPrice::Update($ELEMENT_ID, $arFields);
 				 }
 				 if ($OneBatArrayFromXML['STORE'] !== NULL)
 				 {

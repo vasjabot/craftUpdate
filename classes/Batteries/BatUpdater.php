@@ -96,34 +96,19 @@ class BatUpdater extends AbstractBatUpdater
 
 		public function updateOldBattery($OneBatArrayFromSite, $curBatArticle)
 		{
-				print_r("BEFORE UPDATING");
-				echo nl2br("\r\n");
-				foreach($OneBatArrayFromSite[0] as $key => $value)
-				{
-				    print_r("$key: " . $value);
-				    echo nl2br("\r\n");
-				}
-
-				$batGetterSite = new BatGetterSite($this->config); 
-				/////////////////////////////////////////////////////////////////////////////////////////////
+				
 				$batGetterXML = new BatGetterXML($this->config, $this->xml_offers);
 				$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curBatArticle);
 
 			
-
-
-				$be = \CIBlockElement::GetList(array(), array("PROPERTY_ARTICLE"=>$curBatArticle), false, false, array("ID", "IBLOCK_ID", "ARTICLE", "EAN_13", "DETAIL_TEXT", "CAPACITY", "COMPLECT", "GROUPS_ARTICLE", "DISCONTINUED", "COMPATIBLE_MODEL", "ORIGINAL_CODE", "POWER", "TYPE", "VOLTAGE"));
-
-				if ($be_arr = $be->Fetch())
-				{
-				 $ELEMENT_ID = $be_arr["ID"];
-				 $IBLOCK_ID = $be_arr["IBLOCK_ID"];
+				 $ELEMENT_ID = $OneBatArrayFromSite[0]['ID'];
+				 $IBLOCK_ID = $this->config->IBLOCK_ID;
 				 //ARTICLE get from SITE
 				 $prop = array();
 				 $prop['ARTICLE'] = $OneBatArrayFromSite[0]['ARTICLE'];
 				 $prop['EAN_13'] = $OneBatArrayFromXML['EAN_13'];
 				 $prop['DETAIL_TEXT'] = $OneBatArrayFromXML['DETAIL_TEXT'];
-				 //$prop['CAPACITY'] = $OneBatArrayFromXML['CAPACITY'];
+				 $prop['CAPACITY'] = $OneBatArrayFromXML['CAPACITY'];
 				 $prop['COMPLECT'] = $OneBatArrayFromXML['COMPLECT'];
 				 $prop['GROUPS_ARTICLE'] = $OneBatArrayFromXML['GROUPS_ARTICLE'];
 				 $prop['DISCONTINUED'] = $OneBatArrayFromXML['DISCONTINUED'];
@@ -132,8 +117,12 @@ class BatUpdater extends AbstractBatUpdater
 				 $prop['POWER'] = $OneBatArrayFromXML['POWER'];
 				 $prop['TYPE'] = $OneBatArrayFromXML['TYPE'];
 				 $prop['VOLTAGE'] = $OneBatArrayFromXML['VOLTAGE'];
-				 $prop['CAPACITY'] = IntVal(951);
+
 				 print_r("prop: ");
+				 echo nl2br("\r\n");
+				 print_r("ELEMENT_ID: " . $ELEMENT_ID);
+				 echo nl2br("\r\n");
+				 print_r("IBLOCK_ID: " . $IBLOCK_ID);
 				 echo nl2br("\r\n");
 				 foreach($prop as $key => $value)
 				 {
@@ -141,20 +130,10 @@ class BatUpdater extends AbstractBatUpdater
 					  echo nl2br("\r\n");
 				 }
 				 \CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, $IBLOCK_ID, $prop);
-				}
+	
 
 				//CIBlockElement::SetPropertyValuesEx always returns NULL
 				$res = TRUE;
-				//////////////////////////////////////////////////////////////////////////////////////////////
-				$OneBatArrayFromSite = $batGetterSite->getBatByArticle($curBatArticle);
-				print_r("AFTER UPDATING");
-				echo nl2br("\r\n");
-				foreach($OneBatArrayFromSite[0] as $key => $value)
-				{
-				    print_r("$key: " . $value);
-				    echo nl2br("\r\n");
-				}
-
 				return $res;
 				
 		}

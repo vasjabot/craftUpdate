@@ -57,19 +57,21 @@ class BatUpdater extends AbstractBatUpdater
 						if (($curBatArticle !== NULL) || $curBatArticle !== '')
 						{      
 							$OneBatArrayFromSite = $batGetterSite->getBatByArticle($curBatArticle);
-							print_r("OneBatArrayFromSite is: ");
-							echo nl2br("\r\n");
-							print_r($OneBatArrayFromSite);
-							echo nl2br("\r\n");
-							foreach($OneBatArrayFromSite[0] as $key => $value)
-							{
-							    print_r("$key: " . $value);
-							    echo nl2br("\r\n");
-							}
+							// print_r("OneBatArrayFromSite is: ");
+							// echo nl2br("\r\n");
+							// print_r($OneBatArrayFromSite);
+							// echo nl2br("\r\n");
+							// foreach($OneBatArrayFromSite[0] as $key => $value)
+							// {
+							//     print_r("$key: " . $value);
+							//     echo nl2br("\r\n");
+							// }
+							
 							if ($OneBatArrayFromSite!==NULL)
 							{
 									//res is TRUE or FALSE
-									//$res = $this->updateOldBattery($OneBatArrayFromSite, $curBatArticle);
+									$res = $this->updateOldBattery($OneBatArrayFromSite, $curBatArticle);
+									break;
 							}
 							else
 							{  
@@ -81,100 +83,66 @@ class BatUpdater extends AbstractBatUpdater
 				}
 		}
 
-		public function updateOldPrototype($OneProtoArrayFromSite, $curProtoArticle, $curProtoSort=1)
+		public function updateOldBattery($OneBatArrayFromSite, $curProtoArticle)
 		{
-
-				$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
-				$OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curProtoArticle);
-
-				$bitrix_code =  $OneProtoArrayFromXML["UF_MODEL"];
-				$bitrix_code = mb_strtolower($bitrix_code);
-				$bitrix_code = str_replace(' ', '_', $bitrix_code);
-				$bitrix_code = str_replace('.', '_', $bitrix_code); 
-
-				$model = 'Аккумулятор для '.$OneProtoArrayFromXML["UF_MODEL"].'';
-				$model_win1251 = iconv("utf-8", "windows-1251", $model);
-
-
-
-				$compatibilityGetterXML = new CompatibilityGetterXML($this->config, $this->xml_compatibility);
-				$CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curProtoArticle);
-
-				if (empty($CompatibilityStringFromXML) || ($CompatibilityStringFromXML==NULL)) 
+				print_r("BEFORE UPDATING");
+				echo nl2br("\r\n");
+				foreach($OneBatArrayFromSite[0] as $key => $value)
 				{
-						$ACTIVE = "N";
-						//print_r("CompatibilityStringFromXML is empty" . $CompatibilityStringFromXML);
-						//echo nl2br("\r\n");
-						
-				}else
-				{
-						$ACTIVE = "Y";
-						//print_r("CompatibilityStringFromXML is NOT empty" . $CompatibilityStringFromXML);
-						//echo nl2br("\r\n");            
+				    print_r("$key: " . $value);
+				    echo nl2br("\r\n");
 				}
 
-				$bs = new \CIBlockSection;
+				$batGetterSite = new BatGetterSite($this->config); 
+				/////////////////////////////////////////////////////////////////////////////////////////////
+				$batGetterXML = new BatGetterXML($this->config, $this->xml_offers);
+				$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curProtoArticle);
 
-				$arFields = Array(
-					//not XML, let't get it from Site
-					"UF_ARTICLE" => $OneProtoArrayFromSite[0]["UF_ARTICLE"],
-					//Define in this method 
-					"ACTIVE" => $ACTIVE,
-					//Site
-					"IBLOCK_SECTION_ID" => $OneProtoArrayFromSite[0]["IBLOCK_SECTION_ID"],
-					//Config
-					"IBLOCK_ID" => $this->config->IBLOCK_ID,
-					//XML
-					"NAME" => $OneProtoArrayFromXML["NAME"],
-					//Just temp phrase
-					"UF_DESCRIPTION" => "test description",
-					//Defaul 500
-					"SORT" => IntVal($curProtoSort),
-					//Define in this method
-					"CODE" => $bitrix_code,
-					//Site In this field store id of PICTURE
-					"PICTURE" => $OneProtoArrayFromSite[0]["PICTURE"],
-					//XML
-					"UF_DEVTYPE" => $OneProtoArrayFromXML["UF_DEVTYPE"],
-					//XML
-					"UF_PRDDATE" => $OneProtoArrayFromXML["UF_PRDDATE"],
-					//XML
-					"UF_BATTERYTYPE" => $OneProtoArrayFromXML["UF_BATTERYTYPE"],
-					//Define in this method         
-					"UF_MODEL" => $model_win1251,     
-					//XML
-					"UF_PRODUCER" => $OneProtoArrayFromXML["UF_PRODUCER"],
-					//XML
-					"UF_COMPATIBILITYLIST" => $CompatibilityStringFromXML
-					);
+			
 
-				if($OneProtoArrayFromSite[0]["ID"] > 0)
+
+				$be = \CIBlockElement::GetList(array(), array("=ARTICLE"=>$curProtoArticle), false, false, array("ID", "IBLOCK_ID", "ARTICLE", "EAN_13", "DETAIL_TEXT", "CAPACITY", "COMPLECT", "GROUPS_ARTICLE", "DISCONTINUED", "COMPATIBLE_MODEL", "ORIGINAL_CODE", "POWER", "TYPE", "VOLTAGE"));
+
+				if ($be_arr = $be->Fetch())
 				{
-						//this method return TRUE or FALSE if Error
-						$res = $bs->Update($OneProtoArrayFromSite[0]["ID"], $arFields);
-						//NEED add this string to Message
-						// print_r("old ProtoSection with Name = " . $OneProtoArrayFromXML["NAME"] . " was modifyed with arFields = "  .  $arFields);
-						// foreach($arFields as $arFieldsItem)
-						// {
-						//     print_r($arFieldsItem);
-						//     echo nl2br("\r\n");
+				 $ELEMENT_ID = $be_arr["ID"];
+				 $IBLOCK_ID = $be_arr["IBLOCK_ID"];
+				 //ARTICLE get from SITE
+				 $prop['ARTICLE'] = $OneProtoArrayFromSite[0]['ARTICLE'];
+				 $prop['EAN_13'] = $OneBatArrayFromXML[0]['EAN_13'];
+				 $prop['DETAIL_TEXT'] = $OneBatArrayFromXML[0]['DETAIL_TEXT'];
+				 $prop['CAPACITY'] = $OneBatArrayFromXML[0]['CAPACITY'];
+				 $prop['COMPLECT'] = $OneBatArrayFromXML[0]['COMPLECT'];
+				 $prop['GROUPS_ARTICLE'] = $OneBatArrayFromXML[0]['GROUPS_ARTICLE'];
+				 $prop['DISCONTINUED'] = $OneBatArrayFromXML[0]['DISCONTINUED'];
+				 $prop['COMPATIBLE_MODEL'] = $OneBatArrayFromXML[0]['COMPATIBLE_MODEL'];
+				 $prop['ORIGINAL_CODE'] = $OneBatArrayFromXML[0]['ORIGINAL_CODE'];
+				 $prop['POWER'] = $OneBatArrayFromXML[0]['POWER'];
+				 $prop['TYPE'] = $OneBatArrayFromXML[0]['TYPE'];
+				 $prop['VOLTAGE'] = $OneBatArrayFromXML[0]['VOLTAGE'];
+				 \CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, $IBLOCK_ID, $prop);
+				}
 
-						// }
-				}
-				else
+				//CIBlockElement::SetPropertyValuesEx always returns NULL
+				$res = TRUE;
+				//////////////////////////////////////////////////////////////////////////////////////////////
+				$OneBatArrayFromSite = $batGetterSite->getBatByArticle($curBatArticle);
+				print_r("AFTER UPDATING");
+				echo nl2br("\r\n");
+				foreach($OneBatArrayFromSite[0] as $key => $value)
 				{
-						$res = FALSE;
+				    print_r("$key: " . $value);
+				    echo nl2br("\r\n");
 				}
-				
+
 				return $res;
-
 				
 		}
 
 
 
 
-		public function setNewPrototype($curProtoArticle)
+		public function setNewBattery($curProtoArticle)
 		{
 				$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
 				$OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curProtoArticle);

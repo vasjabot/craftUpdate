@@ -230,7 +230,8 @@ class BatUpdater extends AbstractBatUpdater
 			  "IBLOCK_ID"      => $IBLOCK_ID,
 			  "PROPERTY_VALUES"=> $PROP,
 			  "NAME"           => $PROP['ARTICLE'],
-			  "ACTIVE"         => "Y"
+			  "ACTIVE"         => "Y",
+			  "SORT"         	 => $OneBatArrayFromXML['SORT']
 			  );
 
 			if($PRODUCT_ID = $el->Add($arLoadProductArray))

@@ -154,6 +154,7 @@ class BatUpdater extends AbstractBatUpdater
 			$el = new \CIBlockElement;
 
 			$PROP = array();
+			print("PROP is: " . $PROP);
 			foreach($OneBatArrayFromXML as $key => $value)
 			{
 				  print_r("$key: " . $value);
@@ -192,7 +193,8 @@ class BatUpdater extends AbstractBatUpdater
 
 
 			$arLoadProductArray = Array(
-			  "IBLOCK_SECTION_ID" => false,          // element in root without sections
+			  //"IBLOCK_SECTION_ID" => false,          // element in root without sections
+			  "IBLOCK_SECTION" => $IBLOCK_SECTION_ID_ARRAY,
 			  "IBLOCK_ID"      => $IBLOCK_ID,
 			  "PROPERTY_VALUES"=> $PROP,
 			  "NAME"           => $PROP['ARTICLE'],

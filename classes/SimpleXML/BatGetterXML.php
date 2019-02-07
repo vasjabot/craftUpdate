@@ -145,9 +145,9 @@ class BatGetterXML extends AbstractBatGetterXML
                     {
                         $index_temp = 1;
 
-                        while ( !empty($item_offers_xml->{"originalCode" . (string)$index_temp}) ) 
+                        while ( !empty($item_bat_in_xml->{"originalCode" . (string)$index_temp}) ) 
                         {
-                           $originalCode_array[] = $item_offers_xml->{"originalCode" . (string)$index_temp};
+                           $originalCode_array[] = $item_bat_in_xml->{"originalCode" . (string)$index_temp};
                            $index_temp++;
                         }
 

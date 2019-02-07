@@ -59,17 +59,17 @@ class BatUpdater extends AbstractBatUpdater
 						if (($curBatArticle !== NULL) || $curBatArticle !== '')
 						{  
 							
-							print_r("print from updateAllBatteriesByArticlesDiff: ");
-							echo nl2br("\r\n");
-					    print_r("curBatArticle: " . $curBatArticle);
-					    echo nl2br("\r\n");
+							// print_r("print from updateAllBatteriesByArticlesDiff: ");
+							// echo nl2br("\r\n");
+					  //   print_r("curBatArticle: " . $curBatArticle);
+					  //   echo nl2br("\r\n");
 							
 
 							$OneBatArrayFromSite = $batGetterSite->getBatByArticle($curBatArticle);
-							print_r("OneBatArrayFromSite is: ");
-							echo nl2br("\r\n");
-							print_r($OneBatArrayFromSite);
-							echo nl2br("\r\n");
+							// print_r("OneBatArrayFromSite is: ");
+							// echo nl2br("\r\n");
+							// print_r($OneBatArrayFromSite);
+							// echo nl2br("\r\n");
 
 
 							// foreach($OneBatArrayFromSite[0] as $key => $value)
@@ -154,11 +154,11 @@ class BatUpdater extends AbstractBatUpdater
 			$el = new \CIBlockElement;
 
 			$PROP = array();
-			print("PROP is: " . $PROP);
+			// print("PROP is: " . $PROP);
 			foreach($OneBatArrayFromXML as $key => $value)
 			{
-				  print_r("$key: " . $value);
-				  echo nl2br("\r\n");
+				  // print_r("$key: " . $value);
+				  // echo nl2br("\r\n");
 				  $PROP[$key] = $value;
 			}
 
@@ -177,15 +177,15 @@ class BatUpdater extends AbstractBatUpdater
       	$IBLOCK_SECTION_ID_ARRAY[] = $OneProtoArrayFromSite[0]['ID'];
       }
 
-      print("IBLOCK_SECTION_ID_ARRAY is: " . $IBLOCK_SECTION_ID_ARRAY);
-      echo nl2br("\r\n");
+      // print("IBLOCK_SECTION_ID_ARRAY is: " . $IBLOCK_SECTION_ID_ARRAY);
+      // echo nl2br("\r\n");
 
-      foreach($IBLOCK_SECTION_ID_ARRAY as $item)
-      {
-      	print("item is: " . $item);
-      	echo nl2br("\r\n");
+      // foreach($IBLOCK_SECTION_ID_ARRAY as $item)
+      // {
+      // 	print("item is: " . $item);
+      // 	echo nl2br("\r\n");
 
-      }
+      // }
 
 			
 			
@@ -193,7 +193,6 @@ class BatUpdater extends AbstractBatUpdater
 
 
 			$arLoadProductArray = Array(
-			  //"IBLOCK_SECTION_ID" => false,          // element in root without sections
 			  "IBLOCK_SECTION" => $IBLOCK_SECTION_ID_ARRAY,
 			  "IBLOCK_ID"      => $IBLOCK_ID,
 			  "PROPERTY_VALUES"=> $PROP,
@@ -203,13 +202,15 @@ class BatUpdater extends AbstractBatUpdater
 
 			if($PRODUCT_ID = $el->Add($arLoadProductArray))
 			{
-				echo "was added Battery element with New ID: ".$PRODUCT_ID;
-				echo nl2br("\r\n");
+				$res = TRUE;
+				// echo "was added Battery element with New ID: ".$PRODUCT_ID;
+				// echo nl2br("\r\n");
 			}			  
 			else
 			{
-				echo "Error in adding new Battery element: ".$el->LAST_ERROR;
-				echo nl2br("\r\n");
+				$res = FALSE;
+				// echo "Error in adding new Battery element: ".$el->LAST_ERROR;
+				// echo nl2br("\r\n");
 			}
 			  				
 							

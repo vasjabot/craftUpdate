@@ -134,15 +134,15 @@ if (1)
 
 	$new_allBatteriestypesByArticlesDiff =  array();
 
-	foreach($allBatteriestypesByArticlesDiff as $key => $value)
-	{
- 		print_php($key);
-	 	echo nl2br("\r\n");
-	 	print_php($value);
-	 	echo nl2br("\r\n");
-	 	//$new_allBatteriestypesByArticlesDiff[] = $value;
-	 	break;
-	}
+	// foreach($allBatteriestypesByArticlesDiff as $key => $value)
+	// {
+ // 		// print_php($key);
+	//  	// echo nl2br("\r\n");
+	//  	// print_php($value);
+	//  	// echo nl2br("\r\n");
+	//  	//$new_allBatteriestypesByArticlesDiff[] = $value;
+	//  	// break;
+	// }
 
 
 	// $batGetterXML = new SimpleXMLNS\BatGetterXML($config, $XML_arr["offers"]);

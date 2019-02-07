@@ -55,14 +55,25 @@ class BatUpdater extends AbstractBatUpdater
 				foreach($this->diff_array_of_articles as $curBatArticle)
 				{  
 						if (($curBatArticle !== NULL) || $curBatArticle !== '')
-						{      
+						{  
+							
+							print_r("print from updateAllBatteriesByArticlesDiff: ");
+							echo nl2br("\r\n");
+					    print_r("curBatArticle: " . $curBatArticle);
+					    echo nl2br("\r\n");
+							
+
 							$OneBatArrayFromSite = $batGetterSite->getBatByArticle($curBatArticle);
-							// print_r("OneBatArrayFromSite is: ");
-							// echo nl2br("\r\n");
-							// print_r($OneBatArrayFromSite);
-							// echo nl2br("\r\n");
+							print_r("OneBatArrayFromSite is: ");
+							echo nl2br("\r\n");
+							print_r($OneBatArrayFromSite);
+							echo nl2br("\r\n");
+
+
 							// foreach($OneBatArrayFromSite[0] as $key => $value)
 							// {
+							// 		print_r("print from updateAllBatteriesByArticlesDiff: ");
+							// 		echo nl2br("\r\n");
 							//     print_r("$key: " . $value);
 							//     echo nl2br("\r\n");
 							// }
@@ -70,8 +81,8 @@ class BatUpdater extends AbstractBatUpdater
 							if ($OneBatArrayFromSite!==NULL)
 							{
 									//res is TRUE or FALSE
-									$res = $this->updateOldBattery($OneBatArrayFromSite, $curBatArticle);
-									break;
+									//$res = $this->updateOldBattery($OneBatArrayFromSite, $curBatArticle);
+									//break;
 							}
 							else
 							{  

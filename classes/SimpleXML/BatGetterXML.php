@@ -251,6 +251,13 @@ class BatGetterXML extends AbstractBatGetterXML
 
             if($WasFound)
             {
+                // print_r("returned array from getBatByArticle: " . $OneBatArray);
+                // echo nl2br("\r\n");
+                // foreach($OneBatArray as $key => $value)
+                // {
+                //     print_r("$key: " . $value);
+                //     echo nl2br("\r\n");
+                // }
                 return $OneBatArray;
             }
             else

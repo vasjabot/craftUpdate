@@ -81,7 +81,7 @@ class BatUpdater extends AbstractBatUpdater
 							if ($OneBatArrayFromSite!==NULL)
 							{
 									//res is TRUE or FALSE
-									//$res = $this->updateOldBattery($OneBatArrayFromSite, $curBatArticle);
+									$res = $this->updateOldBattery($OneBatArrayFromSite, $curBatArticle);
 									//break;
 							}
 							else
@@ -94,7 +94,7 @@ class BatUpdater extends AbstractBatUpdater
 				}
 		}
 
-		public function updateOldBattery($OneBatArrayFromSite, $curProtoArticle)
+		public function updateOldBattery($OneBatArrayFromSite, $curBatArticle)
 		{
 				print_r("BEFORE UPDATING");
 				echo nl2br("\r\n");
@@ -107,30 +107,39 @@ class BatUpdater extends AbstractBatUpdater
 				$batGetterSite = new BatGetterSite($this->config); 
 				/////////////////////////////////////////////////////////////////////////////////////////////
 				$batGetterXML = new BatGetterXML($this->config, $this->xml_offers);
-				$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curProtoArticle);
+				$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curBatArticle);
 
 			
 
 
-				$be = \CIBlockElement::GetList(array(), array("=ARTICLE"=>$curProtoArticle), false, false, array("ID", "IBLOCK_ID", "ARTICLE", "EAN_13", "DETAIL_TEXT", "CAPACITY", "COMPLECT", "GROUPS_ARTICLE", "DISCONTINUED", "COMPATIBLE_MODEL", "ORIGINAL_CODE", "POWER", "TYPE", "VOLTAGE"));
+				$be = \CIBlockElement::GetList(array(), array("PROPERTY_ARTICLE"=>$curBatArticle), false, false, array("ID", "IBLOCK_ID", "ARTICLE", "EAN_13", "DETAIL_TEXT", "CAPACITY", "COMPLECT", "GROUPS_ARTICLE", "DISCONTINUED", "COMPATIBLE_MODEL", "ORIGINAL_CODE", "POWER", "TYPE", "VOLTAGE"));
 
 				if ($be_arr = $be->Fetch())
 				{
 				 $ELEMENT_ID = $be_arr["ID"];
 				 $IBLOCK_ID = $be_arr["IBLOCK_ID"];
 				 //ARTICLE get from SITE
-				 $prop['ARTICLE'] = $OneProtoArrayFromSite[0]['ARTICLE'];
-				 $prop['EAN_13'] = $OneBatArrayFromXML[0]['EAN_13'];
-				 $prop['DETAIL_TEXT'] = $OneBatArrayFromXML[0]['DETAIL_TEXT'];
-				 $prop['CAPACITY'] = $OneBatArrayFromXML[0]['CAPACITY'];
-				 $prop['COMPLECT'] = $OneBatArrayFromXML[0]['COMPLECT'];
-				 $prop['GROUPS_ARTICLE'] = $OneBatArrayFromXML[0]['GROUPS_ARTICLE'];
-				 $prop['DISCONTINUED'] = $OneBatArrayFromXML[0]['DISCONTINUED'];
-				 $prop['COMPATIBLE_MODEL'] = $OneBatArrayFromXML[0]['COMPATIBLE_MODEL'];
-				 $prop['ORIGINAL_CODE'] = $OneBatArrayFromXML[0]['ORIGINAL_CODE'];
-				 $prop['POWER'] = $OneBatArrayFromXML[0]['POWER'];
-				 $prop['TYPE'] = $OneBatArrayFromXML[0]['TYPE'];
-				 $prop['VOLTAGE'] = $OneBatArrayFromXML[0]['VOLTAGE'];
+				 $prop = array();
+				 $prop['ARTICLE'] = $OneBatArrayFromSite[0]['ARTICLE'];
+				 $prop['EAN_13'] = $OneBatArrayFromXML['EAN_13'];
+				 $prop['DETAIL_TEXT'] = $OneBatArrayFromXML['DETAIL_TEXT'];
+				 //$prop['CAPACITY'] = $OneBatArrayFromXML['CAPACITY'];
+				 $prop['COMPLECT'] = $OneBatArrayFromXML['COMPLECT'];
+				 $prop['GROUPS_ARTICLE'] = $OneBatArrayFromXML['GROUPS_ARTICLE'];
+				 $prop['DISCONTINUED'] = $OneBatArrayFromXML['DISCONTINUED'];
+				 $prop['COMPATIBLE_MODEL'] = $OneBatArrayFromXML['COMPATIBLE_MODEL'];
+				 $prop['ORIGINAL_CODE'] = $OneBatArrayFromXML['ORIGINAL_CODE'];
+				 $prop['POWER'] = $OneBatArrayFromXML['POWER'];
+				 $prop['TYPE'] = $OneBatArrayFromXML['TYPE'];
+				 $prop['VOLTAGE'] = $OneBatArrayFromXML['VOLTAGE'];
+				 $prop['CAPACITY'] = IntVal(951);
+				 print_r("prop: ");
+				 echo nl2br("\r\n");
+				 foreach($prop as $key => $value)
+				 {
+					  print_r("$key: " . $value);
+					  echo nl2br("\r\n");
+				 }
 				 \CIBlockElement::SetPropertyValuesEx($ELEMENT_ID, $IBLOCK_ID, $prop);
 				}
 
@@ -153,10 +162,10 @@ class BatUpdater extends AbstractBatUpdater
 
 
 
-		public function setNewBattery($curProtoArticle)
+		public function setNewBattery($curBatArticle)
 		{
 				$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
-				$OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curProtoArticle);
+				$OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curBatArticle);
 
 
 				$bitrix_code =  $OneProtoArrayFromXML["UF_MODEL"];
@@ -169,7 +178,7 @@ class BatUpdater extends AbstractBatUpdater
 
 
 				$compatibilityGetterXML = new CompatibilityGetterXML($this->config, $this->xml_compatibility);
-				$CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curProtoArticle);
+				$CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curBatArticle);
 
 
 				if (empty($CompatibilityStringFromXML) || ($CompatibilityStringFromXML==NULL)) 

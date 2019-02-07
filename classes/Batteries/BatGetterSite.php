@@ -55,8 +55,8 @@ class BatGetterSite extends AbstractBatGetterSite
         }
         else
         {
-            print_r("Article_for_filter is not NULL: " . $Article_for_filter);
-            echo nl2br("\r\n");
+            // print_r("Article_for_filter is not NULL: " . $Article_for_filter);
+            // echo nl2br("\r\n");
 
             $arFilter = Array("IBLOCK_ID"=>IntVal($this->config->IBLOCK_ID), "PROPERTY_ARTICLE"=>$Article_for_filter);//one battery
         }

@@ -23,6 +23,7 @@ use SimpleXMLNS\BatGetterXML as BatGetterXML;
 use Bitrix;
 use Bitrix\Main\Loader;
 Loader::includeModule("iblock");
+Loader::includeModule("catalog");
 
 
 
@@ -217,12 +218,7 @@ class BatUpdater extends AbstractBatUpdater
       {
       	print("item is: " . $item);
       	echo nl2br("\r\n");
-
       }
-
-			
-			
-
 
 
 			$arLoadProductArray = Array(
@@ -239,6 +235,23 @@ class BatUpdater extends AbstractBatUpdater
 				$res = TRUE;
 				echo "was added Battery element with New ID: ".$PRODUCT_ID;
 				echo nl2br("\r\n");
+
+				print("OneBatArrayFromXML['STORE'] is: " . $OneBatArrayFromXML['STORE']);
+       	echo nl2br("\r\n");
+       	$temp_string ="в наличии";
+       	$temp_string = iconv("utf-8", "windows-1251", $temp_string);
+				if ($OneBatArrayFromXML['STORE'] == $temp_string)
+        {
+            $quantity_of_batteries = 1000;
+        } else
+        {
+            $quantity_of_batteries = 0;
+        }
+        print("quantity_of_batteries is: " . $quantity_of_batteries);
+       	echo nl2br("\r\n");
+        $arFields = array('QUANTITY' => IntVal($quantity_of_batteries));
+				\CCatalogProduct::Update($PRODUCT_ID, $arFields);
+
 			}			  
 			else
 			{

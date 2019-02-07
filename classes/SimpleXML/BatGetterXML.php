@@ -22,10 +22,12 @@ abstract class AbstractBatGetterXML implements BatGetterXMLInterface
     protected $xml_offers;
     protected $config;
 
-    public function __construct($Config, $xml_offers)
+    public function __construct($Config, $xml_offers, $xml_prices, $xml_instock)
     {
          $this->config = $Config;
          $this->xml_offers = $xml_offers;
+         $this->xml_prices = $xml_prices;
+         $this->xml_instock = $xml_instock;
          
     }
 }
@@ -235,10 +237,73 @@ class BatGetterXML extends AbstractBatGetterXML
                     $voltage_var = (array)$voltage_var;
                     $voltage_var = $voltage_var[0];
                     $OneBatArray["VOLTAGE"] = $voltage_var;
-                    
 
 
+                    /////////////////////<<price>>///////////////////////////
+                    if ($this->xml_prices->xpath('//dataWs'))
+                    {
+                        foreach ($this->xml_prices->xpath('//dataWs') as $item_prices)
+                        {
+                            $item_prices_article = $item_prices->article;
+                            $item_prices_article = (array)$item_prices_article;
+                            $item_prices_article = $item_prices_article[0];
+                            //print_r($item_instock_article[0]);
+                            //echo nl2br("\r\n");
+                            //print_r($article_var[0]);
+                            //echo nl2br("\r\n");
+                            if ($item_article_in_xml == $item_prices_article)
+                            {
+                                $price_var = $item_prices->price;
+                                $price_var = (array)$price_var;
+                                $price_var = $price_var[0];
+                                $OneBatArray["PRICE"] = $price_var;
+                                //local break                                  
+                                break;
+                            }
+                            else
+                            {
+                                $OneBatArray["PRICE"] = NULL;
+                            }
+                        }
+                        
+                    }
 
+                    /////////////////////<<instock>>///////////////////////////
+                    if ($this->xml_instock->xpath('//dataWs'))
+                    {
+                        foreach ($this->xml_instock->xpath('//dataWs') as $item_instock)
+                        {
+                            $item_instock_article = $item_instock->article;
+                            $item_instock_article = (array)$item_instock_article;
+                            $item_instock_article = $item_instock_article[0];
+  
+                            if ($item_article_in_xml == $item_instock_article)
+                            {
+                                $instock_var = $item_instock->status;
+                                $instock_var = (array)$instock_var;
+                                $instock_var = $instock_var[0];
+                                $instock_var = iconv("utf-8", "windows-1251", $instock_var);
+                                $OneBatArray["STORE"] = $instock_var;
+
+                                if ($instock_var != "в наличии")
+                                {
+                                    $OneBatArray["SORT"] = (string)11000;
+                                }
+                                else
+                                {
+                                    $OneBatArray["SORT"] = (string)500;
+                                }
+                                
+
+                                //local break
+                                break;
+                            }
+                            else
+                            {
+                                $OneBatArray["STORE"] = NULL;
+                            }
+                        }
+                    }
 
 
 

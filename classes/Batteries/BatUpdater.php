@@ -40,11 +40,13 @@ abstract class AbstractBatUpdater implements BatUpdaterInterface
 		protected $diff_array_of_articles;
 		protected $xml_offers;
 
-		public function __construct($Config, $allBatteriesByArticlesDiff, $xml_offers)
+		public function __construct($Config, $allBatteriesByArticlesDiff, $xml_offers, $xml_prices, $xml_instock)
 		{
 				 $this->config = $Config;
 				 $this->diff_array_of_articles = $allBatteriesByArticlesDiff;
 				 $this->xml_offers = $xml_offers;
+				 $this->xml_prices = $xml_prices;
+         $this->xml_instock = $xml_instock;
 		}
 }
 
@@ -99,7 +101,7 @@ class BatUpdater extends AbstractBatUpdater
 		public function updateOldBattery($OneBatArrayFromSite, $curBatArticle)
 		{
 				
-				$batGetterXML = new BatGetterXML($this->config, $this->xml_offers);
+				$batGetterXML = new BatGetterXML($this->config, $this->xml_offers, $this->xml_prices, $this->xml_instock);
 				$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curBatArticle);
 
 			
@@ -119,6 +121,14 @@ class BatUpdater extends AbstractBatUpdater
 				 $prop['POWER'] = $OneBatArrayFromXML['POWER'];
 				 $prop['TYPE'] = $OneBatArrayFromXML['TYPE'];
 				 $prop['VOLTAGE'] = $OneBatArrayFromXML['VOLTAGE'];
+				 if ($OneBatArrayFromXML['PRICE'] !== NULL)
+				 {
+				 		$prop['PRICE'] = $OneBatArrayFromXML['PRICE'];
+				 }
+				 if ($OneBatArrayFromXML['STORE'] !== NULL)
+				 {
+				 		$prop['STORE'] = $OneBatArrayFromXML['STORE'];
+				 }
 
 				 print_r("prop: ");
 				 echo nl2br("\r\n");
@@ -146,7 +156,7 @@ class BatUpdater extends AbstractBatUpdater
 		public function setNewBattery($curBatArticle)
 		{
 
-			$batGetterXML = new BatGetterXML($this->config, $this->xml_offers);
+			$batGetterXML = new BatGetterXML($this->config, $this->xml_offers, $this->xml_prices, $this->xml_instock);
 			$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curBatArticle);
 
 			$IBLOCK_ID = $this->config->IBLOCK_ID;
@@ -159,7 +169,25 @@ class BatUpdater extends AbstractBatUpdater
 			{
 				  // print_r("$key: " . $value);
 				  // echo nl2br("\r\n");
-				  $PROP[$key] = $value;
+				 	if (($key == 'PRICE') && ($value! ==NULL))
+				 	{
+				 		$PROP[$key] = $value;
+				 	}
+				 	else
+				 	{
+				 		continue;
+				 	}
+				 	if (($key == 'STORE') && ($value! ==NULL))
+				 	{
+				 		$PROP[$key] = $value;
+				 	}
+				 	else
+				 	{
+				 		continue;
+				 	}
+				 	$PROP[$key] = $value;
+
+
 			}
 
 			$GROUPS_ARTICLE_ARRAY = array();

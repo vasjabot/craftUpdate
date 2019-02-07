@@ -12,6 +12,8 @@
 namespace BatteriesNS;
 
 $_SERVER["DOCUMENT_ROOT"] = '/home/bitrix/www';
+require_once(__DIR__.'/../Prototypes/ProtoGetterSite.php');
+use PrototypesNS\ProtoGetterSite as ProtoGetterSite;
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
 require_once(__DIR__.'/BatGetterSite.php');
 require_once(__DIR__.'/../SimpleXML/BatGetterXML.php');
@@ -88,7 +90,7 @@ class BatUpdater extends AbstractBatUpdater
 							{  
 									//print_r("setNewBattery");
 									//echo nl2br("\r\n");         
-									//$res = $this->setNewBattery($curBatArticle);   
+									$res = $this->setNewBattery($curBatArticle);   
 							}
 						}
 				}
@@ -143,105 +145,73 @@ class BatUpdater extends AbstractBatUpdater
 
 		public function setNewBattery($curBatArticle)
 		{
-				$protoGetterXML = new ProtoGetterXML($this->config, $this->xml_prototypes);
-				$OneProtoArrayFromXML= $protoGetterXML->getProtoByArticle($curBatArticle);
+
+			$batGetterXML = new BatGetterXML($this->config, $this->xml_offers);
+			$OneBatArrayFromXML= $batGetterXML->getBatByArticle($curBatArticle);
+
+			$IBLOCK_ID = $this->config->IBLOCK_ID;
+
+			$el = new \CIBlockElement;
+
+			$PROP = array();
+			foreach($OneBatArrayFromXML as $key => $value)
+			{
+				  print_r("$key: " . $value);
+				  echo nl2br("\r\n");
+				  $PROP[$key] = $value;
+			}
+
+			$GROUPS_ARTICLE_ARRAY = array();
+			$pieces = explode("; ", $PROP['GROUPS_ARTICLE']);
+      foreach($pieces as $piece)
+      {
+          $GROUPS_ARTICLE_ARRAY[] = $piece;
+      }
+
+      $IBLOCK_SECTION_ID_ARRAY = array();
+      $protoGetterSite = new ProtoGetterSite($this->config);
+      foreach($GROUPS_ARTICLE_ARRAY as $ProtoArticle)
+      {
+      	$OneProtoArrayFromSite = $protoGetterSite->getProtoByArticle($ProtoArticle);
+      	$IBLOCK_SECTION_ID_ARRAY[] = $OneProtoArrayFromSite[0]['ID'];
+      }
+
+      print("IBLOCK_SECTION_ID_ARRAY is: " . $IBLOCK_SECTION_ID_ARRAY);
+      echo nl2br("\r\n");
+
+      foreach($IBLOCK_SECTION_ID_ARRAY as $item)
+      {
+      	print("item is: " . $item);
+      	echo nl2br("\r\n");
+
+      }
+
+			
+			
 
 
-				$bitrix_code =  $OneProtoArrayFromXML["UF_MODEL"];
-				$bitrix_code = mb_strtolower($bitrix_code);
-				$bitrix_code = str_replace(' ', '_', $bitrix_code);
-				$bitrix_code = str_replace('.', '_', $bitrix_code); 
 
-				$model = 'Аккумулятор для '.$OneProtoArrayFromXML["UF_MODEL"].'';
-				$model_win1251 = iconv("utf-8", "windows-1251", $model);
+			$arLoadProductArray = Array(
+			  "IBLOCK_SECTION_ID" => false,          // element in root without sections
+			  "IBLOCK_ID"      => $IBLOCK_ID,
+			  "PROPERTY_VALUES"=> $PROP,
+			  "NAME"           => $PROP['ARTICLE'],
+			  "ACTIVE"         => "Y"
+			  );
 
-
-				$compatibilityGetterXML = new CompatibilityGetterXML($this->config, $this->xml_compatibility);
-				$CompatibilityStringFromXML = $compatibilityGetterXML->getCompatibilityByArticle($curBatArticle);
-
-
-				if (empty($CompatibilityStringFromXML) || ($CompatibilityStringFromXML==NULL)) 
-				{
-						$ACTIVE = "N";
-						//print_r("CompatibilityStringFromXML is empty" . $CompatibilityStringFromXML);
-						//echo nl2br("\r\n");
-						
-				}else
-				{
-						$ACTIVE = "Y";
-						//print_r("CompatibilityStringFromXML is NOT empty" . $CompatibilityStringFromXML);
-						//echo nl2br("\r\n");            
-				}
-
-
-				$IBLOCK_SECTION_ID = NULL;
-				$protoGetterSite = new ProtoGetterSite($this->config);
-				//In this case NAME in FirstDepthLevel == UF_PRODUCER from OneProtoArrayFromXML
-				$OneProtoArrayFirstDepthLevel = $protoGetterSite->getProtoFirstDepthLevelByName($OneProtoArrayFromXML["UF_PRODUCER"]);
-
-				if ($OneProtoArrayFirstDepthLevel[0]["ID"] > 0 )
-				{
- 
-						$IBLOCK_SECTION_ID = $OneProtoArrayFirstDepthLevel[0]["ID"];
-				}
-				else
-				{
-						//There are not existed FirstDepthLevelProto, which equal with OneProtoArrayFromXML["UF_PRODUCER"]
-						//In this case we just go away this func and return NULL
-						//print_r("In this case we just go away from this func and return NULL" . $IBLOCK_SECTION_ID);
-						//echo nl2br("\r\n");
-						$IBLOCK_SECTION_ID = NULL;
-						return NULL;
-				}
-
-		 
-				$bs = new \CIBlockSection;
-
-				$arFields = Array(
-					//XML
-					"UF_ARTICLE" => $OneProtoArrayFromXML["UF_ARTICLE"],
-					//Define in this method 
-					"ACTIVE" => $ACTIVE,
-					//In this place we set OneProtoArrayFirstDepthLevel[0]["ID"]
-					"IBLOCK_SECTION_ID" => $OneProtoArrayFirstDepthLevel[0]["ID"],////////!!!!!!!!!!!!!
-					//Config
-					"IBLOCK_ID" => $this->config->IBLOCK_ID,
-					//XML
-					"NAME" => $OneProtoArrayFromXML["NAME"],
-					//Just temp phrase
-					"UF_DESCRIPTION" => "test description",
-					//Defaul 500
-					"SORT" => 500,
-					//Define in this method
-					"CODE" => $bitrix_code,
-					//EMPTY FIELD when new
-					"PICTURE" => "",
-					//XML
-					"UF_DEVTYPE" => $OneProtoArrayFromXML["UF_DEVTYPE"],
-					//XML
-					"UF_PRDDATE" => $OneProtoArrayFromXML["UF_PRDDATE"],
-					//XML
-					"UF_BATTERYTYPE" => $OneProtoArrayFromXML["UF_BATTERYTYPE"],
-					//Define in this method         
-					"UF_MODEL" => $model_win1251,     
-					//XML
-					"UF_PRODUCER" => $OneProtoArrayFromXML["UF_PRODUCER"],
-					//XML
-					"UF_COMPATIBILITYLIST" => $CompatibilityStringFromXML
-					);
-
-			 
-				$ID = $bs->Add($arFields);
-				$res = ($ID>0);
-				if($res)
-				{
-						//NEED add this string to Message
-						print_r("new ProtoSection " .$OneProtoArrayFromXML["NAME"]. " was added with ID = " . $ID);  
-						//return TRUE or FALSE  
-
-				}
+			if($PRODUCT_ID = $el->Add($arLoadProductArray))
+			{
+				echo "was added Battery element with New ID: ".$PRODUCT_ID;
+				echo nl2br("\r\n");
+			}			  
+			else
+			{
+				echo "Error in adding new Battery element: ".$el->LAST_ERROR;
+				echo nl2br("\r\n");
+			}
+			  				
 							
-				return $res;
+			return $res;
 
 
 

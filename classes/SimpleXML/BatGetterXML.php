@@ -240,11 +240,15 @@ class BatGetterXML extends AbstractBatGetterXML
 
 
                     /////////////////////<<price>>///////////////////////////
+                    print_r("from outside price dataWs");
+                    echo nl2br("\r\n");
                     if ($this->xml_prices->xpath('//dataWs'))
                     {
+                        print_r("from price dataWs");
+                        echo nl2br("\r\n");
                         foreach ($this->xml_prices->xpath('//dataWs') as $item_prices)
                         {
-                            $item_prices_article = $item_prices->article;
+                            $item_prices_article = $this->xml_prices->article;
                             $item_prices_article = (array)$item_prices_article;
                             $item_prices_article = $item_prices_article[0];
                             //print_r($item_instock_article[0]);
@@ -253,6 +257,8 @@ class BatGetterXML extends AbstractBatGetterXML
                             //echo nl2br("\r\n");
                             if ($item_article_in_xml == $item_prices_article)
                             {
+                                print_r("from price equal two articles");
+                                echo nl2br("\r\n");
                                 $price_var = $item_prices->price;
                                 $price_var = (array)$price_var;
                                 $price_var = $price_var[0];
@@ -273,7 +279,7 @@ class BatGetterXML extends AbstractBatGetterXML
                     {
                         foreach ($this->xml_instock->xpath('//dataWs') as $item_instock)
                         {
-                            $item_instock_article = $item_instock->article;
+                            $item_instock_article = $this->xml_instock->article;
                             $item_instock_article = (array)$item_instock_article;
                             $item_instock_article = $item_instock_article[0];
   

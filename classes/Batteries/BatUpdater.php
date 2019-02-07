@@ -164,30 +164,35 @@ class BatUpdater extends AbstractBatUpdater
 			$el = new \CIBlockElement;
 
 			$PROP = array();
-			// print("PROP is: " . $PROP);
+			print("PROP is: " . $PROP);
 			foreach($OneBatArrayFromXML as $key => $value)
 			{
-				  // print_r("$key: " . $value);
-				  // echo nl2br("\r\n");
-				 	if (($key == 'PRICE') && ($value! ==NULL))
+				  print_r("$key: " . $value);
+				  echo nl2br("\r\n");
+				 	if ($key == 'PRICE')
 				 	{
-				 		$PROP[$key] = $value;
+				 		if($value !==NULL)
+				 		{
+				 			$PROP[$key] = $value;
+				 		}
+				 		else
+				 		{
+				 			continue;
+				 		}	
 				 	}
-				 	else
+				 	if ($key == 'STORE')
 				 	{
-				 		continue;
+				 		if($value !==NULL)
+				 		{
+				 			$PROP[$key] = $value;
+				 		}
+				 		else
+				 		{
+				 			continue;
+				 		}	
 				 	}
-				 	if (($key == 'STORE') && ($value! ==NULL))
-				 	{
-				 		$PROP[$key] = $value;
-				 	}
-				 	else
-				 	{
-				 		continue;
-				 	}
+
 				 	$PROP[$key] = $value;
-
-
 			}
 
 			$GROUPS_ARTICLE_ARRAY = array();
@@ -208,12 +213,12 @@ class BatUpdater extends AbstractBatUpdater
       // print("IBLOCK_SECTION_ID_ARRAY is: " . $IBLOCK_SECTION_ID_ARRAY);
       // echo nl2br("\r\n");
 
-      // foreach($IBLOCK_SECTION_ID_ARRAY as $item)
-      // {
-      // 	print("item is: " . $item);
-      // 	echo nl2br("\r\n");
+      foreach($IBLOCK_SECTION_ID_ARRAY as $item)
+      {
+      	print("item is: " . $item);
+      	echo nl2br("\r\n");
 
-      // }
+      }
 
 			
 			
@@ -231,14 +236,14 @@ class BatUpdater extends AbstractBatUpdater
 			if($PRODUCT_ID = $el->Add($arLoadProductArray))
 			{
 				$res = TRUE;
-				// echo "was added Battery element with New ID: ".$PRODUCT_ID;
-				// echo nl2br("\r\n");
+				echo "was added Battery element with New ID: ".$PRODUCT_ID;
+				echo nl2br("\r\n");
 			}			  
 			else
 			{
 				$res = FALSE;
-				// echo "Error in adding new Battery element: ".$el->LAST_ERROR;
-				// echo nl2br("\r\n");
+				echo "Error in adding new Battery element: ".$el->LAST_ERROR;
+				echo nl2br("\r\n");
 			}
 			  				
 							

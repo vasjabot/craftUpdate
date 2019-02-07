@@ -129,6 +129,19 @@ class BatUpdater extends AbstractBatUpdater
 				 if ($OneBatArrayFromXML['STORE'] !== NULL)
 				 {
 				 		$prop['STORE'] = $OneBatArrayFromXML['STORE'];
+
+				 		$temp_string ="в наличии";
+		       	$temp_string = iconv("utf-8", "windows-1251", $temp_string);
+						if ($OneBatArrayFromXML['STORE'] == $temp_string)
+		        {
+		            $quantity_of_batteries = 1000;
+		        } else
+		        {
+		            $quantity_of_batteries = 0;
+		        }
+	
+		        $arFields = array('QUANTITY' => IntVal($quantity_of_batteries));
+						\CCatalogProduct::Update($ELEMENT_ID, $arFields);
 				 }
 
 				 print_r("prop: ");

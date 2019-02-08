@@ -124,10 +124,32 @@ class BatUpdater extends AbstractBatUpdater
 				 $prop['VOLTAGE'] = $OneBatArrayFromXML['VOLTAGE'];
 				 if ($OneBatArrayFromXML['PRICE'] !== NULL)
 				 {
-				 		//$prop['PRICE'] = $OneBatArrayFromXML['PRICE'];
-				 		$prop['PRICE'] = 665;
-				 		$arFields = array('PRICE' => IntVal(665));
-				 		\CPrice::Update($ELEMENT_ID, $arFields);
+				 		$prop['PRICE'] = $OneBatArrayFromXML['PRICE'];
+				 		//$prop['PRICE'] = 665;
+				 		//$arFields_price = Array('PRICE' => IntVal($prop['PRICE']));
+				 		$arFields_price = Array('PRICE' => $prop['PRICE']);
+
+				 		// print("Price from Site is: " . $OneBatArrayFromSite[0]['PRICE']);
+      			// echo nl2br("\r\n");
+
+						$res_price = \CPrice::GetList( array(), array("PRODUCT_ID" => $ELEMENT_ID));
+
+						if ($arr_price = $res_price->Fetch())
+						{
+								// print("arr_price_is: " . $arr_price);
+      					// echo nl2br("\r\n");
+      	
+      					// foreach ($arr_price as $key => $value)
+      					// {
+      					// 	print("arr_price_item $key is: " . $value);
+      					// 	echo nl2br("\r\n");
+
+      					// }
+						    \CPrice::Update($arr_price["ID"], $arFields_price);
+						}
+				
+
+				 		
 				 }
 				 if ($OneBatArrayFromXML['STORE'] !== NULL)
 				 {

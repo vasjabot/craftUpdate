@@ -146,10 +146,7 @@ class BatUpdater extends AbstractBatUpdater
 
       					// }
 						    \CPrice::Update($arr_price["ID"], $arFields_price);
-						}
-				
-
-				 		
+						}	 		
 				 }
 				 if ($OneBatArrayFromXML['STORE'] !== NULL)
 				 {

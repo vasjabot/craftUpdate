@@ -103,58 +103,19 @@ if(0)
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 //allBatteriesByArticlesDiff
-if (1)
+if (0)
 {
 	$batGetterSite = new BatteriesNS\BatGetterSite($config);    
 	$allBatteriesFromSite = $batGetterSite->getArrayAllBatteries();
-
-	// foreach ($allBatteriesFromSite as $Bat)
-	// {
-	// 	if((trim($Bat["TYPE"]) !== "90") && (trim($Bat["TYPE"]) !== "93"))
-	// 	//if(trim($Bat["TYPE"]) == "90")
-	// 	{
-	// 		// print_php($Bat["GROUPS_ARRAY"]);
-	// 		// echo nl2br("\r\n");
-	// 		// print_php($Bat["GROUPS_ID_ARRAY"]);
-	// 		// echo nl2br("\r\n");
-	// 		//print_php($Bat["GROUPS_ARTICLE"]);
-
-	// 		print_php($Bat);
-	// 		echo nl2br("\r\n");
-
-	// 		//break;
-
-	// 	}
-		
-	// }
-
 
 	$batComparator = new BatteriesNS\BatComparator($config, $XML_arr["offers"], $XML_arr["instock"], $XML_arr["prices"], $allBatteriesFromSite);
 	$allBatteriestypesByArticlesDiff = $batComparator->getDiffArray();
 
 	$new_allBatteriestypesByArticlesDiff =  array();
-
-	// foreach($allBatteriestypesByArticlesDiff as $key => $value)
-	// {
- // 		// print_php($key);
-	//  	// echo nl2br("\r\n");
-	//  	// print_php($value);
-	//  	// echo nl2br("\r\n");
-	//  	//$new_allBatteriestypesByArticlesDiff[] = $value;
-	//  	// break;
-	// }
-
-
-	// $batGetterXML = new SimpleXMLNS\BatGetterXML($config, $XML_arr["offers"]);
-	// $Bat = $batGetterXML->getBatByArticle('C1.01.001'); 
-	// print_php($Bat);
-
 	//$new_allBatteriestypesByArticlesDiff = array('C1.01.001'); 	//test for update old
 	$new_allBatteriestypesByArticlesDiff = array('C0.00.000'); 		//test for new add
 	$batUpdater = new BatteriesNS\BatUpdater($config, $new_allBatteriestypesByArticlesDiff, $XML_arr["offers"], $XML_arr["prices"], $XML_arr["instock"]);
 	$batUpdater->updateAllBatteriesByArticlesDiff();
-
-
 
 }
 
@@ -163,6 +124,22 @@ if (1)
 ///////////////////////////<<BatteryUpdater>>////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
+
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////<<PictureUpdater>>////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+if (1)
+{
+	$Article = 'A1.13.010';
+
+	$protoPicUpdater = new PicturesNS\ProtoPicUpdater($config); 
+	$telpicPath = $protoPicUpdater->getCurlTelPicToCurDirByArticle($Article);
+	print_php($telpicPath);
+
+}
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////<<PictureUpdater>>////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -116,7 +116,6 @@ if (0)
 	$new_allBatteriestypesByArticlesDiff = array('C0.00.000'); 		//test for new add
 	$batUpdater = new BatteriesNS\BatUpdater($config, $new_allBatteriestypesByArticlesDiff, $XML_arr["offers"], $XML_arr["prices"], $XML_arr["instock"]);
 	$batUpdater->updateAllBatteriesByArticlesDiff();
-
 }
 
 
